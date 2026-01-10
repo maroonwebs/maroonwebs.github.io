@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Insights - Maroon Web</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* COLORS */
+            --swiss-maroon: #D00000;
+            --swiss-black: #000000;
+            --swiss-white: #FFFFFF;
+            --swiss-off: #F2F2F2;
+            
+            /* TYPOGRAPHY */
+            --fs-super: clamp(2.5rem, 7vw, 7rem); 
+            --fs-h1: clamp(1.8rem, 5vw, 4rem);
+            --fs-h2: clamp(1.4rem, 3vw, 2.5rem);
+            --fs-body: clamp(0.95rem, 1vw, 1.125rem);
+            
+            /* SPACING */
+            --border-thick: 4px;
+            --pad-mobile: 1.5rem;
+            --pad-desktop: 4rem;
+        }
+
+        /* RESET */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--swiss-white);
+            color: var(--swiss-black);
+            font-size: var(--fs-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+        }
+        * { border-radius: 0 !important; }
+        a { text-decoration: none; color: inherit; }
+
+        /* TYPOGRAPHY UTILS */
+        h1, h2, h3, h4, h5, h6 {
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.1; 
+        }
+        .fs-super { font-size: var(--fs-super); line-height: 0.95; }
+        .fs-h1 { font-size: var(--fs-h1); }
+        .fs-h2 { font-size: var(--fs-h2); }
+        .fw-black { font-weight: 900; }
+        .tracking-widest { letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* LAYOUT UTILS */
+        .p-resp { padding: var(--pad-mobile); }
+        @media (min-width: 992px) { .p-resp { padding: var(--pad-desktop); } }
+
+        /* BORDERS & GRID */
+        .b-thick { border: var(--border-thick) solid var(--swiss-black); }
+        .bt-thick { border-top: var(--border-thick) solid var(--swiss-black); }
+        .bb-thick { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        .bs-thick { border-left: var(--border-thick) solid var(--swiss-black); }
+        .be-thick { border-right: var(--border-thick) solid var(--swiss-black); }
+
+        .border-grid-responsive { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        @media (min-width: 992px) {
+            .border-grid-responsive {
+                border-right: var(--border-thick) solid var(--swiss-black);
+                border-bottom: none; height: 100%;
+            }
+        }
+
+        /* --- COMPONENTS --- */
+        .btn-swiss {
+            background-color: var(--swiss-black); color: var(--swiss-white);
+            padding: 1.1rem 2rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+            border: none; display: inline-flex; align-items: center; gap: 1rem; font-size: 0.9rem; 
+        }
+        .btn-swiss:hover {
+            background-color: var(--swiss-maroon); transform: translateY(-4px);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2); color: white;
+        }
+
+        /* Navbar Links */
+        .nav-link-swiss {
+            height: 100%; display: flex; align-items: center; padding: 0 2.5rem;
+            font-weight: 700; border-left: var(--border-thick) solid var(--swiss-black);
+            transition: background 0.2s;
+        }
+        .nav-link-swiss:hover { background-color: var(--swiss-black); color: var(--swiss-white); }
+        .nav-link-swiss.active { background-color: var(--swiss-black); color: var(--swiss-white); }
+
+        /* Mobile Menu */
+        .offcanvas-swiss { border-left: var(--border-thick) solid var(--swiss-black) !important; background-color: var(--swiss-white); }
+        .offcanvas-backdrop.show { opacity: 0.8; background-color: var(--swiss-maroon); }
+        .mobile-nav-link {
+            display: block; font-size: 1.75rem; font-weight: 900; text-transform: uppercase;
+            color: var(--swiss-black); padding: 1.5rem; border-bottom: var(--border-thick) solid var(--swiss-black);
+            transition: all 0.3s ease;
+        }
+        .mobile-nav-link:hover { background-color: var(--swiss-maroon); color: white; padding-left: 2rem; }
+
+        /* --- BLOG SPECIFIC STYLES --- */
+        .search-container {
+            border: var(--border-thick) solid var(--swiss-black);
+            display: flex; background: white;
+        }
+        .search-input {
+            border: none; padding: 1.5rem; font-weight: 700; font-size: 1.2rem;
+            width: 100%; outline: none; font-family: 'Inter', sans-serif; text-transform: uppercase;
+        }
+        .search-input::placeholder { color: #ccc; }
+        .search-btn {
+            background: var(--swiss-black); color: white; border: none; padding: 0 2rem;
+            font-size: 1.5rem; border-left: var(--border-thick) solid var(--swiss-black);
+            transition: all 0.2s;
+        }
+        .search-btn:hover { background: var(--swiss-maroon); }
+
+        .blog-card {
+            display: flex; flex-direction: column; height: 100%;
+            text-decoration: none; color: inherit; background: white;
+            transition: transform 0.3s ease;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 15px 15px 0px rgba(0,0,0,0.1);
+            z-index: 10; position: relative;
+        }
+        .blog-img-box {
+            width: 100%; height: 250px; overflow: hidden;
+            border-bottom: var(--border-thick) solid var(--swiss-black);
+        }
+        .blog-img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(100%); transition: filter 0.3s ease, transform 0.5s ease;
+        }
+        .blog-card:hover .blog-img { filter: grayscale(0%); transform: scale(1.05); }
+        .blog-meta {
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: #777; margin-bottom: 0.5rem;
+        }
+        
+        /* TOMBOL BACA SELENGKAPNYA (BUTTON STYLE) */
+        .btn-read-more {
+            display: inline-block;
+            width: fit-content;
+            border: 2px solid var(--swiss-black);
+            padding: 0.75rem 1.5rem;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--swiss-black);
+            background: transparent;
+            transition: all 0.2s;
+            margin-top: auto; /* Push to bottom */
+        }
+        .blog-card:hover .btn-read-more {
+            background: var(--swiss-maroon);
+            color: white;
+            border-color: var(--swiss-maroon);
+        }
+        /* Mobile adjustment for button */
+        @media (max-width: 768px) {
+            .btn-read-more { width: 100%; text-align: center; }
+        }
+
+        /* Pagination */
+        .pagination-btn {
+            border: var(--border-thick) solid var(--swiss-black); background: white;
+            padding: 1rem 2rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.2s;
+        }
+        .pagination-btn:hover:not(.disabled) { background: var(--swiss-black); color: white; }
+        .pagination-btn.disabled { opacity: 0.5; cursor: not-allowed; background: #eee; }
+
+        /* Utils */
+        .bg-maroon { background-color: var(--swiss-maroon); color: white; }
+        .bg-off { background-color: var(--swiss-off); }
+        .text-maroon { color: var(--swiss-maroon); }
+        .hover-bg-maroon:hover { background-color: var(--swiss-maroon) !important; color: white !important; }
+        .transition-colors { transition: background-color 0.2s, color 0.2s; }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid p-0 mx-auto position-relative" style="max-width: 1600px; border-left: var(--border-thick) solid black; border-right: var(--border-thick) solid black; box-shadow: 0 0 50px rgba(0,0,0,0.1);">
+        
+        <nav class="bg-white bb-thick sticky-top" style="z-index: 1000;">
+            <div class="d-flex justify-content-between align-items-stretch" style="height: 70px;">
+                <a href="index.html" class="d-flex align-items-center bg-black text-white px-3 px-md-5 be-thick hover-bg-maroon transition-colors">
+                    <span class="h4 mb-0 fw-black tracking-tight">MAROON WEB_</span>
+                </a>
+                
+                <div class="d-none d-lg-flex ms-auto align-items-stretch">
+                    <a href="index.html" class="nav-link-swiss text-uppercase small">Home</a>
+                    <a href="portfolio.html" class="nav-link-swiss text-uppercase small">Portfolio</a>
+                    <a href="index.html#layanan" class="nav-link-swiss text-uppercase small">Layanan</a>
+                    <a href="about.html" class="nav-link-swiss text-uppercase small">Tentang Kami</a>
+                    <a href="index.html#kontak" class="nav-link-swiss bg-maroon text-white hover-bg-black small">
+                        HUBUNGI KAMI <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+                
+                <button class="btn d-lg-none px-4 fs-2 border-0 rounded-0 bg-transparent text-black" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+        </nav>
+
+        <div class="offcanvas offcanvas-end offcanvas-swiss w-75" tabindex="-1" id="mobileMenu">
+            <div class="offcanvas-header bb-thick p-4 bg-off d-flex justify-content-between align-items-center">
+                <span class="h5 fw-black mb-0">MENU</span>
+                <button type="button" class="btn-close-swiss" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="offcanvas-body p-0 d-flex flex-column bg-white">
+                <a href="index.html" class="mobile-nav-link">Home <i class="bi bi-arrow-right"></i></a>
+                <a href="portfolio.html" class="mobile-nav-link">Portfolio <i class="bi bi-arrow-right"></i></a>
+                <a href="index.html#layanan" class="mobile-nav-link">Layanan <i class="bi bi-arrow-right"></i></a>
+                <a href="about.html" class="mobile-nav-link">Tentang Kami <i class="bi bi-arrow-right"></i></a>
+                <a href="index.html#kontak" class="mobile-nav-link bg-black text-white">Hubungi Kami <i class="bi bi-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <header class="row g-0 bg-off">
+            <div class="col-12 p-resp border-grid-responsive">
+                <span class="bg-maroon text-white px-2 py-1 fw-bold text-uppercase d-inline-block mb-3" style="width: fit-content; font-size: 0.75rem; letter-spacing: 2px;">Knowledge Base</span>
+                
+                <h1 class="fs-super fw-black lh-1 mb-5">
+                    INSIGHTS<br><span class="text-maroon">& IDEAS.</span>
+                </h1>
+
+                <div class="search-container" style="max-width: 800px;">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Cari Artikel (Contoh: SEO, Website)...">
+                    <button class="search-btn" type="button"><i class="bi bi-search"></i></button>
+                </div>
+                <p class="mt-3 small fw-bold text-muted text-uppercase tracking-widest" id="resultCount"></p>
+            </div>
+        </header>
+
+        <section class="bg-white bt-thick" id="blogGrid">
+            <div class="row g-0">
+                
+                <div class="col-md-6 col-lg-4 border-grid-responsive blog-item">
+                    <a href="#" class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" alt="SEO Strategy" class="blog-img">
+                        </div>
+                        <div class="p-4 d-flex flex-column h-100 justify-content-between">
+                            <div class="mb-4">
+                                <div class="blog-meta">TEKNIS • 10 Jan 2026</div>
+                                <h3 class="fs-4 fw-black mb-3 blog-title">Rahasia SEO Website Baru Agar Masuk Page 1</h3>
+                                <p class="small fw-bold text-muted">Strategi optimasi kata kunci dan teknis website untuk domain baru.</p>
+                            </div>
+                            <span class="btn-read-more">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-4 border-grid-responsive blog-item">
+                    <a href="#" class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="https://images.unsplash.com/photo-1558655146-d09347e0b7a8?q=80&w=2070&auto=format&fit=crop" alt="Branding" class="blog-img">
+                        </div>
+                        <div class="p-4 d-flex flex-column h-100 justify-content-between">
+                            <div class="mb-4">
+                                <div class="blog-meta">BRANDING • 05 Jan 2026</div>
+                                <h3 class="fs-4 fw-black mb-3 blog-title">Psikologi Warna dalam Desain Website Korporat</h3>
+                                <p class="small fw-bold text-muted">Mengapa warna biru dan merah mendominasi industri tertentu?</p>
+                            </div>
+                            <span class="btn-read-more">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-4 border-grid-responsive blog-item">
+                    <a href="#" class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" alt="Speed Optimization" class="blog-img">
+                        </div>
+                        <div class="p-4 d-flex flex-column h-100 justify-content-between">
+                            <div class="mb-4">
+                                <div class="blog-meta">PERFORMA • 01 Jan 2026</div>
+                                <h3 class="fs-4 fw-black mb-3 blog-title">5 Alasan Website Anda Lambat (dan Solusinya)</h3>
+                                <p class="small fw-bold text-muted">Analisis gambar, kode javascript, dan hosting yang mempengaruhi speed.</p>
+                            </div>
+                            <span class="btn-read-more">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-4 border-grid-responsive bt-thick blog-item">
+                    <a href="#" class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=2070&auto=format&fit=crop" alt="UMKM Digital" class="blog-img">
+                        </div>
+                        <div class="p-4 d-flex flex-column h-100 justify-content-between">
+                            <div class="mb-4">
+                                <div class="blog-meta">BISNIS • 28 Des 2025</div>
+                                <h3 class="fs-4 fw-black mb-3 blog-title">Transformasi Digital untuk UMKM Kuliner</h3>
+                                <p class="small fw-bold text-muted">Studi kasus warung kopi lokal meningkatkan omset dengan website.</p>
+                            </div>
+                            <span class="btn-read-more">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-4 border-grid-responsive bt-thick blog-item">
+                    <a href="#" class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=2055&auto=format&fit=crop" alt="Web Trends" class="blog-img">
+                        </div>
+                        <div class="p-4 d-flex flex-column h-100 justify-content-between">
+                            <div class="mb-4">
+                                <div class="blog-meta">TREN • 20 Des 2025</div>
+                                <h3 class="fs-4 fw-black mb-3 blog-title">Tren Desain Web 2026: Kembali ke Brutalisme?</h3>
+                                <p class="small fw-bold text-muted">Menganalisis kembalinya gaya desain kasar dan font besar.</p>
+                            </div>
+                            <span class="btn-read-more">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-4 border-grid-responsive bt-thick blog-item">
+                    <a href="#" class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1470&auto=format&fit=crop" alt="Security" class="blog-img">
+                        </div>
+                        <div class="p-4 d-flex flex-column h-100 justify-content-between">
+                            <div class="mb-4">
+                                <div class="blog-meta">KEAMANAN • 15 Des 2025</div>
+                                <h3 class="fs-4 fw-black mb-3 blog-title">Pentingnya SSL dan Keamanan Data Pelanggan</h3>
+                                <p class="small fw-bold text-muted">Dampak label 'Not Secure' pada kepercayaan pembeli di toko online.</p>
+                            </div>
+                            <span class="btn-read-more">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-4 border-grid-responsive bt-thick blog-item">
+                    <a href="#" class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop" alt="Copywriting" class="blog-img">
+                        </div>
+                        <div class="p-4 d-flex flex-column h-100 justify-content-between">
+                            <div class="mb-4">
+                                <div class="blog-meta">KONTEN • 10 Des 2025</div>
+                                <h3 class="fs-4 fw-black mb-3 blog-title">Copywriting: Seni Menjual Tanpa Terlihat Jualan</h3>
+                                <p class="small fw-bold text-muted">Teknik menulis deskripsi produk yang hipnotis dan persuasif.</p>
+                            </div>
+                            <span class="btn-read-more">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-4 border-grid-responsive bt-thick blog-item">
+                    <a href="#" class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop" alt="Social Media" class="blog-img">
+                        </div>
+                        <div class="p-4 d-flex flex-column h-100 justify-content-between">
+                            <div class="mb-4">
+                                <div class="blog-meta">SOSMED • 05 Des 2025</div>
+                                <h3 class="fs-4 fw-black mb-3 blog-title">Integrasi Instagram & Website untuk Engagement</h3>
+                                <p class="small fw-bold text-muted">Cara menampilkan feed Instagram di website agar terlihat hidup.</p>
+                            </div>
+                            <span class="btn-read-more">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6 col-lg-4 border-grid-responsive bt-thick blog-item">
+                    <a href="#" class="blog-card">
+                        <div class="blog-img-box">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop" alt="Maintenance" class="blog-img">
+                        </div>
+                        <div class="p-4 d-flex flex-column h-100 justify-content-between">
+                            <div class="mb-4">
+                                <div class="blog-meta">TEKNIS • 01 Des 2025</div>
+                                <h3 class="fs-4 fw-black mb-3 blog-title">Bahaya Mengabaikan Update Plugin WordPress</h3>
+                                <p class="small fw-bold text-muted">Resiko keamanan jika Anda malas melakukan maintenance rutin.</p>
+                            </div>
+                            <span class="btn-read-more">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="bg-off p-resp border-bottom border-4 border-black">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="pagination-btn disabled"><i class="bi bi-arrow-left me-2"></i> PREV</a>
+                <span class="fw-black small text-muted d-none d-md-block">PAGE 1 OF 3</span>
+                <a href="#" class="pagination-btn">NEXT <i class="bi bi-arrow-right ms-2"></i></a>
+            </div>
+        </section>
+
+        <section class="row g-0 bg-maroon text-white">
+            <div class="col-lg-8 p-resp border-grid-responsive d-flex flex-column justify-content-center">
+                <h2 class="fs-h1 fw-black mb-4">SUDAH SIAP GO DIGITAL?</h2>
+                <p class="fs-5 fw-bold mb-5 opacity-90" style="max-width: 600px;">
+                    Teori saja tidak cukup. Terapkan strategi digital yang tepat untuk bisnis Anda bersama Maroon Web sekarang.
+                </p>
+                <div class="d-flex flex-column flex-md-row gap-3">
+                    <a href="https://wa.me/628123456789" class="btn bg-white text-black border-0 px-5 py-3 fw-black text-uppercase hover-bg-black hover-text-white transition-colors">
+                        Konsultasi Gratis <i class="bi bi-whatsapp ms-2"></i>
+                    </a>
+                    <a href="index.html#layanan" class="btn border border-2 border-white text-white px-5 py-3 fw-black text-uppercase hover-bg-white hover-text-black transition-colors">
+                        Lihat Layanan
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 position-relative overflow-hidden d-none d-lg-block">
+                <div class="h-100 d-flex align-items-center justify-content-center bg-black">
+                    <span class="display-1 fw-black text-white tracking-tighter" style="writing-mode: vertical-rl; transform: rotate(180deg);">ACTION</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-black text-white p-resp bt-thick">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <h2 class="display-3 fw-black mb-4 lh-1">MAROON<br>WEB_</h2>
+                    <div class="border-start border-2 border-white ps-3">
+                        <address class="fst-normal fw-bold">
+                            Jl. Grid System No. 24<br>Malang, Jawa Timur.
+                        </address>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex flex-column align-items-start align-items-lg-end justify-content-center">
+                    <p class="text-secondary fw-bold text-uppercase tracking-widest mb-1 small">WhatsApp</p>
+                    <a href="#" class="display-6 fw-black text-white text-decoration-underline mb-4 hover-text-maroon transition-colors">
+                        0812-3456-7890
+                    </a>
+                </div>
+            </div>
+            <div class="row mt-5 pt-4 border-top border-secondary">
+                <div class="col-12 text-center text-secondary fw-bold small text-uppercase" style="font-size: 0.7rem;">
+                    &copy; 2026 Maroon Web. All Rights Reserved.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const blogItems = document.querySelectorAll('.blog-item');
+            const resultCount = document.getElementById('resultCount');
+
+            searchInput.addEventListener('keyup', function(e) {
+                const term = e.target.value.toLowerCase();
+                let visibleCount = 0;
+
+                blogItems.forEach(item => {
+                    const title = item.querySelector('.blog-title').textContent.toLowerCase();
+                    
+                    if(title.includes(term)) {
+                        item.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Update info count
+                if(term.length > 0) {
+                    resultCount.textContent = `MENAMPILKAN ${visibleCount} ARTIKEL`;
+                } else {
+                    resultCount.textContent = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

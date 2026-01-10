@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Kami - Maroon Web</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* COLORS */
+            --swiss-maroon: #D00000;
+            --swiss-black: #000000;
+            --swiss-white: #FFFFFF;
+            --swiss-off: #F2F2F2;
+            
+            /* TYPOGRAPHY */
+            --fs-super: clamp(2.75rem, 8vw, 8.5rem); 
+            --fs-h1: clamp(1.8rem, 5vw, 5rem);
+            --fs-h2: clamp(1.4rem, 3vw, 3rem);
+            --fs-body: clamp(0.95rem, 1vw, 1.125rem);
+            
+            /* SPACING */
+            --border-thick: 4px;
+            --pad-mobile: 1.25rem;
+            --pad-desktop: 4rem;
+        }
+
+        /* RESET */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--swiss-white);
+            color: var(--swiss-black);
+            font-size: var(--fs-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+        }
+        * { border-radius: 0 !important; }
+        a { text-decoration: none; color: inherit; }
+
+        /* TYPOGRAPHY UTILS */
+        h1, h2, h3, h4, h5, h6 {
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.1; 
+        }
+        .fs-super { font-size: var(--fs-super); line-height: 0.95; }
+        .fs-h1 { font-size: var(--fs-h1); }
+        .fs-h2 { font-size: var(--fs-h2); }
+        .fw-black { font-weight: 900; }
+        .tracking-widest { letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* LAYOUT UTILS */
+        .p-resp { padding: var(--pad-mobile); }
+        @media (min-width: 992px) { .p-resp { padding: var(--pad-desktop); } }
+
+        /* BORDERS & GRID */
+        .b-thick { border: var(--border-thick) solid var(--swiss-black); }
+        .bt-thick { border-top: var(--border-thick) solid var(--swiss-black); }
+        .bb-thick { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        .bs-thick { border-left: var(--border-thick) solid var(--swiss-black); }
+        .be-thick { border-right: var(--border-thick) solid var(--swiss-black); }
+
+        .border-grid-responsive { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        @media (min-width: 992px) {
+            .border-grid-responsive {
+                border-right: var(--border-thick) solid var(--swiss-black);
+                border-bottom: none; height: 100%;
+            }
+            .border-lg-bottom-thick { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        }
+
+        /* --- COMPONENTS --- */
+        /* Buttons */
+        .btn-swiss {
+            background-color: var(--swiss-black); color: var(--swiss-white);
+            padding: 1.1rem 2rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+            border: none; display: inline-flex; align-items: center; gap: 1rem; font-size: 0.9rem; 
+        }
+        .btn-swiss:hover {
+            background-color: var(--swiss-maroon); transform: translateY(-4px);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2); color: white;
+        }
+        @media (max-width: 768px) {
+            .btn-swiss { width: 100%; justify-content: space-between; }
+        }
+
+        /* Navbar Links */
+        .nav-link-swiss {
+            height: 100%; display: flex; align-items: center; padding: 0 2.5rem;
+            font-weight: 700; border-left: var(--border-thick) solid var(--swiss-black);
+            transition: background 0.2s;
+        }
+        .nav-link-swiss:hover { background-color: var(--swiss-black); color: var(--swiss-white); }
+        .nav-link-swiss.active { background-color: var(--swiss-black); color: var(--swiss-white); } /* State Active */
+
+        /* --- MOBILE MENU (OFFCANVAS) --- */
+        .offcanvas-swiss {
+            border-left: var(--border-thick) solid var(--swiss-black) !important;
+            background-color: var(--swiss-white);
+        }
+        .offcanvas-backdrop.show { opacity: 0.8; background-color: var(--swiss-maroon); }
+        .btn-close-swiss {
+            background: var(--swiss-black); color: white; border: none;
+            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+        }
+        .btn-close-swiss:hover { background: var(--swiss-maroon); }
+        .mobile-nav-link {
+            display: block; font-size: 1.75rem; font-weight: 900; text-transform: uppercase;
+            color: var(--swiss-black); padding: 1.5rem; border-bottom: var(--border-thick) solid var(--swiss-black);
+            transition: all 0.3s ease;
+        }
+        .mobile-nav-link:hover { background-color: var(--swiss-maroon); color: white; padding-left: 2rem; }
+        .mobile-nav-link i { float: right; }
+
+        /* --- ABOUT PAGE SPECIFIC: IMAGES --- */
+        .img-swiss {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(100%); transition: filter 0.3s ease;
+        }
+        .img-container:hover .img-swiss { filter: grayscale(0%); }
+        .img-container { position: relative; overflow: hidden; height: 100%; min-height: 400px; }
+        @media (max-width: 768px) { .img-container { min-height: 300px; } }
+
+        /* UTILS */
+        .bg-maroon { background-color: var(--swiss-maroon); color: white; }
+        .bg-off { background-color: var(--swiss-off); }
+        .text-maroon { color: var(--swiss-maroon); }
+        .hover-bg-maroon:hover { background-color: var(--swiss-maroon) !important; color: white !important; }
+        .hover-bg-black:hover { background-color: var(--swiss-black) !important; color: white !important; }
+        .transition-colors { transition: background-color 0.2s, color 0.2s; }
+        .group:hover .text-muted { color: rgba(255,255,255,0.7) !important; }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid p-0 mx-auto position-relative" style="max-width: 1600px; border-left: var(--border-thick) solid black; border-right: var(--border-thick) solid black; box-shadow: 0 0 50px rgba(0,0,0,0.1);">
+        
+        <nav class="bg-white bb-thick sticky-top" style="z-index: 1000;">
+            <div class="d-flex justify-content-between align-items-stretch" style="height: 70px;">
+                
+                <a href="index.html" class="d-flex align-items-center bg-maroon text-white px-3 px-md-5 be-thick hover-bg-black transition-colors">
+                    <span class="h4 mb-0 fw-black tracking-tight">MAROON WEB_</span>
+                </a>
+                
+                <div class="d-none d-lg-flex ms-auto align-items-stretch">
+                    <a href="index.html" class="nav-link-swiss text-uppercase small">Home</a>
+                    <a href="index.html#layanan" class="nav-link-swiss text-uppercase small">Paket UMKM</a>
+                    <a href="index.html#proses" class="nav-link-swiss text-uppercase small">Metodologi</a>
+                    <a href="about.html" class="nav-link-swiss active text-uppercase small">Tentang Kami</a> <a href="index.html#kontak" class="nav-link-swiss bg-black text-white hover-bg-maroon small">
+                        HUBUNGI KAMI <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+                
+                <button class="btn d-lg-none px-4 fs-2 border-0 rounded-0 bg-transparent text-black" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+        </nav>
+
+        <div class="offcanvas offcanvas-end offcanvas-swiss w-75" tabindex="-1" id="mobileMenu">
+            <div class="offcanvas-header bb-thick p-4 bg-off d-flex justify-content-between align-items-center">
+                <span class="h5 fw-black mb-0">MENU NAVIGASI</span>
+                <button type="button" class="btn-close-swiss" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="offcanvas-body p-0 d-flex flex-column bg-white">
+                <a href="index.html" class="mobile-nav-link">
+                    Home <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="index.html#layanan" class="mobile-nav-link">
+                    Paket UMKM <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="index.html#proses" class="mobile-nav-link">
+                    Metodologi <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="about.html" class="mobile-nav-link bg-maroon text-white">
+                    Tentang Kami <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="index.html#kontak" class="mobile-nav-link bg-black text-white">
+                    Hubungi Kami <i class="bi bi-whatsapp"></i>
+                </a>
+
+                <div class="mt-auto p-4 bg-off bt-thick">
+                    <small class="text-uppercase fw-bold text-muted d-block mb-1">Status Studio</small>
+                    <span class="badge bg-success rounded-0 p-2">OPEN FOR PROJECTS</span>
+                </div>
+            </div>
+        </div>
+
+        <header class="row g-0">
+            <div class="col-lg-7 bg-white border-grid-responsive p-resp d-flex flex-column justify-content-center min-vh-75">
+                <span class="bg-maroon text-white px-2 py-1 fw-bold text-uppercase d-inline-block mb-3" style="width: fit-content; font-size: 0.75rem; letter-spacing: 2px;">Our Manifesto</span>
+                
+                <h1 class="fs-super mb-4 fw-black lh-1">
+                    BUKAN SEKADAR<br>
+                    <span class="text-maroon">AGENCY.</span><br>
+                    KAMI ARSITEK.
+                </h1>
+
+                <div class="ps-3 border-start border-4 border-black col-md-10">
+                    <p class="fs-5 fw-bold text-dark mb-4">
+                        Di Maroon Web, kami tidak percaya pada "dekorasi". Kami percaya pada <span class="bg-off px-1">struktur</span> dan <span class="bg-off px-1">fungsi</span>.
+                    </p>
+                    <p class="text-secondary small fw-bold">
+                        Banyak web developer fokus membuat website terlihat "cantik". Kami fokus membuat website yang bekerja seperti mesin. Presisi, cepat, dan menghasilkan revenue untuk bisnis Anda.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-5 d-flex flex-column">
+                <div class="img-container bb-thick border-lg-bottom-thick">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop" alt="Office Architecture" class="img-swiss">
+                    
+                    <div class="position-absolute bottom-0 start-0 bg-white border-top border-end border-4 border-black p-3">
+                        <span class="fw-black text-uppercase small">Est. 2026 / Malang HQ</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="row g-0 bb-thick bg-off">
+            <div class="col-lg-4 p-resp border-grid-responsive hover-bg-maroon transition-colors group">
+                <i class="bi bi-grid-3x3 display-3 mb-4 d-block"></i>
+                <h3 class="fs-h2 fw-black mb-3">GRID IS LAW.</h3>
+                <p class="small fw-bold text-muted group-hover:text-white-50">
+                    Kami bekerja dengan sistem grid yang ketat. Keteraturan menciptakan kejelasan. Kejelasan menciptakan kepercayaan.
+                </p>
+            </div>
+            <div class="col-lg-4 p-resp border-grid-responsive hover-bg-maroon transition-colors group">
+                <i class="bi bi-stopwatch display-3 mb-4 d-block"></i>
+                <h3 class="fs-h2 fw-black mb-3">SPEED FIRST.</h3>
+                <p class="small fw-bold text-muted group-hover:text-white-50">
+                    Setiap milidetik berharga. Kode kami ditulis untuk performa maksimal, bukan sekadar copy-paste template berat.
+                </p>
+            </div>
+            <div class="col-lg-4 p-resp border-lg-bottom-thick hover-bg-maroon transition-colors group">
+                <i class="bi bi-graph-up-arrow display-3 mb-4 d-block"></i>
+                <h3 class="fs-h2 fw-black mb-3">PROFIT.</h3>
+                <p class="small fw-bold text-muted group-hover:text-white-50">
+                    Tujuan akhir sebuah website bisnis adalah profit. Desain kami selalu berorientasi pada konversi (Sales).
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-white">
+            <div class="p-resp bb-thick">
+                <span class="fw-bold text-maroon text-uppercase tracking-widest mb-2 small d-block">The Engineers</span>
+                <h2 class="fs-h1 fw-black">TIM DIBALIK LAYAR</h2>
+            </div>
+
+            <div class="row g-0">
+                <div class="col-md-6 col-lg-3 border-grid-responsive img-container bb-thick">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" alt="CEO" class="img-swiss">
+                    <div class="position-absolute bottom-0 start-0 w-100 bg-black text-white p-3 border-top border-4 border-white">
+                        <h4 class="h5 fw-black mb-0">AGUS PRASETYO</h4>
+                        <small class="text-uppercase tracking-widest text-secondary" style="font-size: 0.65rem;">Lead Architect</small>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 border-grid-responsive img-container bb-thick">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" alt="Designer" class="img-swiss">
+                    <div class="position-absolute bottom-0 start-0 w-100 bg-white text-black p-3 bt-thick">
+                        <h4 class="h5 fw-black mb-0">SITI AMINAH</h4>
+                        <small class="text-uppercase tracking-widest text-secondary" style="font-size: 0.65rem;">UI/UX Specialist</small>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 border-grid-responsive img-container bb-thick">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop" alt="Developer" class="img-swiss">
+                    <div class="position-absolute bottom-0 start-0 w-100 bg-white text-black p-3 bt-thick">
+                        <h4 class="h5 fw-black mb-0">BUDI SANTOSO</h4>
+                        <small class="text-uppercase tracking-widest text-secondary" style="font-size: 0.65rem;">Fullstack Dev</small>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 img-container bb-thick border-lg-bottom-thick">
+                    <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?q=80&w=1974&auto=format&fit=crop" alt="Marketing" class="img-swiss">
+                    <div class="position-absolute bottom-0 start-0 w-100 bg-white text-black p-3 bt-thick">
+                        <h4 class="h5 fw-black mb-0">DIAN SASTRO</h4>
+                        <small class="text-uppercase tracking-widest text-secondary" style="font-size: 0.65rem;">Digital Strategist</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="row g-0 bg-maroon text-white">
+            <div class="col-lg-8 p-resp border-grid-responsive d-flex flex-column justify-content-center">
+                <h2 class="fs-h1 fw-black mb-4">SUDAH CUKUP RISETNYA?</h2>
+                <p class="fs-5 fw-bold mb-5" style="max-width: 600px; opacity: 0.9;">
+                    Kompetitor Anda tidak menunggu. Saatnya membangun infrastruktur digital yang solid sekarang juga.
+                </p>
+                <div class="d-flex flex-column flex-md-row gap-3">
+                    <a href="index.html#kontak" class="btn bg-white text-black border-0 px-5 py-3 fw-black text-uppercase hover-bg-black hover-text-white transition-colors">
+                        Mulai Proyek <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                    <a href="https://wa.me/628123456789" class="btn border border-2 border-white text-white px-5 py-3 fw-black text-uppercase hover-bg-white hover-text-black transition-colors">
+                        Konsultasi WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 position-relative overflow-hidden d-none d-lg-block">
+                <div class="position-absolute w-100 h-100" style="background-image: radial-gradient(rgba(255,255,255,0.2) 20%, transparent 20%); background-size: 20px 20px;"></div>
+                <div class="h-100 d-flex align-items-center justify-content-center">
+                    <i class="bi bi-rocket-takeoff-fill display-1 text-white opacity-25" style="transform: rotate(45deg); font-size: 10rem;"></i>
+                </div>
+            </div>
+        </section>
+
+        <footer id="kontak" class="bg-black text-white p-resp bt-thick">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <h2 class="display-3 fw-black mb-4 lh-1">MAROON<br>WEB_</h2>
+                    <div class="border-start border-2 border-white ps-3">
+                        <p class="mb-1 fw-bold text-uppercase tracking-widest text-secondary small">Studio</p>
+                        <address class="fst-normal fw-bold">
+                            Jl. Grid System No. 24<br>
+                            Malang, Jawa Timur.
+                        </address>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 d-flex flex-column align-items-start align-items-lg-end justify-content-center">
+                    <p class="text-secondary fw-bold text-uppercase tracking-widest mb-1 small">WhatsApp (Fast Resp)</p>
+                    <a href="#" class="display-6 fw-black text-white text-decoration-underline mb-4 hover-text-maroon transition-colors">
+                        0812-3456-7890
+                    </a>
+                    
+                    <div class="d-flex flex-column flex-md-row gap-2 w-100 justify-content-lg-end">
+                        <a href="#" class="btn border border-2 border-white text-white rounded-0 px-4 py-2 fw-bold text-uppercase hover-bg-white hover-text-black">
+                            Email
+                        </a>
+                        <a href="#" class="btn bg-maroon text-white border-0 rounded-0 px-4 py-2 fw-bold text-uppercase">
+                            Order Sekarang
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 pt-4 border-top border-secondary">
+                <div class="col-12 text-center text-secondary fw-bold small text-uppercase" style="font-size: 0.7rem;">
+                    &copy; 2026 Maroon Web. All Systems Operational.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

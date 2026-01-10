@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahasia SEO Website Baru - Maroon Web Blog</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* COLORS */
+            --swiss-maroon: #D00000;
+            --swiss-black: #000000;
+            --swiss-white: #FFFFFF;
+            --swiss-off: #F2F2F2;
+            
+            /* TYPOGRAPHY */
+            --fs-h1: clamp(2rem, 5vw, 4rem);
+            --fs-h2: clamp(1.5rem, 3vw, 2.5rem);
+            --fs-h3: clamp(1.2rem, 2vw, 1.8rem);
+            --fs-body: clamp(1rem, 1.1vw, 1.15rem);
+            
+            /* SPACING */
+            --border-thick: 4px;
+            --pad-mobile: 1.5rem;
+            --pad-desktop: 4rem;
+        }
+
+        /* RESET */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--swiss-white);
+            color: var(--swiss-black);
+            font-size: var(--fs-body);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        * { border-radius: 0 !important; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; }
+
+        /* TYPOGRAPHY UTILS */
+        h1, h2, h3, h4 {
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            color: var(--swiss-black);
+        }
+        h1 { font-size: var(--fs-h1); }
+        h2 { font-size: var(--fs-h2); border-left: 8px solid var(--swiss-maroon); padding-left: 1rem; margin-top: 3rem;}
+        h3 { font-size: var(--fs-h3); margin-top: 2rem;}
+        
+        /* CONTENT BODY SPECIFIC */
+        /* Kita batasi styling paragraf hitam hanya di dalam artikel agar tidak merusak footer */
+        .content-body p { margin-bottom: 1.5rem; color: #000000; font-weight: 400; }
+        .content-body ul, .content-body ol { margin-bottom: 1.5rem; padding-left: 1.5rem; color: #000000; }
+        .content-body li { margin-bottom: 0.5rem; }
+        .lead { font-weight: 700; color: #000 !important; }
+
+        /* LAYOUT UTILS */
+        .p-resp { padding: var(--pad-mobile); }
+        @media (min-width: 992px) { .p-resp { padding: var(--pad-desktop); } }
+
+        .b-thick { border: var(--border-thick) solid var(--swiss-black); }
+        .bt-thick { border-top: var(--border-thick) solid var(--swiss-black); }
+        .bb-thick { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        .bs-thick { border-left: var(--border-thick) solid var(--swiss-black); }
+        .be-thick { border-right: var(--border-thick) solid var(--swiss-black); }
+
+        /* --- COMPONENTS --- */
+        .btn-swiss {
+            background-color: var(--swiss-black); color: var(--swiss-white);
+            padding: 1rem 2rem; font-weight: 700; text-transform: uppercase;
+            border: none; display: inline-flex; align-items: center; gap: 1rem;
+            transition: all 0.2s;
+        }
+        .btn-swiss:hover { background-color: var(--swiss-maroon); transform: translateY(-3px); color: white; }
+
+        /* Navbar & Menu */
+        .nav-link-swiss { height: 100%; display: flex; align-items: center; padding: 0 2.5rem; font-weight: 700; border-left: var(--border-thick) solid var(--swiss-black); transition: background 0.2s; }
+        .nav-link-swiss:hover { background-color: var(--swiss-black); color: var(--swiss-white); }
+        .offcanvas-swiss { border-left: var(--border-thick) solid var(--swiss-black) !important; }
+        .mobile-nav-link { display: block; font-size: 1.5rem; font-weight: 900; padding: 1.5rem; border-bottom: var(--border-thick) solid var(--swiss-black); text-transform: uppercase; }
+
+        /* --- ARTICLE SPECIFIC --- */
+        .toc-container {
+            background: var(--swiss-off);
+            border: var(--border-thick) solid var(--swiss-black);
+            padding: 1.5rem; margin-bottom: 3rem;
+        }
+        .toc-header {
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            font-weight: 800; text-transform: uppercase;
+        }
+        .toc-list {
+            list-style: none; padding: 0; margin: 0; display: none;
+            margin-top: 1rem; border-top: 2px solid #ccc; padding-top: 1rem;
+        }
+        .toc-list.show { display: block; }
+        .toc-list li a {
+            text-decoration: none; color: var(--swiss-black); font-weight: 600;
+            display: block; padding: 5px 0; transition: color 0.2s;
+        }
+        .toc-list li a:hover { color: var(--swiss-maroon); text-decoration: underline; }
+        .toc-list li.toc-h3 { padding-left: 20px; font-size: 0.9em; }
+
+        blockquote {
+            background: black; color: white; padding: 2rem;
+            font-size: 1.25rem; font-weight: 700; font-style: italic;
+            border-left: 10px solid var(--swiss-maroon); margin: 2rem 0;
+        }
+
+        .read-also-box {
+            border: 2px dashed var(--swiss-black); padding: 1.5rem;
+            margin: 2rem 0; background: #fff;
+        }
+        .read-also-title { font-weight: 800; color: var(--swiss-maroon); text-transform: uppercase; font-size: 0.9rem; margin-bottom: 0.5rem; display: block; }
+        .read-also-link { font-weight: 800; font-size: 1.1rem; text-decoration: underline; color: black; }
+        .read-also-link:hover { color: var(--swiss-maroon); }
+
+        .article-img-container {
+            margin: 2rem 0; border: var(--border-thick) solid var(--swiss-black);
+        }
+        .img-caption {
+            background: var(--swiss-black); color: white;
+            padding: 0.75rem 1rem; font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+            text-align: center; display: block; letter-spacing: 0.5px;
+        }
+
+        /* AUTHOR BOX */
+        .author-box {
+            border: var(--border-thick) solid var(--swiss-black);
+            padding: 2rem; display: flex; align-items: center; gap: 2rem;
+            background: var(--swiss-off); margin-top: 4rem;
+        }
+        .author-img { 
+            width: 90px; height: 90px; 
+            object-fit: cover; border: 3px solid black; 
+            border-radius: 50% !important; flex-shrink: 0; 
+        }
+        @media (max-width: 768px) {
+            .author-box { flex-direction: column; text-align: center; gap: 1rem; padding: 1.5rem; }
+            .author-img { width: 100px; height: 100px; }
+        }
+
+        /* SHARE BUTTONS */
+        .share-btn {
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+            background: black; color: white; border: none; font-size: 1.3rem; transition: all 0.2s;
+        }
+        .share-btn.wa:hover { background: #25D366; }
+        .share-btn.fb:hover { background: #1877F2; }
+        .share-btn.tw:hover { background: #1DA1F2; }
+        .share-btn.li:hover { background: #0A66C2; }
+
+        /* FAQ */
+        .accordion-swiss .accordion-item {
+            border: none; border-bottom: var(--border-thick) solid black; background: transparent;
+        }
+        .accordion-swiss .accordion-button {
+            background: transparent; color: black; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; padding: 1.5rem 0; box-shadow: none;
+        }
+        .accordion-swiss .accordion-button:not(.collapsed) { color: var(--swiss-maroon); }
+        .accordion-swiss .accordion-body { padding: 0 0 1.5rem 0; font-weight: 500; color: #000; }
+
+        /* RELATED POSTS */
+        .related-card { border: var(--border-thick) solid black; height: 100%; transition: transform 0.3s; background: white;}
+        .related-card:hover { transform: translateY(-5px); box-shadow: 10px 10px 0 black; }
+        .related-img { height: 200px; object-fit: cover; width: 100%; filter: grayscale(100%); transition: filter 0.3s; border-bottom: var(--border-thick) solid black; }
+        .related-card:hover .related-img { filter: grayscale(0%); }
+
+        /* PROMO BANNER */
+        .promo-banner {
+            transition: opacity 0.3s;
+            border: var(--border-thick) solid var(--swiss-black);
+        }
+        .promo-banner:hover { opacity: 0.9; }
+
+        /* BACK TO TOP BUTTON */
+        .btn-scroll-top {
+            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+            background: var(--swiss-maroon); color: white; border: 2px solid black;
+            display: none; align-items: center; justify-content: center;
+            font-size: 1.5rem; z-index: 9999;
+            transition: all 0.3s cubic-bezier(0, 0, 0.2, 1);
+            box-shadow: 5px 5px 0px rgba(0,0,0,1);
+        }
+        .btn-scroll-top:hover {
+            background: black; color: white;
+            transform: translateY(-5px); box-shadow: 8px 8px 0px rgba(0,0,0,0.5);
+        }
+
+        /* Utils */
+        .bg-maroon { background-color: var(--swiss-maroon); color: white; }
+        .hover-bg-white:hover { background-color: white !important; color: black !important; }
+        .hover-text-maroon:hover { color: var(--swiss-maroon) !important; }
+        .transition-colors { transition: background-color 0.2s, color 0.2s; }
+    </style>
+</head>
+<body>
+
+    <nav class="bg-white bb-thick sticky-top" style="z-index: 1000;">
+        <div class="d-flex justify-content-between align-items-stretch" style="height: 70px;">
+            <a href="index.html" class="d-flex align-items-center bg-black text-white px-3 px-md-5 be-thick">
+                <span class="h4 mb-0 fw-bold tracking-tight">MAROON WEB_</span>
+            </a>
+            <div class="d-none d-lg-flex ms-auto align-items-stretch">
+                <a href="index.html" class="nav-link-swiss text-uppercase small">Home</a>
+                <a href="blog.html" class="nav-link-swiss text-uppercase small">Blog</a>
+                <a href="index.html#kontak" class="nav-link-swiss bg-maroon text-white small">HUBUNGI KAMI</a>
+            </div>
+            <button class="btn d-lg-none px-4 fs-2 border-0 bg-transparent text-black" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"><i class="bi bi-list"></i></button>
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-end offcanvas-swiss w-75" tabindex="-1" id="mobileMenu">
+        <div class="offcanvas-header bb-thick p-4 bg-light d-flex justify-content-between">
+            <span class="h5 fw-black mb-0">MENU</span>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="blog.html" class="mobile-nav-link">Blog</a>
+            <a href="index.html#kontak" class="mobile-nav-link bg-maroon text-white">Hubungi Kami</a>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="max-width: 1200px;">
+        <div class="row g-0 border-start border-end border-2 border-dark mx-auto bg-white">
+            
+            <header class="col-12 p-resp bb-thick">
+                <div class="d-flex gap-2 text-uppercase fw-bold small mb-3">
+                    <a href="index.html" class="text-black text-decoration-underline">Home</a> / 
+                    <a href="blog.html" class="text-black text-decoration-underline">Blog</a> / 
+                    <span class="text-muted">SEO</span>
+                </div>
+
+                <h1 class="mb-4">RAHASIA SEO WEBSITE BARU AGAR MASUK PAGE 1 GOOGLE</h1>
+                
+                <div class="d-flex flex-wrap align-items-center gap-4 text-uppercase fw-bold small mb-4">
+                    <span><i class="bi bi-person-circle me-1"></i> Agus Prasetyo</span>
+                    <span><i class="bi bi-calendar-event me-1"></i> 10 Jan 2026</span>
+                    <span class="bg-maroon text-white px-2 py-1">Teknis SEO</span>
+                </div>
+
+                <div class="article-img-container mb-0">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" alt="SEO Dashboard Analytics" class="w-100 d-block">
+                    <span class="img-caption">Dashboard Analitik: Kunci Memantau Kinerja SEO</span>
+                </div>
+            </header>
+
+            <article class="col-lg-8 p-resp border-end border-2 border-dark content-body">
+                
+                <p class="lead mb-5">
+                    Membuat website baru itu mudah, tapi membuatnya ditemukan di Google adalah tantangan sebenarnya. Banyak pemilik bisnis menyerah di bulan ke-3 karena trafik tak kunjung datang. Artikel ini membongkar strategi teknis yang sering disembunyikan agensi.
+                </p>
+
+                <div class="toc-container">
+                    <div class="toc-header" onclick="toggleToc()">
+                        <span>DAFTAR ISI ARTIKEL</span>
+                        <i class="bi bi-chevron-down" id="tocIcon"></i>
+                    </div>
+                    <ul class="toc-list" id="tocList">
+                        </ul>
+                </div>
+
+                <h2 id="riset-kata-kunci">1. Riset Kata Kunci: Jangan Serakah</h2>
+                <p>Kesalahan pemula adalah langsung menembak kata kunci "Jual Sepatu". Itu adalah 'Red Ocean'. Lawan Anda adalah marketplace raksasa.</p>
+                <p>Gunakan strategi <strong>Long Tail Keyword</strong>. Alih-alih "Jual Sepatu", targetkan "Jual Sepatu Kulit Pria Handmade Malang". Volume pencarian lebih kecil, tapi niat beli (intent) jauh lebih tinggi dan persaingan rendah.</p>
+
+                <div class="read-also-box">
+                    <span class="read-also-title">BACA JUGA:</span>
+                    <a href="#" class="read-also-link">5 Alasan Website Anda Loading Lambat (dan Solusinya)</a>
+                </div>
+
+                <h2 id="teknis-on-page">2. Optimasi Teknis On-Page</h2>
+                <p>Google adalah robot. Bantulah robot tersebut membaca konten Anda dengan struktur yang benar:</p>
+                <ul>
+                    <li><strong>Title Tag:</strong> Letakkan kata kunci di awal judul.</li>
+                    <li><strong>Meta Description:</strong> Tulis kalimat persuasif untuk meningkatkan CTR (Click Through Rate).</li>
+                    <li><strong>Heading Structure:</strong> Gunakan hanya satu H1 per halaman. Gunakan H2 dan H3 untuk sub-topik.</li>
+                </ul>
+
+                <blockquote>
+                    "Konten adalah Raja, tapi Teknis SEO adalah Ratunya. Raja tidak berdaya tanpa strategi Ratu."
+                </blockquote>
+
+                <h3 id="kecepatan-website">Pentingnya Kecepatan (Core Web Vitals)</h3>
+                <p>Sejak 2021, Google menjadikan kecepatan loading sebagai faktor ranking utama. Website yang loading lebih dari 3 detik akan ditinggalkan 53% pengunjung.</p>
+
+                <div class="article-img-container">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" alt="Speed Test Result" class="w-100 d-block">
+                    <span class="img-caption">Grafik Korelasi Antara Kecepatan Website dan Ranking Google</span>
+                </div>
+
+                <h2 id="konten-berkualitas">3. Konten yang Menjawab Masalah</h2>
+                <p>Jangan hanya menulis untuk mesin. Tulislah untuk manusia. Google semakin pintar mendeteksi konten "sampah" hasil generate AI tanpa editing. Pastikan artikel Anda memberikan solusi nyata, data akurat, dan sudut pandang unik.</p>
+
+                <div class="read-also-box">
+                    <span class="read-also-title">REKOMENDASI:</span>
+                    <a href="#" class="read-also-link">Copywriting: Seni Menjual Tanpa Terlihat Jualan</a>
+                </div>
+
+                <div class="my-5">
+                    <a href="https://wa.me/62895639068080?text=Halo%20Maroon%20Web,%20saya%20tertarik%20Audit%20SEO%20Gratis%20dari%20Artikel%20Blog." target="_blank" class="d-block promo-banner">
+                        <img src="https://media.giphy.com/media/l41YtZOb9EUABfBV6/giphy.gif" alt="Promo Audit SEO Gratis - Klik untuk Hubungi WhatsApp" class="w-100 d-block" style="object-fit: cover; max-height: 400px;">
+                    </a>
+                    <span class="d-block text-muted small mt-2 fw-bold text-center fst-italic">*Klik banner di atas untuk klaim Audit SEO via WhatsApp.</span>
+                </div>
+
+                <h2 id="faq-seo">Frequently Asked Questions (FAQ)</h2>
+                <div class="accordion accordion-swiss mb-5" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Berapa lama SEO butuh waktu?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Untuk website baru, biasanya membutuhkan waktu 3 hingga 6 bulan untuk melihat hasil yang signifikan, tergantung kompetisi kata kunci.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Apakah Backlink masih penting?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Ya, backlink berkualitas masih menjadi salah satu faktor ranking terkuat. Namun, fokuslah pada kualitas (relevansi), bukan kuantitas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 id="kesimpulan">Kesimpulan</h2>
+                <p>SEO bukanlah sihir instan. Ia adalah akumulasi dari konsistensi teknis, konten berkualitas, dan otoritas website. Mulailah dengan fondasi yang benar hari ini, dan nikmati trafik gratis dari Google di masa depan.</p>
+
+                <div class="author-box">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Agus Prasetyo" class="author-img">
+                    <div>
+                        <span class="text-uppercase fw-bold text-muted small d-block mb-1">Ditulis Oleh:</span>
+                        <h4 class="mb-2">Agus Prasetyo</h4>
+                        <p class="mb-0 small fw-bold text-dark">Lead SEO Specialist di Maroon Web. Berpengalaman 5+ tahun membantu UMKM mendominasi halaman 1 Google dengan strategi White Hat SEO.</p>
+                    </div>
+                </div>
+
+            </article>
+
+            <aside class="col-lg-4 p-resp bg-off position-relative">
+                <div class="sticky-top" style="top: 100px;">
+                    
+                    <div class="mb-5">
+                        <h5 class="fw-black text-uppercase mb-3">Bagikan Artikel:</h5>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="share-btn wa" onclick="shareTo('wa')"><i class="bi bi-whatsapp"></i></a>
+                            <a href="#" class="share-btn fb" onclick="shareTo('fb')"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="share-btn tw" onclick="shareTo('tw')"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="share-btn li" onclick="shareTo('li')"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="bg-black text-white p-4 border border-4 border-dark">
+                        <h4 class="fw-black text-white mb-3">TIDAK PUNYA WAKTU NGURUS SEO?</h4>
+                        <p class="small mb-4 text-white">Serahkan pada ahlinya. Kami garansi kenaikan trafik dalam 90 hari atau uang kembali.</p>
+                        <a href="index.html#kontak" class="btn btn-outline-light rounded-0 w-100 fw-bold text-uppercase">Hubungi Tim Kami</a>
+                    </div>
+
+                </div>
+            </aside>
+
+        </div>
+    </div>
+
+    <section class="container-fluid bg-white p-resp bt-thick" style="max-width: 1600px;">
+        <h2 class="fs-1 fw-black mb-5">ARTIKEL TERKAIT</h2>
+        <div class="row g-4">
+            
+            <div class="col-md-4">
+                <div class="related-card d-flex flex-column h-100">
+                    <img src="https://images.unsplash.com/photo-1558655146-d09347e0b7a8?q=80&w=2070&auto=format&fit=crop" alt="Branding" class="related-img">
+                    <div class="p-4 d-flex flex-column h-100">
+                        <h4 class="fw-black mb-3">Psikologi Warna dalam Desain Website</h4>
+                        <p class="small fw-bold text-muted mb-4 flex-grow-1">Panduan memilih warna yang meningkatkan konversi penjualan.</p>
+                        <a href="blog.html" class="btn btn-swiss w-100 justify-content-center">BACA SELENGKAPNYA</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="related-card d-flex flex-column h-100">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1470&auto=format&fit=crop" alt="Security" class="related-img">
+                    <div class="p-4 d-flex flex-column h-100">
+                        <h4 class="fw-black mb-3">Pentingnya SSL untuk Toko Online</h4>
+                        <p class="small fw-bold text-muted mb-4 flex-grow-1">Mengapa keamanan data adalah kunci kepercayaan pelanggan.</p>
+                        <a href="blog.html" class="btn btn-swiss w-100 justify-content-center">BACA SELENGKAPNYA</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="related-card d-flex flex-column h-100">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=2070&auto=format&fit=crop" alt="UMKM" class="related-img">
+                    <div class="p-4 d-flex flex-column h-100">
+                        <h4 class="fw-black mb-3">Transformasi Digital UMKM</h4>
+                        <p class="small fw-bold text-muted mb-4 flex-grow-1">Studi kasus sukses warung lokal go digital.</p>
+                        <a href="blog.html" class="btn btn-swiss w-100 justify-content-center">BACA SELENGKAPNYA</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <button id="backToTop" class="btn-scroll-top" onclick="scrollToTop()">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <footer id="kontak" class="bg-black text-white p-resp bt-thick">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <h2 class="display-3 fw-black mb-4 lh-1 text-white">MAROON<br>WEB_</h2>
+                <div class="border-start border-2 border-white ps-3">
+                    <p class="mb-1 fw-bold text-uppercase tracking-widest text-secondary small">Studio</p>
+                    <address class="fst-normal fw-bold text-white">
+                        Jl. Grid System No. 24<br>
+                        Malang, Jawa Timur.
+                    </address>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 d-flex flex-column align-items-start align-items-lg-end justify-content-center">
+                <p class="text-secondary fw-bold text-uppercase tracking-widest mb-1 small">WhatsApp (Fast Resp)</p>
+                <a href="#" class="display-6 fw-black text-white text-decoration-underline mb-4 hover-text-maroon transition-colors">
+                    0812-3456-7890
+                </a>
+                
+                <div class="d-flex flex-column flex-md-row gap-2 w-100 justify-content-lg-end">
+                    <a href="#" class="btn border border-2 border-white text-white rounded-0 px-4 py-2 fw-bold text-uppercase hover-bg-white hover-text-black transition-colors">
+                        Email
+                    </a>
+                    <a href="#" class="btn bg-maroon text-white border-0 rounded-0 px-4 py-2 fw-bold text-uppercase transition-colors">
+                        Order Sekarang
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 pt-4 border-top border-secondary">
+            <div class="col-12 text-center text-secondary fw-bold small text-uppercase" style="font-size: 0.7rem;">
+                &copy; 2026 Maroon Web. All Systems Operational.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 1. AUTO TABLE OF CONTENTS (TOC)
+        document.addEventListener("DOMContentLoaded", function() {
+            const articleBody = document.querySelector('.content-body');
+            const headings = articleBody.querySelectorAll('h2, h3');
+            const tocList = document.getElementById('tocList');
+
+            if (headings.length > 0) {
+                headings.forEach((heading, index) => {
+                    if (!heading.id) {
+                        heading.id = 'toc-' + index;
+                    }
+
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.textContent = heading.textContent;
+                    a.href = '#' + heading.id;
+                    
+                    if(heading.tagName === 'H3') {
+                        li.classList.add('toc-h3');
+                    }
+
+                    li.appendChild(a);
+                    tocList.appendChild(li);
+                });
+            }
+        });
+
+        // 2. TOGGLE TOC
+        function toggleToc() {
+            const list = document.getElementById('tocList');
+            const icon = document.getElementById('tocIcon');
+            list.classList.toggle('show');
+            
+            if(list.classList.contains('show')) {
+                icon.classList.remove('bi-chevron-down');
+                icon.classList.add('bi-chevron-up');
+            } else {
+                icon.classList.remove('bi-chevron-up');
+                icon.classList.add('bi-chevron-down');
+            }
+        }
+
+        // 3. SHARE FUNCTION
+        function shareTo(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(document.title);
+            let shareUrl = '';
+
+            if(platform === 'wa') shareUrl = `https://wa.me/?text=${text}%20${url}`;
+            if(platform === 'fb') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            if(platform === 'tw') shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            if(platform === 'li') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+
+            window.open(shareUrl, '_blank');
+        }
+
+        // 4. BACK TO TOP FUNCTION
+        const backToTopBtn = document.getElementById("backToTop");
+        
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>

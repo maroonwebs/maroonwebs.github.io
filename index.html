@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maroon Web - Jasa Website UMKM Profesional</title>
+    <meta name="description" content="Jasa pembuatan website UMKM dengan desain Swiss Style yang presisi.">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* COLORS */
+            --swiss-maroon: #D00000;
+            --swiss-black: #000000;
+            --swiss-white: #FFFFFF;
+            --swiss-off: #F2F2F2;
+            
+            /* TYPOGRAPHY */
+            --fs-super: clamp(2.75rem, 8vw, 8.5rem); 
+            --fs-h1: clamp(1.8rem, 5vw, 5rem);
+            --fs-h2: clamp(1.4rem, 3vw, 3rem);
+            --fs-body: clamp(0.95rem, 1vw, 1.125rem);
+            
+            /* SPACING */
+            --border-thick: 4px;
+            --pad-mobile: 1.25rem;
+            --pad-desktop: 4rem;
+        }
+
+        /* RESET & BASE */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--swiss-white);
+            color: var(--swiss-black);
+            font-size: var(--fs-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+        }
+        * { border-radius: 0 !important; }
+        a { text-decoration: none; color: inherit; }
+
+        /* TYPOGRAPHY UTILS */
+        h1, h2, h3, h4, h5, h6, .display-swiss {
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.1; 
+        }
+        .fs-super { font-size: var(--fs-super); line-height: 0.95; }
+        .fs-h1 { font-size: var(--fs-h1); }
+        .fs-h2 { font-size: var(--fs-h2); }
+        .fw-black { font-weight: 900; }
+        .tracking-widest { letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* LAYOUT & BORDERS */
+        .p-resp { padding: var(--pad-mobile); }
+        @media (min-width: 992px) { .p-resp { padding: var(--pad-desktop); } }
+
+        .b-thick { border: var(--border-thick) solid var(--swiss-black); }
+        .bt-thick { border-top: var(--border-thick) solid var(--swiss-black); }
+        .bb-thick { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        .bs-thick { border-left: var(--border-thick) solid var(--swiss-black); }
+        .be-thick { border-right: var(--border-thick) solid var(--swiss-black); }
+
+        .border-grid-responsive { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        @media (min-width: 992px) {
+            .border-grid-responsive {
+                border-right: var(--border-thick) solid var(--swiss-black);
+                border-bottom: none; height: 100%;
+            }
+            .border-lg-bottom-thick { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        }
+
+        /* --- COMPONENTS --- */
+        /* Buttons */
+        .btn-swiss {
+            background-color: var(--swiss-black); color: var(--swiss-white);
+            padding: 1.1rem 2rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+            border: none; display: inline-flex; align-items: center; gap: 1rem; font-size: 0.9rem; 
+        }
+        .btn-swiss:hover {
+            background-color: var(--swiss-maroon); transform: translateY(-4px);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+        }
+        @media (max-width: 768px) {
+            .btn-swiss { width: 100%; justify-content: space-between; margin-top: 1rem; }
+        }
+
+        /* Navbar Links (Desktop) */
+        .nav-link-swiss {
+            height: 100%; display: flex; align-items: center; padding: 0 2.5rem;
+            font-weight: 700; border-left: var(--border-thick) solid var(--swiss-black);
+            transition: background 0.2s;
+        }
+        .nav-link-swiss:hover { background-color: var(--swiss-black); color: var(--swiss-white); }
+
+        /* --- MOBILE MENU (OFFCANVAS) CUSTOM STYLES --- */
+        .offcanvas-swiss {
+            border-left: var(--border-thick) solid var(--swiss-black) !important;
+            background-color: var(--swiss-white);
+        }
+        /* Style Backdrop (Latar belakang gelap saat menu buka) */
+        .offcanvas-backdrop.show {
+            opacity: 0.8;
+            background-color: var(--swiss-maroon); /* Efek merah transparan */
+        }
+        
+        /* Close Button Custom */
+        .btn-close-swiss {
+            background: var(--swiss-black);
+            color: white;
+            border: none;
+            width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+        .btn-close-swiss:hover { background: var(--swiss-maroon); }
+
+        /* Mobile Links */
+        .mobile-nav-link {
+            display: block;
+            font-size: 1.75rem; /* Font Raksasa */
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--swiss-black);
+            padding: 1.5rem;
+            border-bottom: var(--border-thick) solid var(--swiss-black);
+            transition: all 0.3s ease;
+        }
+        .mobile-nav-link:hover {
+            background-color: var(--swiss-maroon);
+            color: white;
+            padding-left: 2rem; /* Animasi geser */
+        }
+        .mobile-nav-link i { float: right; } /* Icon panah di kanan */
+
+        /* --- CARDS & ACCORDION --- */
+        .service-card {
+            transition: background 0.2s; position: relative; display: block; height: 100%;
+        }
+        .service-card:hover {
+            background-color: var(--swiss-maroon); color: var(--swiss-white) !important; cursor: pointer;
+        }
+        .service-card:hover .text-muted { color: rgba(255,255,255,0.8) !important; }
+        .service-card:hover .badge-code { background: white; color: black; border-color: white !important; }
+        .service-card:hover .icon-arrow { transform: rotate(45deg); color: white; }
+
+        .accordion-button-swiss {
+            width: 100%; text-align: left; background: transparent; border: none;
+            display: flex; justify-content: start; align-items: center; padding: 0; 
+        }
+        .accordion-button-swiss:focus { outline: none; }
+        .accordion-button-swiss .icon-plus { transition: transform 0.3s ease; transform: rotate(45deg); }
+        .accordion-button-swiss.collapsed .icon-plus { transform: rotate(0deg); }
+
+        /* UTILS */
+        .bg-grid {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .bg-maroon { background-color: var(--swiss-maroon); color: white; }
+        .bg-off { background-color: var(--swiss-off); }
+        .text-maroon { color: var(--swiss-maroon); }
+        .hover-bg-maroon:hover { background-color: var(--swiss-maroon) !important; color: white !important; }
+        .hover-bg-maroon:hover .text-secondary { color: rgba(255,255,255,0.7) !important; }
+        .hover-bg-maroon:hover .icon-plus { color: white !important; }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid p-0 mx-auto position-relative" style="max-width: 1600px; border-left: var(--border-thick) solid black; border-right: var(--border-thick) solid black; box-shadow: 0 0 50px rgba(0,0,0,0.1);">
+        
+        <nav class="bg-white bb-thick sticky-top" style="z-index: 1000;">
+            <div class="d-flex justify-content-between align-items-stretch" style="height: 70px;">
+                
+                <a href="#" class="d-flex align-items-center bg-maroon text-white px-3 px-md-5 be-thick hover-bg-black transition-colors">
+                    <span class="h4 mb-0 fw-black tracking-tight">MAROON WEB_</span>
+                </a>
+                
+                <div class="d-none d-lg-flex ms-auto align-items-stretch">
+                    <a href="#layanan" class="nav-link-swiss text-uppercase small">Paket UMKM</a>
+                    <a href="#proses" class="nav-link-swiss text-uppercase small">Metodologi</a>
+                    <a href="about.html" class="nav-link-swiss text-uppercase small">Tentang Kami</a>
+                    <a href="#kontak" class="nav-link-swiss bg-black text-white hover-bg-maroon small">
+                        HUBUNGI KAMI <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+
+                <button class="btn d-lg-none px-4 fs-2 border-0 rounded-0 bg-transparent text-black" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+        </nav>
+
+        <div class="offcanvas offcanvas-end offcanvas-swiss w-75" tabindex="-1" id="mobileMenu">
+            <div class="offcanvas-header bb-thick p-4 bg-off d-flex justify-content-between align-items-center">
+                <span class="h5 fw-black mb-0">MENU NAVIGASI</span>
+                <button type="button" class="btn-close-swiss" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="offcanvas-body p-0 d-flex flex-column bg-white">
+                <a href="index.html" class="mobile-nav-link">
+                    Home <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="#layanan" class="mobile-nav-link" onclick="bootstrap.Offcanvas.getInstance(document.getElementById('mobileMenu')).hide()">
+                    Paket UMKM <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="#proses" class="mobile-nav-link" onclick="bootstrap.Offcanvas.getInstance(document.getElementById('mobileMenu')).hide()">
+                    Metodologi <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="about.html" class="mobile-nav-link">
+                    Tentang Kami <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="#kontak" class="mobile-nav-link bg-black text-white" onclick="bootstrap.Offcanvas.getInstance(document.getElementById('mobileMenu')).hide()">
+                    Hubungi Kami <i class="bi bi-whatsapp"></i>
+                </a>
+                
+                <div class="mt-auto p-4 bg-off bt-thick">
+                    <small class="text-uppercase fw-bold text-muted d-block mb-1">Status Studio</small>
+                    <span class="badge bg-success rounded-0 p-2">OPEN FOR PROJECTS</span>
+                </div>
+            </div>
+        </div>
+
+        <header class="row g-0">
+            <div class="col-lg-8 bg-grid border-grid-responsive p-resp d-flex flex-column justify-content-center min-vh-75 position-relative overflow-hidden">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <span class="bg-maroon text-white px-2 py-1 fw-bold text-uppercase" style="font-size: 0.65rem; letter-spacing: 1px;">Est. 2026</span>
+                    <span class="fw-bold text-muted text-uppercase" style="font-size: 0.65rem; letter-spacing: 1px;">Spesialis Web UMKM</span>
+                </div>
+
+                <h1 class="fs-super mb-3 fw-black">
+                    AKSELERASI<br>
+                    <span class="text-maroon">DIGITAL</span><br>
+                    BISNIS.
+                </h1>
+
+                <div class="ps-3 border-start border-4 border-danger mb-4 col-md-10 col-xl-8">
+                    <p class="fs-6 fw-bold text-dark mb-0">
+                        Website bukan sekadar brosur online. Kami membangun <span class="bg-warning px-1">infrastruktur digital</span> yang presisi dan cepat.
+                    </p>
+                </div>
+
+                <div>
+                    <a href="#kontak" class="btn-swiss">
+                        Mulai Konsultasi <i class="bi bi-arrow-down-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 d-flex flex-column bg-off">
+                <div class="flex-fill p-resp bb-thick hover-bg-white transition-colors group">
+                    <i class="bi bi-lightning-charge-fill display-5 text-maroon mb-2 d-block"></i>
+                    <h3 class="h3 fw-black">HIGH SPEED</h3>
+                    <p class="small text-muted fw-bold text-uppercase tracking-widest mt-1 mb-0">Core Web Vitals Optimized</p>
+                </div>
+                
+                <div class="flex-fill p-resp bb-thick hover-bg-white transition-colors">
+                    <i class="bi bi-phone-fill display-5 text-maroon mb-2 d-block"></i>
+                    <h3 class="h3 fw-black">RESPONSIF</h3>
+                    <p class="small text-muted fw-bold text-uppercase tracking-widest mt-1 mb-0">Mobile & Desktop Ready</p>
+                </div>
+
+                <div class="bg-maroon flex-fill p-resp bb-thick d-flex align-items-center justify-content-center position-relative overflow-hidden border-lg-bottom-thick">
+                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background-image: radial-gradient(#000 20%, transparent 20%); background-size: 10px 10px; opacity: 0.1;"></div>
+                    <span class="display-2 fw-black text-white lh-1 text-center" style="transform: rotate(-5deg);">100%<br>ROI</span>
+                </div>
+            </div>
+        </header>
+
+        <section id="layanan" class="bg-white">
+            <div class="p-resp bb-thick d-flex flex-column flex-md-row align-items-start align-items-md-baseline gap-2 gap-md-4">
+                <span class="display-4 fw-black text-muted opacity-25">01.</span>
+                <h2 class="fs-h1 fw-black">KLASIFIKASI LAYANAN</h2>
+            </div>
+
+            <div class="row g-0">
+                <a href="detail-landing.html" class="col-lg-4 service-card border-grid-responsive p-resp text-decoration-none text-dark">
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <span class="badge-code border border-2 border-dark px-2 py-1 fw-bold bg-white text-dark small">LP-01</span>
+                        <i class="bi bi-arrow-right fs-4 icon-arrow"></i>
+                    </div>
+                    <h3 class="fs-h2 fw-black mb-2">LANDING PAGE</h3>
+                    <p class="text-muted fw-bold mb-4 small pe-2">Satu halaman fokus konversi (Sales Page). Ideal untuk Google Ads.</p>
+                    <div class="mt-auto border-top border-dark border-dashed pt-3 d-flex justify-content-between align-items-center">
+                        <small class="fw-bold text-uppercase tracking-widest" style="font-size: 0.65rem;">Mulai Dari</small>
+                        <span class="bg-warning text-black px-2 py-0 fw-black fs-6">IDR 1.5JT</span>
+                    </div>
+                </a>
+
+                <a href="detail-company.html" class="col-lg-4 service-card border-grid-responsive p-resp text-decoration-none text-dark">
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <span class="badge-code border border-2 border-dark px-2 py-1 fw-bold bg-white text-dark small">CP-02</span>
+                        <i class="bi bi-arrow-right fs-4 icon-arrow"></i>
+                    </div>
+                    <h3 class="fs-h2 fw-black mb-2">COMPANY PROFILE</h3>
+                    <p class="text-muted fw-bold mb-4 small pe-2">5-7 Hal. Membangun kredibilitas & katalog layanan bisnis.</p>
+                    <div class="mt-auto border-top border-dark border-dashed pt-3 d-flex justify-content-between align-items-center">
+                        <small class="fw-bold text-uppercase tracking-widest" style="font-size: 0.65rem;">Mulai Dari</small>
+                        <span class="bg-warning text-black px-2 py-0 fw-black fs-6">IDR 3.0JT</span>
+                    </div>
+                </a>
+
+                <a href="detail-ecommerce.html" class="col-lg-4 service-card bb-thick border-lg-bottom-thick p-resp text-decoration-none text-dark">
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <span class="badge-code border border-2 border-dark px-2 py-1 fw-bold bg-white text-dark small">EC-03</span>
+                        <i class="bi bi-arrow-right fs-4 icon-arrow"></i>
+                    </div>
+                    <h3 class="fs-h2 fw-black mb-2">TOKO ONLINE</h3>
+                    <p class="text-muted fw-bold mb-4 small pe-2">Sistem e-commerce lengkap dengan manajemen stok & ongkir.</p>
+                    <div class="mt-auto border-top border-dark border-dashed pt-3 d-flex justify-content-between align-items-center">
+                        <small class="fw-bold text-uppercase tracking-widest" style="font-size: 0.65rem;">Mulai Dari</small>
+                        <span class="bg-warning text-black px-2 py-0 fw-black fs-6">IDR 5.5JT</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section id="proses" class="row g-0 bb-thick bg-off">
+            <div class="col-lg-5 p-resp border-grid-responsive d-flex flex-column justify-content-center">
+                <span class="fw-bold text-maroon text-uppercase tracking-widest mb-2 small">Metodologi</span>
+                <h2 class="fs-h1 fw-black mb-3">TANPA DRAMA.<br>TEPAT WAKTU.</h2>
+                <div class="progress rounded-0 border border-2 border-dark bg-white" style="height: 16px;">
+                    <div class="progress-bar bg-maroon" role="progressbar" style="width: 75%"></div>
+                </div>
+                <small class="mt-1 fw-bold text-end w-100" style="font-size: 0.7rem;">System Loading... 75%</small>
+            </div>
+
+            <div class="col-lg-7 bg-white" id="accordionProses">
+                <div class="method-item bb-thick">
+                    <div class="p-3 p-md-4 hover-bg-maroon transition-colors cursor-pointer">
+                        <button class="accordion-button-swiss collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <span class="h6 mb-0 fw-black"><span class="text-secondary me-3">01</span> ANALISA BISNIS</span>
+                                <i class="bi bi-plus-lg fs-5 icon-plus"></i>
+                            </div>
+                        </button>
+                    </div>
+                    <div id="collapseOne" class="collapse" data-bs-parent="#accordionProses">
+                        <div class="p-4 pt-0 border-top border-dark border-dashed bg-off">
+                            <p class="mb-0 small fw-bold text-secondary mt-3">
+                                Kami membedah model bisnis Anda, menganalisa kompetitor, dan menentukan struktur konversi yang paling profitable untuk niche Anda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-item bb-thick">
+                    <div class="p-3 p-md-4 hover-bg-maroon transition-colors cursor-pointer">
+                        <button class="accordion-button-swiss collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <span class="h6 mb-0 fw-black"><span class="text-secondary me-3">02</span> PROTOTYPING</span>
+                                <i class="bi bi-plus-lg fs-5 icon-plus"></i>
+                            </div>
+                        </button>
+                    </div>
+                    <div id="collapseTwo" class="collapse" data-bs-parent="#accordionProses">
+                        <div class="p-4 pt-0 border-top border-dark border-dashed bg-off">
+                            <p class="mb-0 small fw-bold text-secondary mt-3">
+                                Pembuatan Wireframe (kerangka) dan UI Design. Anda akan melihat visual website sebelum kami menulis satu baris kode pun.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-item bb-thick">
+                    <div class="p-3 p-md-4 hover-bg-maroon transition-colors cursor-pointer">
+                        <button class="accordion-button-swiss collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <span class="h6 mb-0 fw-black"><span class="text-secondary me-3">03</span> CODING & SEO</span>
+                                <i class="bi bi-plus-lg fs-5 icon-plus"></i>
+                            </div>
+                        </button>
+                    </div>
+                    <div id="collapseThree" class="collapse" data-bs-parent="#accordionProses">
+                        <div class="p-4 pt-0 border-top border-dark border-dashed bg-off">
+                            <p class="mb-0 small fw-bold text-secondary mt-3">
+                                Implementasi Clean Code. Optimasi Core Web Vitals (Speed) dan Basic SEO On-page agar mudah terindeks Google.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-item">
+                    <div class="p-3 p-md-4 hover-bg-maroon transition-colors cursor-pointer">
+                        <button class="accordion-button-swiss collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                            <div class="d-flex align-items-center justify-content-between w-100">
+                                <span class="h6 mb-0 fw-black"><span class="text-secondary me-3">04</span> DEPLOYMENT</span>
+                                <i class="bi bi-plus-lg fs-5 icon-plus"></i>
+                            </div>
+                        </button>
+                    </div>
+                    <div id="collapseFour" class="collapse" data-bs-parent="#accordionProses">
+                        <div class="p-4 pt-0 border-top border-dark border-dashed bg-off">
+                            <p class="mb-0 small fw-bold text-secondary mt-3">
+                                Setup Domain, Hosting/VPS, dan SSL. Final Testing di berbagai perangkat. Website live dan siap menerima trafik.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer id="kontak" class="bg-black text-white p-resp">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <h2 class="display-3 fw-black mb-4 lh-1">MAROON<br>WEB_</h2>
+                    <div class="border-start border-2 border-white ps-3">
+                        <p class="mb-1 fw-bold text-uppercase tracking-widest text-secondary small">Studio</p>
+                        <address class="fst-normal fw-bold">
+                            Jl. Grid System No. 24<br>
+                            Malang, Jawa Timur.
+                        </address>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 d-flex flex-column align-items-start align-items-lg-end justify-content-center">
+                    <p class="text-secondary fw-bold text-uppercase tracking-widest mb-1 small">WhatsApp (Fast Resp)</p>
+                    <a href="#" class="display-6 fw-black text-white text-decoration-underline mb-4 hover-text-maroon transition-colors">
+                        0812-3456-7890
+                    </a>
+                    
+                    <div class="d-flex flex-column flex-md-row gap-2 w-100 justify-content-lg-end">
+                        <a href="#" class="btn border border-2 border-white text-white rounded-0 px-4 py-2 fw-bold text-uppercase hover-bg-white hover-text-black">
+                            Email
+                        </a>
+                        <a href="#" class="btn bg-maroon text-white border-0 rounded-0 px-4 py-2 fw-bold text-uppercase">
+                            Order Sekarang
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 pt-4 border-top border-secondary">
+                <div class="col-12 text-center text-secondary fw-bold small text-uppercase" style="font-size: 0.7rem;">
+                    &copy; 2026 Maroon Web. All Systems Operational.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

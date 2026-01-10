@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Garden - Landscape Project - Maroon Web</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* COLORS */
+            --swiss-maroon: #D00000;
+            --swiss-black: #000000;
+            --swiss-white: #FFFFFF;
+            --swiss-off: #F2F2F2;
+            
+            /* TYPOGRAPHY */
+            --fs-super: clamp(2.5rem, 8vw, 8rem); 
+            --fs-h1: clamp(1.8rem, 5vw, 5rem);
+            --fs-h2: clamp(1.4rem, 3vw, 3rem);
+            --fs-body: clamp(0.95rem, 1vw, 1.125rem);
+            
+            /* SPACING */
+            --border-thick: 4px;
+            --pad-mobile: 1.25rem;
+            --pad-desktop: 4rem;
+        }
+
+        /* RESET */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--swiss-white);
+            color: var(--swiss-black);
+            font-size: var(--fs-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+        }
+        * { border-radius: 0 !important; }
+        a { text-decoration: none; color: inherit; }
+
+        /* TYPOGRAPHY UTILS */
+        h1, h2, h3, h4, h5, h6 {
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.1; 
+        }
+        .fs-super { font-size: var(--fs-super); line-height: 0.95; }
+        .fs-h1 { font-size: var(--fs-h1); }
+        .fs-h2 { font-size: var(--fs-h2); }
+        .fw-black { font-weight: 900; }
+        .tracking-widest { letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* LAYOUT UTILS */
+        .p-resp { padding: var(--pad-mobile); }
+        @media (min-width: 992px) { .p-resp { padding: var(--pad-desktop); } }
+
+        /* BORDERS */
+        .b-thick { border: var(--border-thick) solid var(--swiss-black); }
+        .bt-thick { border-top: var(--border-thick) solid var(--swiss-black); }
+        .bb-thick { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        .bs-thick { border-left: var(--border-thick) solid var(--swiss-black); }
+        .be-thick { border-right: var(--border-thick) solid var(--swiss-black); }
+
+        .border-grid-responsive { border-bottom: var(--border-thick) solid var(--swiss-black); }
+        @media (min-width: 992px) {
+            .border-grid-responsive {
+                border-right: var(--border-thick) solid var(--swiss-black);
+                border-bottom: none; height: 100%;
+            }
+        }
+
+        /* --- COMPONENTS --- */
+        .btn-swiss {
+            background-color: var(--swiss-black); color: var(--swiss-white);
+            padding: 1.1rem 2rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+            border: none; display: inline-flex; align-items: center; gap: 1rem; font-size: 0.9rem; 
+        }
+        .btn-swiss:hover {
+            background-color: var(--swiss-maroon); transform: translateY(-4px);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2); color: white;
+        }
+
+        /* Navbar Links */
+        .nav-link-swiss {
+            height: 100%; display: flex; align-items: center; padding: 0 2.5rem;
+            font-weight: 700; border-left: var(--border-thick) solid var(--swiss-black);
+            transition: background 0.2s;
+        }
+        .nav-link-swiss:hover { background-color: var(--swiss-black); color: var(--swiss-white); }
+        .nav-link-swiss.active { background-color: var(--swiss-black); color: var(--swiss-white); }
+
+        /* Mobile Menu */
+        .offcanvas-swiss { border-left: var(--border-thick) solid var(--swiss-black) !important; background-color: var(--swiss-white); }
+        .offcanvas-backdrop.show { opacity: 0.8; background-color: var(--swiss-maroon); }
+        .mobile-nav-link {
+            display: block; font-size: 1.75rem; font-weight: 900; text-transform: uppercase;
+            color: var(--swiss-black); padding: 1.5rem; border-bottom: var(--border-thick) solid var(--swiss-black);
+            transition: all 0.3s ease;
+        }
+        .mobile-nav-link:hover { background-color: var(--swiss-maroon); color: white; padding-left: 2rem; }
+
+        /* --- PROJECT DETAIL SPECIFIC --- */
+        .project-meta-label {
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: #666; margin-bottom: 0.5rem; display: block;
+        }
+        .project-meta-value { font-size: 1.25rem; font-weight: 900; }
+        
+        .gallery-img-container {
+            width: 100%; overflow: hidden; border: 2px solid black; margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .gallery-img {
+            width: 100%; height: auto; display: block;
+            transition: transform 0.3s ease;
+        }
+        .gallery-img-container:hover .gallery-img { transform: scale(1.02); }
+
+        /* Mockup Frame (Landscape/Tablet) */
+        .mockup-frame {
+            border: var(--border-thick) solid var(--swiss-black);
+            padding: 0;
+            background: white;
+            box-shadow: 25px 25px 0px rgba(0,0,0,0.15);
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+        @media (min-width: 992px) {
+            .mockup-frame {
+                max-width: none;
+                width: 85%; 
+            }
+        }
+
+        /* Utils */
+        .bg-maroon { background-color: var(--swiss-maroon); color: white; }
+        .bg-off { background-color: var(--swiss-off); }
+        .text-maroon { color: var(--swiss-maroon); }
+        .hover-bg-maroon:hover { background-color: var(--swiss-maroon) !important; color: white !important; }
+        .transition-colors { transition: background-color 0.2s, color 0.2s; }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid p-0 mx-auto position-relative" style="max-width: 1600px; border-left: var(--border-thick) solid black; border-right: var(--border-thick) solid black; box-shadow: 0 0 50px rgba(0,0,0,0.1);">
+        
+        <nav class="bg-white bb-thick sticky-top" style="z-index: 1000;">
+            <div class="d-flex justify-content-between align-items-stretch" style="height: 70px;">
+                <a href="index.html" class="d-flex align-items-center bg-black text-white px-3 px-md-5 be-thick hover-bg-maroon transition-colors">
+                    <span class="h4 mb-0 fw-black tracking-tight">MAROON WEB_</span>
+                </a>
+                
+                <div class="d-none d-lg-flex ms-auto align-items-stretch">
+                    <a href="index.html" class="nav-link-swiss text-uppercase small">Home</a>
+                    <a href="portfolio.html" class="nav-link-swiss active text-uppercase small">Portfolio</a> <a href="index.html#layanan" class="nav-link-swiss text-uppercase small">Layanan</a>
+                    <a href="about.html" class="nav-link-swiss text-uppercase small">Tentang Kami</a>
+                    <a href="index.html#kontak" class="nav-link-swiss bg-maroon text-white hover-bg-black small">
+                        HUBUNGI KAMI <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+                
+                <button class="btn d-lg-none px-4 fs-2 border-0 rounded-0 bg-transparent text-black" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+        </nav>
+
+        <div class="offcanvas offcanvas-end offcanvas-swiss w-75" tabindex="-1" id="mobileMenu">
+            <div class="offcanvas-header bb-thick p-4 bg-off d-flex justify-content-between align-items-center">
+                <span class="h5 fw-black mb-0">MENU</span>
+                <button type="button" class="btn-close-swiss" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="offcanvas-body p-0 d-flex flex-column bg-white">
+                <a href="index.html" class="mobile-nav-link">Home <i class="bi bi-arrow-right"></i></a>
+                <a href="portfolio.html" class="mobile-nav-link bg-maroon text-white">Portfolio <i class="bi bi-arrow-right"></i></a>
+                <a href="index.html#layanan" class="mobile-nav-link">Layanan <i class="bi bi-arrow-right"></i></a>
+                <a href="about.html" class="mobile-nav-link">Tentang Kami <i class="bi bi-arrow-right"></i></a>
+                <a href="index.html#kontak" class="mobile-nav-link bg-black text-white">Hubungi Kami <i class="bi bi-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <header class="row g-0">
+            <div class="col-lg-5 bg-white border-grid-responsive p-resp d-flex flex-column justify-content-center">
+                <div class="d-flex align-items-center gap-2 mb-4">
+                    <a href="portfolio.html" class="text-muted fw-bold text-uppercase small text-decoration-underline">Portfolio</a>
+                    <span class="text-muted">/</span>
+                    <span class="bg-black text-white px-2 py-1 fw-bold text-uppercase small">UMKM / JASA</span>
+                </div>
+                
+                <h1 class="fs-super mb-5 fw-black lh-1">
+                    GREEN<br><span class="text-maroon">GARDEN.</span>
+                </h1>
+
+                <div class="row g-4 border-top border-2 border-dark pt-4">
+                    <div class="col-6">
+                        <span class="project-meta-label">Klien</span>
+                        <span class="project-meta-value">Green Garden</span>
+                    </div>
+                    <div class="col-6">
+                        <span class="project-meta-label">Tahun</span>
+                        <span class="project-meta-value">2024</span>
+                    </div>
+                    <div class="col-6">
+                        <span class="project-meta-label">Layanan</span>
+                        <span class="project-meta-value">Web Profile</span>
+                    </div>
+                    <div class="col-6">
+                        <span class="project-meta-label">Fitur</span>
+                        <span class="project-meta-value">Cost Calculator</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 bg-off p-resp d-flex align-items-center justify-content-center">
+                <div class="mockup-frame">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2070&auto=format&fit=crop" alt="Landscape Design Portfolio" class="w-100 d-block">
+                </div>
+            </div>
+        </header>
+
+        <section class="row g-0 bb-thick">
+            <div class="col-lg-6 bg-black text-white p-resp border-grid-responsive">
+                <h2 class="fs-h2 fw-black mb-4 text-secondary">MASALAH (THE CHALLENGE)</h2>
+                <p class="fs-5 opacity-90">
+                    Jasa taman sering dianggap "mahal" dan "tidak transparan". Pelanggan ragu menghubungi karena takut harga ditembak. Selain itu, sulit bagi klien membayangkan hasil akhir hanya dari sketsa tangan kasar.
+                </p>
+            </div>
+            <div class="col-lg-6 bg-white p-resp">
+                <h2 class="fs-h2 fw-black mb-4 text-maroon">SOLUSI MAROON</h2>
+                <p class="fs-5 text-dark fw-medium">
+                    Kami membangun website dengan <strong>Fitur Kalkulator Estimasi</strong> agar harga transparan. Kami juga mengintegrasikan galeri <strong>Before & After</strong> interaktif dan render 3D untuk meyakinkan calon pelanggan akan hasil akhirnya.
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-off p-resp bb-thick">
+            <div class="mb-5">
+                <span class="fw-bold text-maroon text-uppercase tracking-widest mb-2 small">Project Showcase</span>
+                <h2 class="fs-h1 fw-black">TRANSFORMASI LAHAN</h2>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-12">
+                    <div class="gallery-img-container" style="height: auto; max-height: 600px;">
+                        <img src="https://images.unsplash.com/photo-1590486812246-2548965007b6?q=80&w=2070&auto=format&fit=crop" alt="Zen Garden Minimalist" class="gallery-img">
+                        <div class="position-absolute bottom-0 start-0 bg-white border-top border-end border-2 border-black px-3 py-1 fw-bold small">MINIMALIST ZEN CONCEPT</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="gallery-img-container">
+                        <img src="https://images.unsplash.com/photo-1530053969600-caed2596d242?q=80&w=1974&auto=format&fit=crop" alt="Vertical Garden" class="gallery-img">
+                        <div class="position-absolute bottom-0 start-0 bg-white border-top border-end border-2 border-black px-3 py-1 fw-bold small">VERTICAL GARDEN SYSTEM</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="gallery-img-container">
+                        <img src="https://images.unsplash.com/photo-1572706686652-087f88a7f649?q=80&w=2067&auto=format&fit=crop" alt="Tropical Backyard" class="gallery-img">
+                        <div class="position-absolute bottom-0 start-0 bg-white border-top border-end border-2 border-black px-3 py-1 fw-bold small">TROPICAL BACKYARD OASIS</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="row g-0 bb-thick bg-maroon text-white">
+            <div class="col-md-4 p-5 border-end border-4 border-black text-center">
+                <h3 class="display-3 fw-black mb-0">+70%</h3>
+                <small class="text-uppercase fw-bold opacity-75 tracking-widest">Leads Masuk</small>
+            </div>
+            <div class="col-md-4 p-5 border-end border-4 border-black text-center">
+                <h3 class="display-3 fw-black mb-0">50+</h3>
+                <small class="text-uppercase fw-bold opacity-75 tracking-widest">Portofolio Online</small>
+            </div>
+            <div class="col-md-4 p-5 text-center">
+                <h3 class="display-3 fw-black mb-0">3D</h3>
+                <small class="text-uppercase fw-bold opacity-75 tracking-widest">Preview Design</small>
+            </div>
+        </section>
+
+        <section class="row g-0 bg-black text-white">
+            <div class="col-lg-8 p-resp border-grid-responsive d-flex flex-column justify-content-center">
+                <h2 class="fs-h1 fw-black mb-4">BISNIS JASA BANGUNAN?</h2>
+                <p class="fs-5 fw-bold mb-5 opacity-75" style="max-width: 600px;">
+                    Jasa arsitek, taman, atau interior butuh visual yang kuat. Tampilkan karya terbaik Anda dalam galeri website yang profesional.
+                </p>
+                <div class="d-flex flex-column flex-md-row gap-3">
+                    <a href="https://wa.me/628123456789?text=Halo,%20saya%20tertarik%20pembuatan%20Web%20Jasa/Landscape." class="btn bg-white text-black border-0 px-5 py-3 fw-black text-uppercase hover-bg-maroon hover-text-white transition-colors">
+                        Konsultasi Web <i class="bi bi-tools ms-2"></i>
+                    </a>
+                    <a href="portfolio.html" class="btn border border-2 border-white text-white px-5 py-3 fw-black text-uppercase hover-bg-white hover-text-black transition-colors">
+                        Kembali ke Portfolio
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 position-relative overflow-hidden d-none d-lg-block">
+                <div class="h-100 d-flex align-items-center justify-content-center bg-white">
+                    <span class="display-1 fw-black text-black tracking-tighter" style="writing-mode: vertical-rl; transform: rotate(180deg);">GROWTH</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-black text-white p-resp bt-thick">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <h2 class="display-3 fw-black mb-4 lh-1">MAROON<br>WEB_</h2>
+                    <div class="border-start border-2 border-white ps-3">
+                        <address class="fst-normal fw-bold">
+                            Jl. Grid System No. 24<br>Malang, Jawa Timur.
+                        </address>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex flex-column align-items-start align-items-lg-end justify-content-center">
+                    <p class="text-secondary fw-bold text-uppercase tracking-widest mb-1 small">WhatsApp</p>
+                    <a href="#" class="display-6 fw-black text-white text-decoration-underline mb-4 hover-text-maroon transition-colors">
+                        0812-3456-7890
+                    </a>
+                </div>
+            </div>
+            <div class="row mt-5 pt-4 border-top border-secondary">
+                <div class="col-12 text-center text-secondary fw-bold small text-uppercase" style="font-size: 0.7rem;">
+                    &copy; 2026 Maroon Web. Landscape Project.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
