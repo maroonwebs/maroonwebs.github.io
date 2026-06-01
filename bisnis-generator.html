@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Generator Website Bisnis</title>
+  <style>
+    :root{--bg:#f6f7fb;--card:#fff;--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--dark:#111827;--accent:#0f766e;--soft:#ccfbf1;--danger:#fee2e2;--radius:22px;--shadow:0 16px 40px rgba(15,23,42,.08)}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top left,rgba(20,184,166,.14),transparent 34rem),radial-gradient(circle at top right,rgba(15,118,110,.10),transparent 30rem),var(--bg);color:var(--text)}
+    header{background:rgba(255,255,255,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}.wrap{width:min(1460px,calc(100% - 32px));margin:0 auto}.hero{padding:28px 0;display:grid;grid-template-columns:1.32fr .68fr;gap:24px;align-items:end}.badge{display:inline-flex;gap:8px;padding:8px 12px;border-radius:999px;background:var(--soft);color:#0f766e;font-size:13px;font-weight:900;margin-bottom:14px}h1{margin:0;font-size:clamp(30px,4vw,54px);line-height:1.02;letter-spacing:-.045em}.subtitle{margin:16px 0 0;max-width:920px;color:var(--muted);font-size:16px;line-height:1.7}.stats,.card,.output-card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.stats{padding:18px}.stats-title{color:var(--muted);font-size:13px;font-weight:850;margin:0 0 6px}.stats-value{font-size:30px;font-weight:950;margin:0}.bar{height:10px;background:#e5e7eb;border-radius:999px;margin:14px 0 10px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),#14b8a6);border-radius:999px;transition:width .25s ease}
+    main{padding:26px 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.95fr);gap:24px;align-items:start}.right{position:sticky;top:128px}.card{margin-bottom:18px;overflow:hidden}.card-head{padding:18px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);background:#fbfffe}.icon{width:38px;height:38px;display:grid;place-items:center;border-radius:14px;background:#ecfdf5;font-weight:950}h2{margin:0;font-size:18px}.card-body{padding:20px;display:grid;gap:16px}label span{display:block;margin-bottom:8px;font-size:13px;color:#334155;font-weight:850}textarea{width:100%;border:1px solid #cbd5e1;background:#fff;color:var(--text);border-radius:16px;padding:13px 14px;font-size:14px;line-height:1.55;outline:none;font-family:inherit;min-height:88px;resize:vertical}.large textarea{min-height:140px}textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(20,184,166,.14)}
+    .output-card{overflow:hidden}.output-head{padding:18px;display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid var(--line)}.output-head p{margin:4px 0 0;color:var(--muted);font-size:13px}.btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}button{border:0;border-radius:14px;padding:11px 14px;font-weight:950;cursor:pointer;font-size:13px}.primary{background:var(--dark);color:white}.secondary{background:#e2e8f0;color:#0f172a}.danger{background:var(--danger);color:#991b1b}#promptOutput{display:block;width:100%;min-height:calc(100vh - 300px);border:0;background:#08111f;color:#e5e7eb;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px;line-height:1.65;padding:18px;resize:vertical;outline:none}.hint{padding:12px 18px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.toast{position:fixed;right:18px;bottom:18px;background:#052e16;color:white;padding:13px 16px;border-radius:16px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transform:translateY(12px);transition:all .2s ease;z-index:99;font-size:14px;font-weight:850}.toast.show{opacity:1;transform:translateY(0)}footer{color:var(--muted);font-size:13px;padding:0 0 28px;text-align:center}
+    @media(max-width:1100px){.hero,main{grid-template-columns:1fr}.right{position:static}#promptOutput{min-height:560px}header{position:static}}@media(max-width:640px){.wrap{width:min(100% - 20px,1460px)}.output-head{align-items:flex-start;flex-direction:column}.btns{width:100%}button{width:100%}}
+  </style>
+</head>
+<body>
+<header><div class="wrap hero"><div><div class="badge">💼 Prompt Generator Final — Website Bisnis</div><h1>Generator Prompt SEO, AEO & AI Overview untuk Website Bisnis</h1><p class="subtitle">Isi form untuk membuat prompt lengkap bagi website bisnis: SEO organik, AI Overview, AEO, buyer journey, conversion, topical authority, first-hand evidence, dan non-commodity content.</p></div><div class="stats"><p class="stats-title">Progress input</p><p class="stats-value"><span id="filledCount">0</span>/<span id="totalCount">0</span> bagian terisi</p><div class="bar"><span id="progressBar"></span></div><p class="stats-title">Output prompt otomatis diperbarui setiap form diisi.</p></div></div></header>
+<main class="wrap"><section class="left" id="formContainer"></section><aside class="right"><div class="output-card"><div class="output-head"><div><h2>Output Prompt Lengkap</h2><p>Salin prompt ini lalu gunakan di ChatGPT untuk membuat strategi SEO/AEO website bisnis.</p></div><div class="btns"><button class="primary" id="copyBtn">Copy Prompt</button><button class="secondary" id="downloadBtn">Download TXT</button><button class="danger" id="resetBtn">Reset</button></div></div><textarea id="promptOutput" readonly></textarea><div class="hint"><span>Tip: data GSC, CRM, pertanyaan pelanggan, studi kasus, dan testimoni akan membuat output lebih kuat.</span><span id="charCount">0 karakter</span></div></div></aside></main>
+<footer class="wrap">Internal tool bisnis untuk menyusun prompt SEO, AEO, AI Overview, dan konversi.</footer><div class="toast" id="toast">Prompt berhasil disalin.</div>
+
+<script>
+const defaults={namaBisnis:"",website:"",jenisBisnis:"B2B / B2C / lokal / nasional / e-commerce / SaaS / jasa profesional",industri:"",produkUtama:"",produkPrioritas:"",targetAudiens:"",lokasiLayanan:"",targetPasar:"UMKM / enterprise / individu / keluarga / profesional / instansi",tujuanBisnis:"leads, penjualan, demo, konsultasi, booking, awareness, authority",konversiUtama:"WhatsApp, form leads, telepon, checkout, demo, trial, email",usp:"",buktiKepercayaan:"testimoni, studi kasus, portofolio, sertifikasi, jumlah klien, penghargaan, pengalaman tim, data hasil",kompetitor:"",areaFokus:"",halamanPenting:"homepage, service page, product page, blog, case study, pricing, FAQ, about, contact",keterbatasanBisnis:"",gsc:"",analyticsCrm:"",keywordTools:"",pertanyaanPelanggan:"",dataInternal:"",dataProduk:"",studiKasus:"",kompetitorData:"",reviewPelanggan:"",trenIndustri:"",dataTambahan:""};
+let form={...defaults};
+const groups=[
+{title:"Profil Bisnis",icon:"🏢",compact:true,fields:[["namaBisnis","Nama bisnis","Contoh: PT ABC Digital / Klinik XYZ / Toko Online Anda"],["website","Website","Contoh: https://namabisnis.com"],["jenisBisnis","Jenis bisnis","B2B / B2C / lokal / nasional / SaaS / e-commerce"],["industri","Industri","Contoh: digital marketing, kesehatan, properti, otomotif"],["produkUtama","Produk/layanan utama","Daftar produk atau layanan utama"],["produkPrioritas","Produk/layanan prioritas","Produk/layanan yang paling ingin didorong"]]},
+{title:"Audiens, Konversi, dan Trust",icon:"🎯",compact:true,fields:[["targetAudiens","Target audiens","Persona, jabatan, segmen, industri, demografi"],["lokasiLayanan","Lokasi layanan","Lokal / nasional / global / kota tertentu"],["targetPasar","Target pasar","UMKM / enterprise / individu / profesional / instansi"],["tujuanBisnis","Tujuan bisnis","Leads / penjualan / demo / konsultasi / booking"],["konversiUtama","Konversi utama","WhatsApp / form leads / checkout / trial"],["usp","Unique selling proposition","Keunggulan utama bisnis Anda"],["buktiKepercayaan","Bukti kepercayaan","Testimoni, portofolio, sertifikasi, data hasil"],["kompetitor","Kompetitor","Daftar kompetitor utama"],["areaFokus","Area fokus yang sudah dibahas","Topik/halaman yang sudah ada"],["halamanPenting","Halaman penting yang sudah ada","Homepage, service page, product page, pricing, FAQ"],["keterbatasanBisnis","Keterbatasan bisnis","Belum punya data/testimoni/foto/studi kasus, dll."]]},
+{title:"Data SEO, Konversi, dan Keyword",icon:"📈",compact:false,fields:[["gsc","A. Google Search Console","Paste query, pages, impressions, clicks, CTR, position, halaman naik/turun"],["analyticsCrm","B. Google Analytics / CRM","Paste data leads, conversion rate, traffic source, revenue, inquiry, WhatsApp click"],["keywordTools","C. Keyword / SEO tools","Paste keyword dari Ahrefs/Semrush/Ubersuggest/Keyword Planner"],["pertanyaanPelanggan","D. Data pertanyaan pelanggan","Paste pertanyaan dari sales call, WhatsApp, CS, email, komentar, marketplace"]]},
+{title:"Data Bisnis, Produk, Kompetitor, dan Tren",icon:"🔎",compact:false,fields:[["dataInternal","E. Data internal bisnis","Hasil proyek, before-after, proses kerja, biaya rata-rata, timeline, SOP"],["dataProduk","F. Data produk/layanan","Fitur, manfaat, harga, paket, syarat, proses, garansi, batasan"],["studiKasus","G. Studi kasus/testimoni","Ringkasan case study, hasil, industri klien, masalah, solusi, outcome"],["kompetitorData","H. Kompetitor","Halaman kompetitor, judul, struktur, penawaran, topik yang mereka bahas"],["reviewPelanggan","I. Review/komentar pelanggan","Review Google Business Profile, marketplace, media sosial, survey"],["trenIndustri","J. Tren industri","Berita industri, regulasi, tren pasar, perilaku pembeli, event, teknologi baru"],["dataTambahan","K. Data tambahan","Sumber lain yang relevan"]]}];
+function esc(s){return String(s||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
+function renderForm(){const c=document.getElementById("formContainer");c.innerHTML=groups.map(g=>`<div class="card"><div class="card-head"><div class="icon">${g.icon}</div><h2>${g.title}</h2></div><div class="card-body ${g.compact?"":"large"}">${g.fields.map(([k,l,p])=>`<label><span>${l}</span><textarea data-key="${k}" placeholder="${esc(p)}">${esc(form[k])}</textarea></label>`).join("")}</div></div>`).join("");c.querySelectorAll("textarea").forEach(el=>el.addEventListener("input",e=>{form[e.target.dataset.key]=e.target.value;updateOutput()}))}
+function val(k){const x=String(form[k]||"").trim();return x||"[BELUM DIISI]"}
+function buildPrompt(){return `Anda adalah Senior SEO Strategist, AEO/GEO Content Architect, Conversion Copywriter, dan Business Website Growth Consultant.
+
+Tugas Anda adalah membuat strategi konten dan struktur halaman untuk website bisnis, bukan portal berita. Fokus utama bukan Google Discover, tetapi SEO organik, AI Overview / AI Features, AEO, topical authority, buyer journey, lead generation, conversion rate, trust building, non-commodity content, dan first-hand evidence.
+
+==================================================
+1. TUJUAN WEBSITE BISNIS
+==================================================
+
+Website bisnis harus menghasilkan traffic yang relevan dan bisa dikonversi menjadi leads, inquiry, konsultasi, pembelian, demo produk, permintaan penawaran, booking, WhatsApp/chat, trial, kunjungan toko/kantor, dan kepercayaan brand.
+
+Setiap topik harus dinilai berdasarkan business value, buyer intent, kedekatan dengan produk/layanan, potensi leads, trust, topical authority, potensi Search/AI Overview/AEO, dan bukti yang bisa disediakan bisnis.
+
+==================================================
+2. SEO, AI OVERVIEW, DAN AEO
+==================================================
+
+Praktik SEO dasar tetap wajib: halaman bisa di-crawl dan diindeks, tidak diblokir robots.txt/noindex, internal link jelas, cepat dan mobile-friendly, konten penting tersedia dalam teks HTML, gambar/video mendukung isi, data terstruktur sesuai konten terlihat, title tag dan H1 jelas, URL pendek, serta intent terpenuhi.
+
+Gunakan Query Fan-Out untuk setiap keyword utama:
+- apa masalahnya?
+- siapa yang mengalami?
+- apa penyebab dan dampaknya?
+- apa solusinya?
+- kapan solusi dibutuhkan?
+- berapa biaya/estimasi?
+- bagaimana prosesnya?
+- apa risikonya?
+- apa alternatifnya?
+- bagaimana memilih vendor/produk?
+- apa bukti hasilnya?
+- studi kasus apa yang tersedia?
+- checklist sebelum membeli?
+- FAQ calon pelanggan?
+
+Setiap konten prioritas harus memiliki jawaban ringkas 2–3 kalimat di awal, definisi jika perlu, bagian kapan membutuhkan solusi, estimasi biaya, proses kerja, kesalahan umum, cara memilih vendor/produk, bukti/studi kasus, FAQ long-tail, CTA, dan internal link ke halaman layanan/produk.
+
+==================================================
+3. NON-COMMODITY CONTENT UNTUK BISNIS
+==================================================
+
+Hindari konten generik yang bisa dibuat AI dalam 10 detik.
+
+Commodity Test:
+Jika AI bisa membuat artikel serupa tanpa data bisnis, pengalaman proyek, hasil klien, observasi internal, demo produk, atau bukti nyata, tandai sebagai Commodity Risk: Tinggi.
+
+Ubah menjadi non-commodity dengan data internal bisnis, studi kasus, hasil audit, angka sebelum-sesudah, proses kerja nyata, pengalaman pelanggan, insight tim sales/CS, testimoni, portofolio, demo, benchmark harga, simulasi biaya, checklist, perbandingan vendor/solusi, template, foto/video proses, pelajaran proyek, dan batasan produk/layanan secara jujur.
+
+==================================================
+4. FIRST-HAND EXPERIENCE DAN TRUST
+==================================================
+
+Konten bisnis harus menunjukkan bukti keterlibatan langsung.
+
+Setiap konten prioritas harus menjawab: siapa pembuat konten, apa keahliannya, pengalaman bisnis apa yang mendukung, data apa yang digunakan, proyek/klien/kasus apa yang dirujuk, bagaimana analisis dilakukan, bukti visual apa yang ditampilkan, hasil apa yang bisa diverifikasi, dan keterbatasan apa yang perlu dijelaskan.
+
+Gunakan formula:
+Experience + Evidence + Original Insight + Business Relevance
+
+==================================================
+5. HELPFUL CONTENT DAN INTENSI PENGGUNA
+==================================================
+
+Konten harus membantu calon pelanggan, bukan hanya untuk ranking. Pastikan masalah pengguna jelas, audiens jelas, jawaban praktis, tidak overpromise, menjelaskan kelebihan dan keterbatasan solusi, kapan cocok/tidak cocok, biaya/risiko penting, serta CTA sesuai funnel.
+
+Gunakan funnel:
+Awareness, Problem-aware, Solution-aware, Product-aware, Ready to buy, Retention.
+
+==================================================
+6. TITLE LINK, META, STRUKTUR, SCHEMA, DAN AI
+==================================================
+
+Setiap halaman perlu title tag unik, H1 jelas, meta description, slug pendek, breadcrumb, intro yang langsung menjawab intent, H2/H3 berdasarkan pertanyaan pengguna, internal link, CTA, dan schema sesuai.
+
+Rekomendasikan schema sesuai jenis halaman: Organization, LocalBusiness, Service, Product, FAQPage, BreadcrumbList, Review/Snippet jika valid, SoftwareApplication, Offer, MerchantReturnPolicy, Article, HowTo, atau VideoObject jika sesuai dan terlihat di halaman.
+
+AI boleh digunakan untuk riset, struktur, draft, ide, ringkasan, dan optimasi, tetapi harus ditambah data asli bisnis, pengalaman tim, verifikasi manusia, contoh nyata, dan insight yang tidak generik. Jangan mempublikasikan output AI mentah.
+
+==================================================
+INPUT DASAR BISNIS
+==================================================
+
+Nama bisnis:
+${val("namaBisnis")}
+
+Website:
+${val("website")}
+
+Jenis bisnis:
+${val("jenisBisnis")}
+
+Industri:
+${val("industri")}
+
+Produk/layanan utama:
+${val("produkUtama")}
+
+Produk/layanan prioritas:
+${val("produkPrioritas")}
+
+Target audiens:
+${val("targetAudiens")}
+
+Lokasi layanan:
+${val("lokasiLayanan")}
+
+Target pasar:
+${val("targetPasar")}
+
+Tujuan bisnis:
+${val("tujuanBisnis")}
+
+Konversi utama:
+${val("konversiUtama")}
+
+Unique selling proposition:
+${val("usp")}
+
+Bukti kepercayaan:
+${val("buktiKepercayaan")}
+
+Kompetitor:
+${val("kompetitor")}
+
+Area fokus yang sudah dibahas:
+${val("areaFokus")}
+
+Halaman penting yang sudah ada:
+${val("halamanPenting")}
+
+Keterbatasan bisnis:
+${val("keterbatasanBisnis")}
+
+==================================================
+DATA YANG DISEDIAKAN
+==================================================
+
+A. Google Search Console
+${val("gsc")}
+
+B. Google Analytics / CRM
+${val("analyticsCrm")}
+
+C. Keyword / SEO tools
+${val("keywordTools")}
+
+D. Data pertanyaan pelanggan
+${val("pertanyaanPelanggan")}
+
+E. Data internal bisnis
+${val("dataInternal")}
+
+F. Data produk/layanan
+${val("dataProduk")}
+
+G. Studi kasus/testimoni
+${val("studiKasus")}
+
+H. Kompetitor
+${val("kompetitorData")}
+
+I. Review/komentar pelanggan
+${val("reviewPelanggan")}
+
+J. Tren industri
+${val("trenIndustri")}
+
+K. Data tambahan
+${val("dataTambahan")}
+
+==================================================
+TUGAS 1 — AUDIT DATA DAN BISNIS
+==================================================
+
+Berikan:
+1. Ringkasan bisnis
+2. Produk/layanan yang paling layak diprioritaskan
+3. Persona utama
+4. Pain point utama audiens
+5. Buyer intent utama
+6. Data paling kuat
+7. Data paling lemah
+8. Bukti trust yang tersedia
+9. Bukti trust yang belum tersedia
+10. Risiko konten commodity
+11. Risiko klaim berlebihan
+12. Peluang SEO/AEO/AI Overview
+13. Data tambahan yang perlu dikumpulkan
+
+Jika data tidak cukup, jangan mengarang. Tandai sebagai “Butuh Data Tambahan”.
+
+==================================================
+TUGAS 2 — PEMETAAN BUYER JOURNEY
+==================================================
+
+Buat peta buyer journey untuk tahap Awareness, Problem-aware, Solution-aware, Product-aware, Ready to buy, dan Retention.
+
+Untuk setiap tahap berikan masalah utama audiens, pertanyaan, jenis konten, halaman yang dibutuhkan, CTA, trust element, internal link, dan risiko jika konten terlalu generik.
+
+==================================================
+TUGAS 3 — IDENTIFIKASI 20–40 TOPIK KONTEN
+==================================================
+
+Untuk setiap topik, isi:
+1. Label topik
+2. Funnel stage
+3. Keyword utama
+4. Search intent
+5. Buyer intent
+6. Business value 0–10
+7. Pain point
+8. Pertanyaan utama pengguna
+9. Query fan-out/sub-pertanyaan
+10. Commodity Risk
+11. Cara membuat non-commodity
+12. First-hand evidence
+13. Data internal
+14. Jenis halaman
+15. Potensi AI Overview/AEO 0–10
+16. Potensi SEO 0–10
+17. Potensi konversi 0–10
+18. CTA
+19. Internal link tujuan
+20. Status
+
+==================================================
+TUGAS 4 — KLASTER TOPIK DAN SITE ARCHITECTURE
+==================================================
+
+Kelompokkan topik ke 5–10 klaster. Untuk setiap klaster berikan nama hub page, tujuan bisnis, persona, halaman pilar, halaman pendukung, halaman konversi, FAQ, internal linking map, schema, konten non-commodity, trust evidence, dan prioritas.
+
+==================================================
+TUGAS 5 — PRIORITAS HALAMAN
+==================================================
+
+Pilih 10–15 halaman paling penting untuk dibuat/diperbaiki berdasarkan buyer intent, business value, AI Overview/AEO, SEO, konversi, celah kompetitor, first-hand evidence, dan prioritas produk/layanan.
+
+==================================================
+TUGAS 6 — STRUKTUR HALAMAN LENGKAP
+==================================================
+
+Untuk 10 halaman prioritas, buat struktur: jenis halaman, tujuan, persona, primary/secondary keyword, intent, title tag, H1, meta description, slug, ringkasan jawaban, opening section, H2/H3, query fan-out, FAQ, tabel/checklist/calculator, evidence, trust element, CTA utama/sekunder, internal link, external reference, schema, UX/conversion, AEO/AI Overview, non-commodity, dan human verification.
+
+==================================================
+TUGAS 7 — CONTENT BRIEF SIAP TULIS
+==================================================
+
+Untuk 5 halaman prioritas, buat brief berisi tujuan, persona, funnel stage, intent, angle, key message, outline, data bisnis, contoh pembuka, FAQ, CTA, larangan klaim, sumber, tone of voice, dan kriteria selesai.
+
+==================================================
+TUGAS 8 — KALENDER KONTEN 90 HARI
+==================================================
+
+Buat kalender 90 hari:
+- 30% halaman konversi
+- 30% artikel edukasi Search/AEO
+- 20% studi kasus/testimoni/use case
+- 10% FAQ/tool/checklist/calculator
+- 10% update industri/tren/regulasi
+
+Setiap item berisi minggu ke-, judul, jenis konten, funnel stage, target keyword, tujuan bisnis, first-hand evidence, CTA, internal link, status, dan prioritas.
+
+==================================================
+TUGAS 9 — OPTIMASI HALAMAN YANG SUDAH ADA
+==================================================
+
+Jika ada URL/halaman lama, audit: intent, title/H1, H2, thin content, bagian commodity, data yang harus ditambah, FAQ, internal link, CTA, schema, rekomendasi rewrite title, outline baru, dan prioritas.
+
+==================================================
+TUGAS 10 — QUALITY CONTROL
+==================================================
+
+Buat checklist:
+A. SEO QC
+B. AEO/AI Overview QC
+C. Non-Commodity QC
+D. Conversion QC
+E. Integrity QC
+
+==================================================
+FORMAT OUTPUT WAJIB
+==================================================
+
+A) Executive Summary
+B) Audit Data dan Bisnis
+C) Buyer Journey Map
+D) Tabel 20–40 Topik Konten
+E) Klaster dan Site Architecture
+F) Prioritas 10–15 Halaman
+G) Struktur 10 Halaman Prioritas
+H) Content Brief 5 Halaman Utama
+I) Kalender Konten 90 Hari
+J) Rekomendasi Optimasi Halaman Lama
+K) Checklist QC
+L) Catatan Data Kurang`;
+}
+function updateOutput(){const p=buildPrompt();document.getElementById("promptOutput").value=p;document.getElementById("charCount").textContent=p.length.toLocaleString("id-ID")+" karakter";const keys=Object.keys(form);const filled=keys.filter(k=>String(form[k]||"").trim()).length;document.getElementById("filledCount").textContent=filled;document.getElementById("totalCount").textContent=keys.length;document.getElementById("progressBar").style.width=((filled/keys.length)*100)+"%"}
+function toast(t){const e=document.getElementById("toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),1800)}
+document.getElementById("copyBtn").addEventListener("click",async()=>{const t=document.getElementById("promptOutput").value;try{await navigator.clipboard.writeText(t)}catch(e){const o=document.getElementById("promptOutput");o.focus();o.select();document.execCommand("copy")}toast("Prompt berhasil disalin.")});
+document.getElementById("downloadBtn").addEventListener("click",()=>{const t=document.getElementById("promptOutput").value;const b=new Blob([t],{type:"text/plain;charset=utf-8"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download="prompt-final-website-bisnis.txt";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u);toast("File TXT dibuat.")});
+document.getElementById("resetBtn").addEventListener("click",()=>{if(!confirm("Reset semua input ke contoh awal?"))return;form={...defaults};renderForm();updateOutput();toast("Form direset.")});
+renderForm();updateOutput();
+</script>
+</body>
+</html>
