@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Generator Hub — Trend, Social Media, Non-Commodity & Struktur Konten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2A;--navy2:#16243A;--navy3:#1E2F46;
+  --green:#0E5C3C;--green2:#127A50;--green-bg:#E3F5EE;--green-border:#7DCFB0;
+  --orange:#B85B1A;--orange2:#D96A20;--orange-bg:#FDF1E3;--orange-border:#F5C280;
+  --blue:#1B4A9C;--blue2:#2563C8;--blue-bg:#EBF1FD;--blue-border:#90B4F0;
+  --purple:#4A2EA0;--purple2:#6042C0;--purple-bg:#EEEAFD;--purple-border:#B8A8F4;
+  --bg:#F3F5F8;--surface:#FFFFFF;--surface2:#F0F2F6;--surface3:#E4E8F0;
+  --border:#D6DAEA;--border2:#C4CADB;
+  --txt:#18243A;--txt2:#46506A;--txt3:#7A849C;
+  --radius:14px;--radius-sm:9px;--radius-xs:5px;
+  --shadow:0 1px 3px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);
+  --shadow-md:0 2px 8px rgba(0,0,0,.09),0 8px 28px rgba(0,0,0,.06);
+  --mono:'IBM Plex Mono',monospace;
+  --font:'Outfit',sans-serif;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);font-size:15px;color:var(--txt);background:var(--bg);line-height:1.6;min-height:100vh}
+button,select,input,textarea{font-family:var(--font)}
+
+/* ── LAYOUT ── */
+.app{max-width:880px;margin:0 auto;padding:18px 14px 70px}
+@media(min-width:600px){.app{padding:26px 22px 80px}}
+@media(min-width:920px){.app{padding:34px 0 80px}}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,#112240 60%,#1B2E50 100%);
+  border-radius:var(--radius);padding:26px 22px 22px;margin-bottom:18px;position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;top:-50px;right:-50px;width:230px;height:230px;border-radius:50%;background:rgba(14,92,60,.18);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-30px;width:180px;height:180px;border-radius:50%;background:rgba(26,74,156,.14);pointer-events:none}
+.hero-eye{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.42);margin-bottom:8px}
+.hero-title{font-size:clamp(21px,4.8vw,30px);font-weight:700;color:#fff;line-height:1.18;margin-bottom:8px}
+.hero-title span{color:#5ED4A8}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.56);max-width:500px;line-height:1.65}
+.pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.pill{font-size:10px;font-weight:600;padding:3px 12px;border-radius:20px;border:1px solid;letter-spacing:.3px}
+.p-gr{background:rgba(14,92,60,.2);color:#6EDCB0;border-color:rgba(110,220,176,.32)}
+.p-or{background:rgba(200,100,30,.18);color:#F5A860;border-color:rgba(245,168,96,.32)}
+.p-bl{background:rgba(40,100,200,.18);color:#90B8F8;border-color:rgba(144,184,248,.32)}
+.p-pu{background:rgba(96,66,200,.18);color:#B8A0F8;border-color:rgba(184,160,248,.32)}
+@media(min-width:600px){.hero{padding:30px 30px 26px}}
+
+/* ── TOP NAV ── */
+.tab-nav{display:flex;gap:5px;overflow-x:auto;padding:2px 2px 8px;margin-bottom:18px;scrollbar-width:none;-ms-overflow-style:none}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:10px 17px;font-size:12.5px;font-weight:600;white-space:nowrap;
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--txt2);cursor:pointer;
+  transition:all .15s;flex-shrink:0;
+}
+.tab-btn .ti{font-size:16px}
+.tab-btn:hover:not(.t-gr):not(.t-or):not(.t-bl):not(.t-pu){background:var(--surface2);color:var(--txt)}
+.tab-btn.t-gr{background:var(--green);color:#fff;border-color:var(--green)}
+.tab-btn.t-or{background:var(--orange);color:#fff;border-color:var(--orange)}
+.tab-btn.t-bl{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tab-btn.t-pu{background:var(--purple);color:#fff;border-color:var(--purple)}
+@media(max-width:500px){.tab-btn{padding:9px 13px;font-size:12px}.tab-btn .ti{font-size:15px}}
+
+/* ── PANES ── */
+.pane{display:none;animation:fadeUp .18s ease}
+.pane.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+@media(min-width:600px){.card{padding:24px}}
+.card-hd{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:var(--txt3);margin-bottom:16px;display:flex;align-items:center;gap:7px}
+.card-hd .ti{font-size:17px}
+
+/* ── FORM CONTROLS ── */
+.lbl{display:block;font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;margin-top:16px}
+.lbl:first-child,.lbl.no-top{margin-top:0}
+.inp{
+  width:100%;padding:9px 12px;font-size:13px;
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--txt);
+  transition:border-color .15s;
+}
+.inp:focus{outline:none;box-shadow:0 0 0 3px rgba(21,101,192,.1)}
+.inp-gr:focus{border-color:var(--green2)}
+.inp-or:focus{border-color:var(--orange2)}
+.inp-bl:focus{border-color:var(--blue2)}
+.inp-pu:focus{border-color:var(--purple2)}
+select.inp{cursor:pointer}
+textarea.inp{min-height:74px;resize:vertical;line-height:1.55}
+textarea.inp.lg{min-height:100px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:440px){.row2{grid-template-columns:1fr}}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:540px){.row3{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.row3{grid-template-columns:1fr}}
+
+/* ── CHIPS ── */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{
+  font-size:11.5px;font-weight:500;padding:5px 13px;border-radius:20px;
+  background:var(--surface2);border:1px solid var(--border2);
+  color:var(--txt2);cursor:pointer;transition:all .12s;user-select:none;
+}
+.chip:hover{background:var(--surface3);color:var(--txt)}
+.chip.on-gr{background:var(--green);color:#fff;border-color:var(--green)}
+.chip.on-or{background:var(--orange);color:#fff;border-color:var(--orange)}
+.chip.on-bl{background:var(--blue);color:#fff;border-color:var(--blue)}
+.chip.on-pu{background:var(--purple);color:#fff;border-color:var(--purple)}
+
+/* ── TYPE SELECTOR GRID ── */
+.type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:14px}
+@media(min-width:480px){.type-grid{grid-template-columns:repeat(3,1fr)}}
+.type-card{
+  padding:13px 12px;border-radius:var(--radius-sm);
+  border:1.5px solid var(--border);cursor:pointer;
+  background:var(--surface2);color:var(--txt2);
+  transition:all .14s;text-align:center;
+}
+.type-card:hover{background:var(--surface3);color:var(--txt)}
+.type-card .ti{font-size:22px;display:block;margin-bottom:5px}
+.type-card .tc-lbl{font-size:12px;font-weight:600;line-height:1.3}
+.type-card .tc-sub{font-size:10px;color:var(--txt3);margin-top:2px;line-height:1.3}
+.type-card.sel-gr{background:var(--green-bg);color:var(--green);border-color:var(--green-border);border-width:2px}
+.type-card.sel-or{background:var(--orange-bg);color:var(--orange);border-color:var(--orange-border);border-width:2px}
+.type-card.sel-bl{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border);border-width:2px}
+.type-card.sel-pu{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border);border-width:2px}
+
+/* ── SUB TABS (Social Media) ── */
+.sub-nav{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:16px}
+.sub-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;font-size:12px;font-weight:600;white-space:nowrap;
+  border:1.5px solid var(--border);border-radius:var(--radius-xs);
+  background:var(--surface2);color:var(--txt2);cursor:pointer;transition:all .14s;
+}
+.sub-btn.a-or{background:var(--orange);color:#fff;border-color:var(--orange)}
+.sub-btn:hover:not(.a-or){background:var(--surface3);color:var(--txt)}
+
+/* ── ACCORDION ── */
+.acc{border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden}
+.acc-hd{padding:11px 15px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;background:var(--surface2);font-size:13px;font-weight:600;user-select:none;transition:background .12s}
+.acc-hd:hover{background:var(--surface3)}
+.acc-hd .ti{font-size:15px;color:var(--txt3);transition:transform .2s;flex-shrink:0}
+.acc-hd.open .ti{transform:rotate(180deg)}
+.acc-body{display:none;padding:13px 15px;font-size:12.5px;color:var(--txt2);line-height:1.7;background:var(--surface)}
+.acc-body.open{display:block}
+
+/* ── DATA SECTION LABEL ── */
+.data-section{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;padding:6px 10px;background:var(--surface2);border-radius:var(--radius-xs);margin-bottom:10px;margin-top:18px;display:flex;align-items:center;gap:6px}
+.data-section:first-child{margin-top:0}
+
+/* ── GEN BUTTON ── */
+.gen-btn{
+  width:100%;margin-top:14px;padding:12px 20px;
+  font-size:13.5px;font-weight:700;border:none;border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.2px;
+}
+.gen-btn .ti{font-size:17px}
+.gen-btn:hover{opacity:.88;transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.gen-btn:active{transform:scale(.99)}
+.gen-gr{background:var(--green);color:#fff}
+.gen-or{background:var(--orange);color:#fff}
+.gen-bl{background:var(--blue);color:#fff}
+.gen-pu{background:var(--purple);color:#fff}
+
+/* ── OUTPUT ── */
+.out-wrap{display:none;margin-top:14px;border-radius:var(--radius-sm);overflow:hidden;box-shadow:var(--shadow)}
+.out-wrap.show{display:block;animation:fadeUp .15s ease}
+.out-top{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:var(--surface2);border-bottom:1px solid var(--border)}
+.out-label{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1px}
+.out-actions{display:flex;gap:6px}
+.cp-btn{
+  font-size:11px;font-weight:500;padding:5px 12px;
+  border:1px solid var(--border2);border-radius:20px;
+  background:var(--surface);color:var(--txt3);cursor:pointer;
+  display:inline-flex;align-items:center;gap:4px;transition:all .12s;
+}
+.cp-btn:hover{background:var(--surface3);color:var(--txt)}
+.cp-btn .ti{font-size:13px}
+.out-body{padding:14px;background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm)}
+.out-text{font-size:11.5px;font-family:var(--mono);line-height:1.85;color:var(--txt2);white-space:pre-wrap;word-break:break-word;overflow-x:auto;max-height:420px;overflow-y:auto}
+
+/* ── INFO CARDS (tips) ── */
+.tip-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+@media(max-width:480px){.tip-grid{grid-template-columns:1fr}}
+.tip-card{padding:12px 14px;border-radius:var(--radius-sm);border:1px solid;font-size:12.5px;line-height:1.55}
+.tip-card h5{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;opacity:.72}
+.tip-good{background:var(--green-bg);color:#093D28;border-color:var(--green-border)}
+.tip-bad{background:#FCEAEA;color:#5A1212;border-left:3px solid #C04030;border-color:#F0BBBB}
+.tip-note{background:var(--blue-bg);color:#0C3060;border-color:var(--blue-border)}
+.tip-warn{background:var(--orange-bg);color:#6A3510;border-color:var(--orange-border)}
+
+/* ── FORMULA STRIP ── */
+.formula-strip{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.fs-item{padding:8px 14px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;border:1px solid}
+.fs-1{background:var(--green-bg);color:var(--green);border-color:var(--green-border)}
+.fs-2{background:var(--orange-bg);color:var(--orange);border-color:var(--orange-border)}
+.fs-3{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border)}
+.fs-4{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border)}
+.fs-5{background:#EEF6FF;color:#0A3060;border-color:#90B4F0}
+.fs-6{background:#F5EAFA;color:#4A1070;border-color:#C8A0E0}
+.fs-7{background:#FFF8E0;color:#604010;border-color:#E8C860}
+
+/* ── SEO TIER ── */
+.seo-tier{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:10px}
+.seo-tier-hd{padding:10px 14px;background:var(--surface2);font-size:12px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:6px}
+.seo-tier-hd .ti{font-size:15px;color:var(--txt3)}
+.seo-tier-body{padding:10px 14px;font-size:12.5px;color:var(--txt2);line-height:1.6}
+
+/* ── LANG TOGGLE ── */
+.lang-toggle{display:flex;gap:5px;align-items:center;margin-bottom:14px}
+.lang-btn{padding:5px 14px;font-size:11.5px;font-weight:600;border:1.5px solid var(--border);border-radius:20px;background:var(--surface2);color:var(--txt2);cursor:pointer;transition:all .12s}
+.lang-btn.on{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:#fff;padding:11px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;box-shadow:var(--shadow-md);opacity:0;pointer-events:none;transform:translateY(8px);transition:all .22s ease;z-index:99;display:flex;align-items:center;gap:7px}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast .ti{font-size:15px}
+
+/* ── FOOTER ── */
+.footer{text-align:center;font-size:11.5px;color:var(--txt3);margin-top:40px;padding-top:20px;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-eye">Content Strategy Prompt Hub</div>
+  <h1 class="hero-title">Generator Prompt <span>All-in-One</span></h1>
+  <p class="hero-sub">Buat prompt siap pakai untuk analisis tren, konten sosial media, non-commodity content, dan arsitektur SEO — langsung copy ke Claude atau AI lainnya.</p>
+  <div class="pill-row">
+    <span class="pill p-gr">Analisis Trend</span>
+    <span class="pill p-or">Social Media</span>
+    <span class="pill p-bl">Non-Commodity</span>
+    <span class="pill p-pu">Struktur SEO</span>
+  </div>
+</header>
+
+<!-- TAB NAV -->
+<nav class="tab-nav" role="tablist">
+  <button class="tab-btn t-gr" id="btn-trend" onclick="switchTab('trend',this)" role="tab"><span class="ti ti-trending-up"></span>Analisis Trend</button>
+  <button class="tab-btn" id="btn-social" onclick="switchTab('social',this)" role="tab"><span class="ti ti-brand-instagram"></span>Social Media</button>
+  <button class="tab-btn" id="btn-noncom" onclick="switchTab('noncom',this)" role="tab"><span class="ti ti-diamond"></span>Non-Commodity</button>
+  <button class="tab-btn" id="btn-seo" onclick="switchTab('seo',this)" role="tab"><span class="ti ti-layout-navbar"></span>Struktur SEO</button>
+</nav>
+
+<!-- ═══ PANE 1: ANALISIS TREND ═══ -->
+<section id="pane-trend" class="pane active">
+
+  <div class="card">
+    <div class="card-hd" style="color:var(--green)"><span class="ti ti-settings"></span>Identitas & Konteks</div>
+
+    <div class="lang-toggle">
+      <span style="font-size:11px;color:var(--txt3);font-weight:600">Bahasa output:</span>
+      <button class="lang-btn on" id="lang-id" onclick="setLang('id')">🇮🇩 Indonesia</button>
+      <button class="lang-btn" id="lang-en" onclick="setLang('en')">🇬🇧 English</button>
+    </div>
+
+    <div class="row2">
+      <div>
+        <label class="lbl no-top" for="t-industri">Industri</label>
+        <input class="inp inp-gr" id="t-industri" placeholder="misal: SaaS B2B, F&B, Properti…">
+      </div>
+      <div>
+        <label class="lbl no-top" for="t-lokasi">Lokasi Geografis</label>
+        <input class="inp inp-gr" id="t-lokasi" placeholder="Indonesia, Jakarta, atau global">
+      </div>
+    </div>
+
+    <label class="lbl" for="t-audiens">Target Audiens / Persona</label>
+    <input class="inp inp-gr" id="t-audiens" placeholder="misal: CMO startup, manajer pemasaran, entrepreneur UMKM…">
+
+    <div class="row2">
+      <div>
+        <label class="lbl" for="t-durasi">Durasi Waktu</label>
+        <select class="inp inp-gr" id="t-durasi">
+          <option value="30 hari terakhir">30 hari terakhir</option>
+          <option value="60 hari terakhir">60 hari terakhir</option>
+          <option value="90 hari terakhir">90 hari terakhir</option>
+        </select>
+      </div>
+      <div>
+        <label class="lbl" for="t-tujuan">Tujuan Utama Konten</label>
+        <select class="inp inp-gr" id="t-tujuan">
+          <option value="leads">Leads / Prospek</option>
+          <option value="otoritas topik">Otoritas Topik</option>
+          <option value="adopsi produk">Adopsi Produk</option>
+          <option value="retensi pengguna">Retensi Pengguna</option>
+        </select>
+      </div>
+    </div>
+
+    <label class="lbl" for="t-format">Format Konten yang Dipublikasikan</label>
+    <div class="chips" id="chips-format">
+      <span class="chip on-gr" onclick="toggleChip(this,'gr')">Blog</span>
+      <span class="chip" onclick="toggleChip(this,'gr')">Newsletter</span>
+      <span class="chip" onclick="toggleChip(this,'gr')">YouTube</span>
+      <span class="chip" onclick="toggleChip(this,'gr')">LinkedIn</span>
+      <span class="chip" onclick="toggleChip(this,'gr')">Webinar</span>
+      <span class="chip" onclick="toggleChip(this,'gr')">Podcast</span>
+      <span class="chip" onclick="toggleChip(this,'gr')">Instagram</span>
+      <span class="chip" onclick="toggleChip(this,'gr')">TikTok</span>
+    </div>
+
+    <div class="row2" style="margin-top:16px">
+      <div>
+        <label class="lbl no-top" for="t-kompetitor">Kompetitor (opsional)</label>
+        <input class="inp inp-gr" id="t-kompetitor" placeholder="nama kompetitor, pisah koma">
+      </div>
+      <div>
+        <label class="lbl no-top" for="t-fokus">Area Fokus Saat Ini</label>
+        <input class="inp inp-gr" id="t-fokus" placeholder="topik yang sudah sering dibahas">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd" style="color:var(--green)"><span class="ti ti-database"></span>Input Data Tren (Paste dari Tool Riset)</div>
+
+    <div class="data-section" style="margin-top:0"><span class="ti ti-chart-line"></span>A. Google Trends / Exploding Topics</div>
+    <textarea class="inp inp-gr lg" id="t-gtrends" placeholder="Paste hasil export atau daftar topik yang sedang naik…"></textarea>
+
+    <div class="data-section"><span class="ti ti-brand-reddit"></span>B. Reddit — Thread & Pertanyaan Populer</div>
+    <textarea class="inp inp-gr" id="t-reddit" placeholder="Paste judul thread, upvote, dan subreddit sumber…"></textarea>
+
+    <div class="data-section"><span class="ti ti-brand-twitter"></span>C. X/Twitter — Tweet & Topik Viral</div>
+    <textarea class="inp inp-gr" id="t-twitter" placeholder="Paste tweet viral, hashtag trending, atau ringkasan dari Brandwatch…"></textarea>
+
+    <div class="data-section"><span class="ti ti-brand-linkedin"></span>D. LinkedIn — Postingan Engagement Tinggi</div>
+    <textarea class="inp inp-gr" id="t-linkedin" placeholder="Paste judul atau ringkasan postingan populer di industri ini…"></textarea>
+
+    <div class="data-section"><span class="ti ti-brand-youtube"></span>E. YouTube — Topik Video yang Sedang Naik</div>
+    <textarea class="inp inp-gr" id="t-youtube" placeholder="Paste judul video trending atau data dari TubeBuddy/VidIQ…"></textarea>
+
+    <div class="data-section"><span class="ti ti-news"></span>F. Berita & Publikasi Industri Terbaru</div>
+    <textarea class="inp inp-gr" id="t-berita" placeholder="Paste headline berita, nama publikasi, dan tanggal terbit…"></textarea>
+
+    <div class="data-section"><span class="ti ti-search"></span>G. Data SEO — Topik Pertumbuhan Traffic Cepat</div>
+    <textarea class="inp inp-gr" id="t-seo" placeholder="Paste keyword dari Ahrefs/Semrush dengan tren naik…"></textarea>
+
+    <div class="data-section"><span class="ti ti-building-bank"></span>H. Funding, Akuisisi, atau Peluncuran Produk</div>
+    <textarea class="inp inp-gr" id="t-funding" placeholder="Paste berita dari Crunchbase, TechCrunch, atau sumber sejenis…"></textarea>
+
+    <div class="data-section"><span class="ti ti-calendar-event"></span>I. Agenda Konferensi atau Event Industri</div>
+    <textarea class="inp inp-gr" id="t-event" placeholder="Paste daftar sesi/topik dari event yang relevan…"></textarea>
+
+    <div class="data-section"><span class="ti ti-dots-circle-horizontal"></span>J. Data Tambahan Lainnya (Opsional)</div>
+    <textarea class="inp inp-gr" id="t-lainnya" placeholder="Paste data dari sumber lain yang kamu anggap relevan…"></textarea>
+
+    <button class="gen-btn gen-gr" onclick="genTrend()"><span class="ti ti-sparkles"></span>Generate Prompt Analisis Trend</button>
+    <div class="out-wrap" id="out-trend">
+      <div class="out-top"><span class="out-label">Prompt Analisis Trend</span><div class="out-actions"><button class="cp-btn" onclick="copyOut('out-trend-txt')"><span class="ti ti-copy"></span>Copy</button></div></div>
+      <div class="out-body"><div class="out-text" id="out-trend-txt"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd" style="color:var(--green)"><span class="ti ti-bulb"></span>Panduan Penggunaan Prompt</div>
+    <div class="tip-grid">
+      <div class="tip-card tip-good"><h5>✓ Lakukan Ini</h5>Isi minimal 3–4 sumber data nyata sebelum generate. Semakin banyak data real, semakin tajam output tren yang diidentifikasi.</div>
+      <div class="tip-card tip-bad"><h5>✗ Hindari Ini</h5>Jangan generate tanpa data — prompt akan meminta konfirmasi bahwa Anda tidak memiliki data, dan hasilnya tidak bisa divalidasi.</div>
+      <div class="tip-card tip-note"><h5>💡 Tips Output</h5>Prompt ini meminta 15–30 topik, detail per topik, klaster tematik, dan 10 topik prioritas. Hasilnya adalah brief lengkap siap eksekusi tim konten.</div>
+      <div class="tip-card tip-warn"><h5>⚠ Batasan</h5>Prompt melarang AI menyebut volume pencarian dan melarang duplikasi topik. Jika data tidak cukup, AI akan terus terang bilang data kurang.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PANE 2: SOCIAL MEDIA ═══ -->
+<section id="pane-social" class="pane">
+
+  <div class="card">
+    <div class="card-hd" style="color:var(--orange)"><span class="ti ti-layout-list"></span>Pilih Jenis Prompt Social Media</div>
+    <div class="sub-nav" id="sub-social" role="tablist">
+      <button class="sub-btn a-or" data-sub="1" onclick="switchSub(1,this)" role="tab"><span class="ti ti-search"></span>1. Audit Akun</button>
+      <button class="sub-btn" data-sub="2" onclick="switchSub(2,this)" role="tab"><span class="ti ti-calendar-week"></span>2. Rencana 7 Hari</button>
+      <button class="sub-btn" data-sub="3" onclick="switchSub(3,this)" role="tab"><span class="ti ti-pencil"></span>3. Tulis Postingan</button>
+      <button class="sub-btn" data-sub="4" onclick="switchSub(4,this)" role="tab"><span class="ti ti-robot"></span>4. Sistem Otomatis</button>
+    </div>
+
+    <!-- Sub 1: Audit -->
+    <div id="sub-pane-1">
+      <p style="font-size:13px;color:var(--txt2);margin-bottom:14px;line-height:1.6">Buat prompt untuk audit mendalam akun Anda + analisis 5 kreator teratas di niche Anda.</p>
+      <div class="row2">
+        <div>
+          <label class="lbl no-top" for="s1-platform">Platform</label>
+          <select class="inp inp-or" id="s1-platform">
+            <option>Instagram</option><option>TikTok</option><option>LinkedIn</option>
+            <option>X/Twitter</option><option>YouTube</option><option>Facebook</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl no-top" for="s1-username">Username Akun</label>
+          <input class="inp inp-or" id="s1-username" placeholder="@username">
+        </div>
+      </div>
+      <label class="lbl" for="s1-niche">Niche / Industri</label>
+      <input class="inp inp-or" id="s1-niche" placeholder="Skincare, Finance, Kuliner, Edukasi…">
+      <label class="lbl" for="s1-tujuan">Tujuan Akun</label>
+      <select class="inp inp-or" id="s1-tujuan">
+        <option>Brand awareness & authority</option>
+        <option>Lead generation</option>
+        <option>Penjualan langsung</option>
+        <option>Komunitas & engagement</option>
+        <option>Personal branding</option>
+      </select>
+      <button class="gen-btn gen-or" onclick="genSocial(1)"><span class="ti ti-sparkles"></span>Generate Prompt Audit Akun</button>
+    </div>
+
+    <!-- Sub 2: Rencana 7 Hari -->
+    <div id="sub-pane-2" style="display:none">
+      <p style="font-size:13px;color:var(--txt2);margin-bottom:14px;line-height:1.6">Buat prompt untuk menyusun kalender konten 7 hari personal berdasarkan hasil audit.</p>
+      <div class="row3">
+        <div>
+          <label class="lbl no-top" for="s2-platform">Platform</label>
+          <select class="inp inp-or" id="s2-platform">
+            <option>Instagram</option><option>TikTok</option><option>LinkedIn</option>
+            <option>X/Twitter</option><option>YouTube</option><option>Facebook</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl no-top" for="s2-niche">Niche</label>
+          <input class="inp inp-or" id="s2-niche" placeholder="Niche Anda">
+        </div>
+        <div>
+          <label class="lbl no-top" for="s2-tone">Tone Konten</label>
+          <select class="inp inp-or" id="s2-tone">
+            <option>Kasual & Relatable</option>
+            <option>Profesional</option>
+            <option>Edukasi</option>
+            <option>Inspiratif</option>
+            <option>Humor</option>
+          </select>
+        </div>
+      </div>
+      <label class="lbl" for="s2-info">Info Tambahan (opsional)</label>
+      <textarea class="inp inp-or" id="s2-info" placeholder="Paste ringkasan hasil audit, atau deskripsi akun & kompetitor Anda…"></textarea>
+      <button class="gen-btn gen-or" onclick="genSocial(2)"><span class="ti ti-sparkles"></span>Generate Prompt Rencana 7 Hari</button>
+    </div>
+
+    <!-- Sub 3: Tulis Postingan -->
+    <div id="sub-pane-3" style="display:none">
+      <p style="font-size:13px;color:var(--txt2);margin-bottom:14px;line-height:1.6">Buat prompt untuk menulis 7 postingan lengkap + 2 cadangan (hook, isi, CTA, hashtag).</p>
+      <div class="row2">
+        <div>
+          <label class="lbl no-top" for="s3-platform">Platform</label>
+          <select class="inp inp-or" id="s3-platform">
+            <option>Instagram</option><option>TikTok</option><option>LinkedIn</option>
+            <option>X/Twitter</option><option>YouTube</option><option>Facebook</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl no-top" for="s3-niche">Niche</label>
+          <input class="inp inp-or" id="s3-niche" placeholder="Niche Anda">
+        </div>
+      </div>
+      <label class="lbl" for="s3-rencana">Ringkasan Rencana Konten (dari langkah 2)</label>
+      <textarea class="inp inp-or lg" id="s3-rencana" placeholder="Paste rencana konten 7 hari yang sudah dibuat AI, atau isi manual topik per hari…"></textarea>
+      <label class="lbl" for="s3-brand-voice">Brand Voice / Ciri Khas Akun</label>
+      <input class="inp inp-or" id="s3-brand-voice" placeholder="misal: bicara seperti teman, pakai analogi, sering pakai data…">
+      <button class="gen-btn gen-or" onclick="genSocial(3)"><span class="ti ti-sparkles"></span>Generate Prompt Tulis Postingan Lengkap</button>
+    </div>
+
+    <!-- Sub 4: Sistem Otomatis -->
+    <div id="sub-pane-4" style="display:none">
+      <p style="font-size:13px;color:var(--txt2);margin-bottom:14px;line-height:1.6">Buat prompt untuk membangun sistem konten otomatis 1-klik berbasis data akun & kompetitor.</p>
+      <div class="row2">
+        <div>
+          <label class="lbl no-top" for="s4-platform">Platform Utama</label>
+          <select class="inp inp-or" id="s4-platform">
+            <option>Instagram</option><option>TikTok</option><option>LinkedIn</option>
+            <option>X/Twitter</option><option>YouTube</option><option>Facebook</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl no-top" for="s4-niche">Niche</label>
+          <input class="inp inp-or" id="s4-niche" placeholder="Niche Anda">
+        </div>
+      </div>
+      <label class="lbl">Tool AI yang Tersedia</label>
+      <div class="chips" id="chips-aitools">
+        <span class="chip on-or" onclick="toggleChip(this,'or')">Midjourney</span>
+        <span class="chip" onclick="toggleChip(this,'or')">DALL-E</span>
+        <span class="chip" onclick="toggleChip(this,'or')">Canva AI</span>
+        <span class="chip" onclick="toggleChip(this,'or')">CapCut</span>
+        <span class="chip" onclick="toggleChip(this,'or')">Notion AI</span>
+        <span class="chip" onclick="toggleChip(this,'or')">Make/Zapier</span>
+      </div>
+      <label class="lbl" for="s4-target">Target Pertumbuhan</label>
+      <input class="inp inp-or" id="s4-target" placeholder="misal: +500 followers/bulan, 5% engagement rate…">
+      <button class="gen-btn gen-or" onclick="genSocial(4)"><span class="ti ti-sparkles"></span>Generate Prompt Sistem Otomatis</button>
+    </div>
+
+    <div class="out-wrap" id="out-social">
+      <div class="out-top"><span class="out-label">Prompt Social Media</span><div class="out-actions"><button class="cp-btn" onclick="copyOut('out-social-txt')"><span class="ti ti-copy"></span>Copy</button></div></div>
+      <div class="out-body"><div class="out-text" id="out-social-txt"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd" style="color:var(--orange)"><span class="ti ti-info-circle"></span>Tips Penggunaan 4-Tahap</div>
+    <div class="acc"><div class="acc-hd" onclick="toggleAcc(this)">Urutan optimal penggunaan prompt<span class="ti ti-chevron-down"></span></div><div class="acc-body">Ikuti urutan: (1) Audit Akun → (2) Rencana 7 Hari → (3) Tulis Postingan → (4) Sistem Otomatis. Hasil dari setiap tahap menjadi input tahap berikutnya. Paste output AI dari satu tahap ke field input tahap selanjutnya untuk hasil terbaik.</div></div>
+    <div class="acc"><div class="acc-hd" onclick="toggleAcc(this)">Hook yang efektif per platform<span class="ti ti-chevron-down"></span></div><div class="acc-body"><strong>Instagram:</strong> Hook 1–2 kalimat, pakai pertanyaan atau pernyataan mengejutkan. <strong>TikTok:</strong> Detik 0–2 krusial — pertanyaan, kontroversi ringan, atau janji hasil konkret. <strong>LinkedIn:</strong> Hindari "Excited to share..." — mulai dengan insig/data/cerita personal. <strong>YouTube:</strong> Hook 15 detik pertama harus jawab "mengapa harus nonton ini".</div></div>
+  </div>
+</section>
+
+<!-- ═══ PANE 3: NON-COMMODITY ═══ -->
+<section id="pane-noncom" class="pane">
+
+  <div class="card">
+    <div class="card-hd" style="color:var(--blue)"><span class="ti ti-diamond"></span>Pilih Tipe Non-Commodity Content</div>
+    <p style="font-size:13px;color:var(--txt2);margin-bottom:14px;line-height:1.6">Non-Commodity Content = konten yang tidak bisa dihasilkan AI tanpa pengalaman langsung, data original, atau keahlian spesifik Anda.</p>
+
+    <div class="type-grid" id="nc-types">
+      <div class="type-card sel-bl" data-type="1" onclick="selNcType(this)"><span class="ti ti-chart-bar"></span><div class="tc-lbl">Data Original</div><div class="tc-sub">Survei, riset, analisis mandiri</div></div>
+      <div class="type-card" data-type="2" onclick="selNcType(this)"><span class="ti ti-clock-hour-4"></span><div class="tc-lbl">Review Jangka Panjang</div><div class="tc-sub">Laporan jujur setelah pemakaian nyata</div></div>
+      <div class="type-card" data-type="3" onclick="selNcType(this)"><span class="ti ti-file-analytics"></span><div class="tc-lbl">Studi Kasus Nyata</div><div class="tc-sub">Angka riil proyek yang dikerjakan</div></div>
+      <div class="type-card" data-type="4" onclick="selNcType(this)"><span class="ti ti-tools"></span><div class="tc-lbl">Dokumentasi Proses</div><div class="tc-sub">Buka "dapur" cara kerja internal</div></div>
+      <div class="type-card" data-type="5" onclick="selNcType(this)"><span class="ti ti-git-compare"></span><div class="tc-lbl">Perbandingan Langsung</div><div class="tc-sub">A/B Test atau uji banding mandiri</div></div>
+      <div class="type-card" data-type="6" onclick="selNcType(this)"><span class="ti ti-mood-sad"></span><div class="tc-lbl">Analisis Kegagalan</div><div class="tc-sub">Post-mortem jujur & pelajaran</div></div>
+    </div>
+
+    <div id="nc-form-area">
+      <label class="lbl no-top" for="nc-topik">Topik / Produk / Proyek</label>
+      <input class="inp inp-bl" id="nc-topik" placeholder="misal: produk yang diuji, proyek yang dijalankan, eksperimen yang dilakukan…">
+
+      <label class="lbl" for="nc-bisnis">Konteks Bisnis / Industri</label>
+      <input class="inp inp-bl" id="nc-bisnis" placeholder="misal: toko Shopee fashion, agensi SEO, startup SaaS, blog kuliner…">
+
+      <label class="lbl" for="nc-data">Data / Pengalaman yang Anda Miliki</label>
+      <textarea class="inp inp-bl lg" id="nc-data" placeholder="Ceritakan data, angka, atau pengalaman nyata yang Anda miliki tentang topik ini. Semakin spesifik semakin baik.&#10;&#10;Contoh: Kami menganalisis 847 transaksi selama Q1, menguji produk selama 14 bulan, atau menghubungi 34 supplier sebelum memilih 2 terbaik…"></textarea>
+
+      <label class="lbl" for="nc-audiens">Target Pembaca</label>
+      <input class="inp inp-bl" id="nc-audiens" placeholder="misal: pemilik toko online, SEO specialist, founder startup…">
+
+      <label class="lbl" for="nc-platform">Platform Publish</label>
+      <select class="inp inp-bl" id="nc-platform">
+        <option value="blog / website">Blog / Website</option>
+        <option value="LinkedIn">LinkedIn</option>
+        <option value="newsletter email">Newsletter Email</option>
+        <option value="thread X/Twitter">Thread X/Twitter</option>
+        <option value="YouTube (script)">YouTube (Script)</option>
+        <option value="Medium">Medium</option>
+      </select>
+    </div>
+
+    <button class="gen-btn gen-bl" onclick="genNonCom()"><span class="ti ti-sparkles"></span>Generate Prompt Non-Commodity Content</button>
+    <div class="out-wrap" id="out-noncom">
+      <div class="out-top"><span class="out-label">Prompt Non-Commodity Content</span><div class="out-actions"><button class="cp-btn" onclick="copyOut('out-noncom-txt')"><span class="ti ti-copy"></span>Copy</button></div></div>
+      <div class="out-body"><div class="out-text" id="out-noncom-txt"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd" style="color:var(--blue)"><span class="ti ti-bulb"></span>Ujian 10 Detik Non-Commodity</div>
+    <div class="tip-grid">
+      <div class="tip-card tip-bad"><h5>❌ Commodity Content</h5>"7 Tips Hemat Uang" — siapapun dengan koneksi internet bisa menulis ini tanpa pengalaman nyata. Langsung gagal ujian 10 detik.</div>
+      <div class="tip-card tip-good"><h5>✅ Non-Commodity Content</h5>"Saya bangkrut di usia 32, ini yang saya lakukan berbeda di tahun ke-2 recovery" — hanya orang yang pernah mengalami yang bisa menulisnya.</div>
+      <div class="tip-card tip-note"><h5>💡 Formula: 7 Elemen</h5>Tindakan → Alasan → Proses → Masalah → Data → Hasil → Pelajaran. Gunakan ini sebagai kerangka untuk setiap konten yang Anda buat.</div>
+      <div class="tip-card tip-warn"><h5>⚠ Pesan Utama</h5>Jangan bersaing melawan AI dalam menyajikan informasi umum — AI pasti menang dalam kecepatan dan volume. Bersainglah di pengalaman nyata & data orisinal.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PANE 4: STRUKTUR SEO ═══ -->
+<section id="pane-seo" class="pane">
+
+  <div class="card">
+    <div class="card-hd" style="color:var(--purple)"><span class="ti ti-layout-navbar"></span>Konfigurasi Artikel</div>
+
+    <label class="lbl no-top" for="seo-topik">Topik Utama Artikel</label>
+    <input class="inp inp-pu" id="seo-topik" placeholder="misal: cara memilih supplier fashion Tanah Abang untuk pemula…">
+
+    <div class="row2">
+      <div>
+        <label class="lbl" for="seo-format">Format Artikel</label>
+        <select class="inp inp-pu" id="seo-format">
+          <option value="definisi">Definisi (Apa Itu...)</option>
+          <option value="panduan langkah">Panduan Langkah (How-To)</option>
+          <option value="listicle">Listicle / Daftar</option>
+          <option value="perbandingan tabel">Perbandingan (Tabel)</option>
+          <option value="FAQ tanya jawab">FAQ (Tanya Jawab)</option>
+          <option value="studi kasus">Studi Kasus</option>
+          <option value="ulasan mendalam">Ulasan Mendalam</option>
+        </select>
+      </div>
+      <div>
+        <label class="lbl" for="seo-panjang">Panjang Artikel Target</label>
+        <select class="inp inp-pu" id="seo-panjang">
+          <option value="1000–1500 kata">1.000–1.500 kata (fokus, ringkas)</option>
+          <option value="1500–2500 kata">1.500–2.500 kata (standar)</option>
+          <option value="2500–4000 kata">2.500–4.000 kata (komprehensif)</option>
+          <option value="4000+ kata">4.000+ kata (pillar content)</option>
+        </select>
+      </div>
+    </div>
+
+    <label class="lbl" for="seo-audiens">Target Pembaca</label>
+    <input class="inp inp-pu" id="seo-audiens" placeholder="misal: pemula yang baru mulai bisnis online, manajer pemasaran B2B…">
+
+    <label class="lbl" for="seo-konteks">Konteks / Angle Unik</label>
+    <textarea class="inp inp-pu" id="seo-konteks" placeholder="Apa yang membuat artikel ini berbeda? misal: berdasarkan pengalaman 5 tahun, analisis 50 akun, atau data survei internal…"></textarea>
+
+    <label class="lbl">Elemen Struktur yang Dibutuhkan</label>
+    <div class="chips" id="chips-seo">
+      <span class="chip on-pu" onclick="toggleChip(this,'pu')">H1 → H2 → H3 Hierarki</span>
+      <span class="chip on-pu" onclick="toggleChip(this,'pu')">Intro dengan Hook</span>
+      <span class="chip on-pu" onclick="toggleChip(this,'pu')">FAQ Section</span>
+      <span class="chip" onclick="toggleChip(this,'pu')">Tabel Perbandingan</span>
+      <span class="chip on-pu" onclick="toggleChip(this,'pu')">Kesimpulan + CTA</span>
+      <span class="chip" onclick="toggleChip(this,'pu')">Schema FAQ</span>
+      <span class="chip" onclick="toggleChip(this,'pu')">Internal Link Suggestions</span>
+      <span class="chip" onclick="toggleChip(this,'pu')">Meta Description</span>
+    </div>
+
+    <label class="lbl" for="seo-tone">Tone Penulisan</label>
+    <select class="inp inp-pu" id="seo-tone">
+      <option>Informatif & Edukatif</option>
+      <option>Conversational & Relatable</option>
+      <option>Profesional & Otoritatif</option>
+      <option>Storytelling & Naratif</option>
+    </select>
+
+    <button class="gen-btn gen-pu" onclick="genSEO()"><span class="ti ti-sparkles"></span>Generate Prompt Struktur Artikel SEO</button>
+    <div class="out-wrap" id="out-seo">
+      <div class="out-top"><span class="out-label">Prompt Struktur Artikel SEO</span><div class="out-actions"><button class="cp-btn" onclick="copyOut('out-seo-txt')"><span class="ti ti-copy"></span>Copy</button></div></div>
+      <div class="out-body"><div class="out-text" id="out-seo-txt"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd" style="color:var(--purple)"><span class="ti ti-git-branch"></span>Prinsip Information Architecture</div>
+
+    <div class="formula-strip">
+      <span class="fs-1">H1 = 1 per artikel</span>
+      <span class="fs-2">H2 = Topik utama</span>
+      <span class="fs-3">H3 = Sub-topik</span>
+      <span class="fs-4">Paragraf = 2–4 kalimat</span>
+      <span class="fs-5">1 ide = 1 paragraf</span>
+      <span class="fs-6">List = hanya jika relevan</span>
+      <span class="fs-7">Tabel = untuk komparasi</span>
+    </div>
+
+    <div class="seo-tier">
+      <div class="seo-tier-hd"><span class="ti ti-x ti-x" style="color:#C04030"></span>Dosa #1: Heading Jadi Tempat Sampah Keyword</div>
+      <div class="seo-tier-body">Membuat banyak H2 dengan variasi keyword yang maknanya sama (Jasa SEO Murah / Jasa SEO Profesional / Jasa SEO Terbaik) bukan struktur — itu spam. Google sudah cukup pintar untuk mengetahuinya.</div>
+    </div>
+    <div class="seo-tier">
+      <div class="seo-tier-hd"><span class="ti ti-x" style="color:#C04030"></span>Dosa #2: Tembok Ratapan (Wall of Text)</div>
+      <div class="seo-tier-body">5000 kata tanpa pemisah, tanpa heading, tanpa list. Manusia pusing bacanya. AI juga kebingungan nentuin bagian mana yang menjawab pertanyaan spesifik, lalu skip website Anda.</div>
+    </div>
+    <div class="seo-tier">
+      <div class="seo-tier-hd"><span class="ti ti-check" style="color:var(--green)"></span>Menu Favorit AI Overview</div>
+      <div class="seo-tier-body">AI suka konten dengan struktur: <strong>Definisi jelas</strong> → <strong>Langkah-langkah</strong> → <strong>Daftar terstruktur</strong> → <strong>Perbandingan tabel</strong> → <strong>FAQ</strong>. Jika H2 Anda jelas, AI tinggal copas jawaban ke posisi paling atas pencarian.</div>
+    </div>
+
+    <div class="acc" style="margin-top:10px"><div class="acc-hd" onclick="toggleAcc(this)">Artikel menang di era AI: bukan yang paling banyak keyword<span class="ti ti-chevron-down"></span></div><div class="acc-body">Artikel yang menang hari ini bukan yang paling banyak keyword-nya, tapi yang strukturnya paling rapi. AI tidak baca kayak manusia — dia memindai halaman untuk mencari node informasi. H1 memberi konteks, H2 membagi wilayah, H3 mempersempit. Kalau berantakan, AI langsung skip website Anda.</div></div>
+  </div>
+</section>
+
+</div><!-- /app -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="ti ti-check"></span><span id="toast-msg">Prompt disalin ke clipboard!</span></div>
+
+<footer class="footer">
+  <div style="max-width:880px;margin:0 auto;padding:0 14px">
+    Prompt Generator Hub — berdasarkan framework Trend Analysis, Social Media Strategy, Non-Commodity Content & Information Architecture SEO
+  </div>
+</footer>
+
+<script>
+/* ─── STATE ── */
+let lang = 'id';
+let ncTypeSelected = 1;
+let socialSubActive = 1;
+
+/* ─── TAB SWITCH ── */
+function switchTab(id, el) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.className = 'tab-btn');
+  document.getElementById('pane-' + id).classList.add('active');
+  const cls = {trend:'t-gr', social:'t-or', noncom:'t-bl', seo:'t-pu'};
+  el.className = 'tab-btn ' + cls[id];
+}
+
+/* ─── LANG ── */
+function setLang(l) {
+  lang = l;
+  document.getElementById('lang-id').className = 'lang-btn' + (l === 'id' ? ' on' : '');
+  document.getElementById('lang-en').className = 'lang-btn' + (l === 'en' ? ' on' : '');
+}
+
+/* ─── SOCIAL SUB TABS ── */
+function switchSub(n, el) {
+  socialSubActive = n;
+  for (let i = 1; i <= 4; i++) {
+    const p = document.getElementById('sub-pane-' + i);
+    if (p) p.style.display = (i === n) ? 'block' : 'none';
+  }
+  document.querySelectorAll('#sub-social .sub-btn').forEach(b => b.className = 'sub-btn');
+  el.className = 'sub-btn a-or';
+  document.getElementById('out-social').className = 'out-wrap';
+}
+
+/* ─── ACCORDION ── */
+function toggleAcc(hd) {
+  hd.classList.toggle('open');
+  const body = hd.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+/* ─── CHIP TOGGLE ── */
+function toggleChip(el, color) {
+  el.classList.toggle('on-' + color);
+}
+
+/* ─── NC TYPE SELECT ── */
+function selNcType(el) {
+  document.querySelectorAll('#nc-types .type-card').forEach(c => {
+    c.className = 'type-card';
+  });
+  el.classList.add('sel-bl');
+  ncTypeSelected = parseInt(el.dataset.type);
+}
+
+/* ─── GET ACTIVE CHIPS ── */
+function getChips(containerId) {
+  const chips = [];
+  document.querySelectorAll('#' + containerId + ' .chip').forEach(c => {
+    if (c.className.includes('on-')) chips.push(c.textContent.trim());
+  });
+  return chips.join(', ') || 'Tidak dipilih';
+}
+
+/* ─── COPY OUTPUT ── */
+function copyOut(id) {
+  const txt = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(txt).then(() => showToast('Prompt berhasil disalin ke clipboard!'));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function showOut(outId, txt) {
+  const w = document.getElementById(outId);
+  const tx = document.getElementById(outId.replace('out-', 'out-') + '-txt');
+  tx.textContent = txt;
+  w.className = 'out-wrap show';
+  w.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ─── TRIM HELPER ── */
+function v(id) { return (document.getElementById(id)?.value || '').trim(); }
+function vc(id) { const el = document.getElementById(id); return el ? el.textContent.trim() : ''; }
+
+/* ═══ GENERATOR: TREND ═══ */
+function genTrend() {
+  const industri = v('t-industri') || '[ISI INDUSTRI]';
+  const audiens = v('t-audiens') || '[ISI PERSONA/JABATAN/SEGMEN]';
+  const lokasi = v('t-lokasi') || 'global';
+  const durasi = v('t-durasi');
+  const tujuan = v('t-tujuan');
+  const format = getChips('chips-format');
+  const kompetitor = v('t-kompetitor') || '[Tidak diisi]';
+  const fokus = v('t-fokus') || '[Tidak diisi]';
+
+  const sections = [
+    ['A. Google Trends / Exploding Topics', v('t-gtrends')],
+    ['B. Reddit — Thread & pertanyaan populer', v('t-reddit')],
+    ['C. X/Twitter — Tweet & topik viral', v('t-twitter')],
+    ['D. LinkedIn — Postingan dengan engagement tinggi', v('t-linkedin')],
+    ['E. YouTube — Topik video yang sedang naik', v('t-youtube')],
+    ['F. Berita & publikasi industri terbaru', v('t-berita')],
+    ['G. Data SEO — Topik dengan pertumbuhan traffic cepat', v('t-seo')],
+    ['H. Funding, akuisisi, atau peluncuran produk terbaru', v('t-funding')],
+    ['I. Agenda konferensi atau event industri terbaru', v('t-event')],
+    ['J. Data tambahan lainnya', v('t-lainnya')],
+  ];
+
+  const dataSections = sections.map(([label, content]) =>
+    `### ${label}\n${content || '[Tidak diisi — lewati bagian ini]'}`
+  ).join('\n\n');
+
+  const isEn = lang === 'en';
+
+  let prompt;
+  if (isEn) {
+    prompt = `You are a trends analyst and content strategist. Your job is to identify emerging and accelerating topics within a specific industry, then translate them into actionable content opportunities.
+
+## Inputs
+
+Industry: ${industri}
+Target audience (ICP): ${audiens}
+Geo: ${lokasi}
+Time window: ${durasi}
+Primary goal: ${tujuan}
+Content formats we publish: ${format}
+Competitors to compare against: ${kompetitor}
+Our current focus areas: ${fokus}
+
+## Raw Trend Data
+
+${dataSections}
+
+## Tasks
+
+**Task 1 — Identify 15–30 Trending Topics**
+Based only on the real data above, identify topics that are trending in this industry. Include both "obvious" trends and "quiet" trends that are rising but not mainstream yet. Prefer topics that indicate a change in behavior, budgets, tooling, regulation, or buyer expectations. Exclude generic evergreen topics unless there is a clear new angle. If a topic cannot be confirmed from the provided data, mark it as "watchlist" and explain what signal would confirm it.
+
+**Task 2 — Detail Each Topic**
+For each topic, provide a table with:
+| Topic label | What changed recently (1–2 sentences) | Why it matters (business impact) | Who cares most (roles) | Trend signals (choose 2–4) | Trend strength score (0–10) | Opportunity type (choose 1–2) | 3 non-obvious content angles | 5 long-tail queries phrased like a real person |
+
+Trend signals to choose from: product launches, policy/regulatory updates, viral posts, funding/M&A, layoffs/hiring, new standards, platform algorithm changes, creator chatter, conference agendas, GitHub activity, search behavior shifts, ads/campaign shifts, tool adoption, community Q&A volume.
+
+Opportunity types: thought leadership, how-to, comparison, template/checklist, case study, data study, tool page, webinar.
+
+**Task 3 — Cluster into 5–8 Thematic Groups**
+Group all topics into 5–8 clusters. Name each cluster like a hub page title that could be used directly as content architecture.
+
+**Task 4 — Top 10 Priority Topics**
+Select the top 10 topics to act on first. Explain each selection using: urgency, buyer intent, novelty, competitive gap, and alignment with our goal.
+
+## Guardrails
+- Do NOT mention search volume.
+- Avoid buzzword soup and vague trends — every topic must be specific enough that a content team could execute immediately without further clarification.
+- If data does not support a topic, mark it "watchlist" and explain what confirmation signal is needed — do not fabricate trends.
+- Do not duplicate topics by rephrasing — every topic must be substantively different.
+- If the provided data is insufficient to generate 15 valid topics, say so clearly and explain what additional data is needed.
+
+## Output Format (strict)
+Return:
+A) A complete table with all 15–30 topics and all columns from Task 2.
+B) A clustered "Topical Map" section with 5–8 clusters.
+C) A prioritized Top 10 list with short rationale per topic using the five dimensions from Task 4.`;
+
+  } else {
+    prompt = `Anda adalah analis tren dan content strategist. Tugas Anda adalah mengidentifikasi topik-topik yang sedang tumbuh dan mempercepat di industri tertentu, lalu menerjemahkannya menjadi peluang konten yang dapat langsung dieksekusi.
+
+## Input
+
+Industri: ${industri}
+Target audiens: ${audiens}
+Lokasi geografis: ${lokasi}
+Durasi waktu: ${durasi}
+Tujuan utama konten: ${tujuan}
+Format konten kami: ${format}
+Kompetitor: ${kompetitor}
+Area fokus saat ini: ${fokus}
+
+## Data Tren yang Tersedia
+
+${dataSections}
+
+## Tugas
+
+**Tugas 1 — Identifikasi 15–30 Topik yang Sedang Tren**
+Berdasarkan data nyata di atas, identifikasi topik-topik yang sedang tren dalam industri yang diberikan. Sertakan topik yang sudah ramai dibicarakan maupun topik yang baru mulai naik namun belum mainstream. Prioritaskan topik yang mencerminkan perubahan nyata: perilaku pembeli, alokasi anggaran, tooling baru, regulasi, atau ekspektasi pasar. Singkirkan topik evergreen generik kecuali ada sudut pandang baru yang jelas. Jika sebuah topik tidak dapat dikonfirmasi dari data yang diberikan, tandai sebagai "watchlist" dan jelaskan sinyal apa yang diperlukan untuk konfirmasi.
+
+**Tugas 2 — Detail Setiap Topik**
+Untuk setiap topik, sediakan tabel dengan kolom:
+| Label topik | Apa yang berubah (1–2 kalimat) | Mengapa penting (dampak bisnis) | Siapa yang paling peduli (jabatan/segmen) | Sinyal tren (pilih 2–4) | Skor kekuatan tren (0–10) | Jenis peluang konten (pilih 1–2) | 3 sudut konten tidak biasa | 5 pertanyaan long-tail cara orang nyata bertanya |
+
+Sinyal tren yang dapat dipilih: peluncuran produk, pembaruan regulasi, postingan viral, funding/M&A, PHK/rekrutmen, standar baru, perubahan algoritma platform, percakapan kreator, agenda konferensi, aktivitas GitHub, perubahan perilaku pencarian, pergeseran iklan/kampanye, adopsi tool, volume Q&A komunitas.
+
+Jenis peluang konten: thought leadership, cara/panduan, perbandingan, template/checklist, studi kasus, studi data, halaman tool, webinar.
+
+**Tugas 3 — Kelompokkan ke dalam 5–8 Klaster Topik**
+Susun semua topik ke dalam 5–8 klaster tematik. Beri nama setiap klaster seperti judul hub page yang bisa langsung dipakai sebagai arsitektur konten.
+
+**Tugas 4 — Pilih 10 Topik Prioritas**
+Pilih 10 topik terbaik untuk dikerjakan terlebih dahulu. Jelaskan alasan pemilihan berdasarkan lima dimensi: urgensi, intensi pembeli, kebaruan, celah kompetitif, dan keselarasan tujuan.
+
+## Batasan Wajib
+- Jangan sebutkan volume pencarian.
+- Jangan gunakan istilah buzzword yang kosong makna — setiap topik harus cukup spesifik agar tim konten bisa langsung eksekusi tanpa klarifikasi tambahan.
+- Jika tidak ada data yang mendukung suatu topik, tandai sebagai "watchlist" dan jelaskan sinyal konfirmasi yang dibutuhkan — jangan mengarang tren.
+- Jangan duplikasi topik dengan mengubah frasa saja — setiap topik harus benar-benar berbeda secara substansi.
+- Jika data yang diberikan tidak mencukupi untuk menghasilkan 15 topik yang valid, katakan terus terang dan jelaskan data tambahan apa yang diperlukan.
+
+## Format Output (Wajib Diikuti)
+Kembalikan:
+A) Tabel Lengkap — 15–30 topik dengan semua kolom dari Tugas 2.
+B) Peta Topik Terklaster — 5–8 klaster dengan nama hub page dan daftar topik di dalamnya.
+C) Daftar Prioritas Top 10 — urutan berdasarkan skor prioritas gabungan, dengan rationale singkat per topik menggunakan lima dimensi dari Tugas 4.`;
+  }
+
+  showOut('out-trend', prompt);
+}
+
+/* ═══ GENERATOR: SOCIAL MEDIA ═══ */
+function genSocial(sub) {
+  let prompt = '';
+
+  if (sub === 1) {
+    const platform = v('s1-platform');
+    const username = v('s1-username') || '@username';
+    const niche = v('s1-niche') || '[niche Anda]';
+    const tujuan = v('s1-tujuan');
+
+    prompt = `Analisis akun ${platform} saya dengan username ${username}. Lakukan hal berikut secara menyeluruh:
+
+**A. Audit Akun Saya:**
+— Identifikasi 10 postingan dengan performa terbaik berdasarkan jangkauan, simpanan, dan berbagi
+— Temukan pola hook yang sering saya gunakan
+— Analisis format konten yang paling efektif (video, carousel, gambar, teks)
+— Identifikasi waktu posting optimal berdasarkan data engagement
+— Buat profil audiens utama saya berdasarkan pola interaksi
+
+**B. Analisis 5 Kreator Teratas di Niche Saya:**
+Niche: ${niche}
+— Scrape dan analisis konten viral mereka (konten dengan engagement tertinggi 30 hari terakhir)
+— Identifikasi struktur hook yang mereka gunakan dan apa yang membuatnya efektif
+— Analisis pola call-to-action dan segmen audiens yang mereka targetkan
+— Temukan celah konten yang belum mereka isi (topik, angle, atau format yang belum dieksplor)
+
+**C. Analisis Competitive Positioning:**
+— Di mana posisi akun saya dibandingkan 5 kreator tersebut?
+— Apa kelemahan kompetitor yang bisa menjadi peluang saya?
+— Apa kekuatan unik akun saya yang perlu diperkuat?
+
+**Tujuan Akun:** ${tujuan}
+
+**Output yang Diharapkan:**
+Buat laporan lengkap dalam format terstruktur yang mencakup:
+1. Ringkasan audit akun (temuan utama, pola sukses, area perbaikan)
+2. Analisis kompetitor per kreator (hook pattern, CTA style, content gap)
+3. Content gap matrix — peluang topik yang belum dikerjakan kompetitor
+4. Rekomendasi strategis 30 hari ke depan dengan prioritas tinggi–sedang–rendah
+5. 3 "quick win" yang bisa langsung dieksekusi minggu ini`;
+
+  } else if (sub === 2) {
+    const platform = v('s2-platform');
+    const niche = v('s2-niche') || '[niche Anda]';
+    const tone = v('s2-tone');
+    const info = v('s2-info');
+
+    prompt = `Berdasarkan ${info ? 'laporan analisis akun dan kompetitor berikut' : 'profil akun dan konteks niche'} yang sudah dibuat, susun rencana konten 7 hari yang dipersonalisasi untuk platform ${platform}.
+
+${info ? `**Konteks / Ringkasan Audit:**\n${info}\n` : ''}
+**Niche:** ${niche}
+**Tone Konten:** ${tone}
+
+**Ketentuan Rencana:**
+— Satu postingan per hari dengan potensi viral maksimal
+— Gunakan pola konten terbaik yang sudah terbukti performa tinggi di akun ini
+— Adaptasi hook terkuat dari kompetitor, bukan meniru — ciptakan versi yang lebih original
+— Prioritaskan kualitas dan dampak, bukan volume
+— Setiap hari harus memiliki angle berbeda agar tidak monoton
+— Campurkan format: minimal 2 tipe berbeda dalam 7 hari
+
+**Format Output untuk Setiap Hari (Hari 1–7):**
+— Hari ke berapa dan tanggal (mulai Senin)
+— Jenis postingan: reel / carousel / foto / teks / thread
+— Topik spesifik dan angle yang digunakan
+— Hook pembuka (1–2 kalimat pertama)
+— Waktu terbaik untuk posting (dengan alasan data-driven)
+— Alasan mengapa konten ini berpotensi viral (kaitkan dengan pola yang terbukti)
+— Format visual yang disarankan
+
+**Tambahan:**
+Sertakan 1 "backup idea" per hari jika topik utama tidak relevan di hari tersebut.`;
+
+  } else if (sub === 3) {
+    const platform = v('s3-platform');
+    const niche = v('s3-niche') || '[niche Anda]';
+    const rencana = v('s3-rencana');
+    const brandVoice = v('s3-brand-voice') || 'natural dan relatable';
+
+    prompt = `Sekarang tulis 7 postingan lengkap sesuai rencana konten yang sudah dibuat, ditambah 2 postingan cadangan untuk platform ${platform}.
+
+**Niche:** ${niche}
+**Brand Voice / Ciri Khas:** ${brandVoice}
+${rencana ? `\n**Rencana Konten:**\n${rencana}\n` : ''}
+
+**Setiap postingan HARUS mengandung elemen berikut:**
+
+**HOOK:**
+Kalimat pertama yang memaksa orang berhenti scroll. Gunakan pola dari konten berperforma terbaik di akun ini. Pilih salah satu tipe: pertanyaan provokatif, fakta mengejutkan, pernyataan kontroversial (tapi berdasar), atau "yang tidak pernah diberitahu orang lain tentang [topik]".
+
+**ISI:**
+Nilai nyata, cerita relatable, atau bukti sosial yang membangun kepercayaan. Hindari wall of text — gunakan baris kosong, bullet point, atau numbering untuk keterbacaan. Panjang ideal: 150–300 kata untuk feed Instagram, 100–200 kata untuk LinkedIn.
+
+**CALL-TO-ACTION:**
+Ajakan yang spesifik dan relevan dengan tujuan konten (bukan hanya "like dan follow"). Pilih: ajak komentar dengan pertanyaan spesifik, ajak simpan, minta share ke teman yang relevan, atau arahkan ke link bio.
+
+**HASHTAG:**
+Kombinasi 3 tier: 3–4 hashtag besar (>1M post), 4–5 hashtag menengah (100K–1M), 3–4 hashtag niche (<100K). Total 10–15 hashtag.
+
+**LABEL SETIAP POSTINGAN:**
+[Postingan 1/9] Hari ke-1 | Format: [reel/carousel/foto/teks] | Topik: [...]
+
+Tulis semua 9 postingan (7 utama + 2 cadangan). Optimalkan setiap postingan untuk memaksimalkan jangkauan organik, simpanan, dan berbagi.`;
+
+  } else if (sub === 4) {
+    const platform = v('s4-platform');
+    const niche = v('s4-niche') || '[niche Anda]';
+    const aiTools = getChips('chips-aitools');
+    const target = v('s4-target') || 'pertumbuhan konsisten';
+
+    prompt = `Bangun sistem konten otomatis berbasis data akun dan kompetitor untuk platform ${platform}, niche ${niche}.
+
+**Tool AI yang Tersedia:** ${aiTools}
+**Target Pertumbuhan:** ${target}
+
+Sistem ini harus bisa dijalankan dengan satu klik tanpa keahlian teknis mendalam.
+
+**Sistem harus mampu:**
+
+1. **Ide Generator Otomatis**
+   Buat template prompt yang menghasilkan 10 ide reel/postingan bertensi tinggi secara otomatis berdasarkan: tren terkini di niche, pola konten terbaik kompetitor, dan celah yang belum diisi.
+
+2. **Image Prompt Generator**
+   Template prompt gambar AI siap pakai untuk Midjourney, DALL-E, atau Canva AI — disesuaikan dengan estetika dan tone akun di platform ${platform}.
+
+3. **Caption & Hashtag Generator**
+   Template all-in-one yang menghasilkan hook + isi + CTA + hashtag dalam satu proses. Input minimal: topik dan angle. Output: caption siap post.
+
+4. **Workflow 1-Klik**
+   Susun semua template dalam alur kerja terstruktur berbasis langkah yang bisa dijalankan oleh siapapun dalam tim tanpa penjelasan teknis tambahan. Gunakan format yang jelas: [LANGKAH 1] → [LANGKAH 2] → [LANGKAH 3] dst.
+
+5. **Kalender Eksekusi Mingguan**
+   Template kalender 1 minggu yang menentukan: hari & waktu posting, jenis konten, tema harian, dan metrik sukses yang dipantau.
+
+**Output yang Diharapkan:**
+A) Template sistem lengkap (semua 5 komponen di atas)
+B) Instruksi penggunaan step-by-step (bisa dibaca oleh siapapun)
+C) Contoh siklus 1 minggu yang sudah terisi — bisa langsung dijalankan besok
+D) Daftar metrik yang dipantau harian, mingguan, dan bulanan`;
+  }
+
+  showOut('out-social', prompt);
+}
+
+/* ═══ GENERATOR: NON-COMMODITY ═══ */
+function genNonCom() {
+  const topik = v('nc-topik') || '[topik Anda]';
+  const bisnis = v('nc-bisnis') || '[konteks bisnis Anda]';
+  const data = v('nc-data') || '[pengalaman/data yang Anda miliki]';
+  const audiens = v('nc-audiens') || '[target pembaca]';
+  const platform = v('nc-platform');
+
+  const typeLabels = {
+    1: 'Data Original yang Dikumpulkan Sendiri',
+    2: 'Review Nyata Jangka Panjang',
+    3: 'Case Study dengan Angka Riil Proyek',
+    4: 'Dokumentasi Proses Internal (Behind the Scenes)',
+    5: 'Perbandingan Langsung / Uji Banding Mandiri',
+    6: 'Analisis Kegagalan (Post-Mortem)',
+  };
+
+  const typePrompts = {
+    1: `Anda memiliki data original yang dikumpulkan sendiri tentang ${topik}. Data ini tidak bisa dihasilkan oleh siapapun tanpa melakukan pengukuran, survei, atau pencatatan langsung seperti yang Anda lakukan.
+
+**Data/Pengalaman yang Tersedia:**
+${data}
+
+**Konteks Bisnis:** ${bisnis}
+
+Tugas Anda:
+Bantu saya mengubah data mentah ini menjadi artikel non-commodity yang bernilai tinggi untuk platform ${platform}. Format artikel harus:
+
+1. **Opening yang menetapkan otoritas data:** Sebutkan secara spesifik "Kami menganalisis [angka] [objek] selama [periode]" — bukan mengutip sumber umum.
+2. **Temuan yang mengejutkan atau berlawanan asumsi umum:** Highlight 3 insight terkuat yang tidak akan ditemukan di artikel lain.
+3. **Breakdown data yang detail:** Tabel, angka, persentase — bukan perkiraan. Setiap klaim harus punya angka di belakangnya.
+4. **Implikasi praktis:** Apa artinya temuan ini bagi ${audiens}? Apa yang harus mereka ubah hari ini?
+5. **Metodologi transparan:** Jelaskan bagaimana data dikumpulkan, apa batasannya, dan mengapa data ini valid.
+
+**Gaya penulisan:** Berbicara langsung kepada ${audiens} dengan tone yang menetapkan bahwa data ini 100% berasal dari pengalaman dan pengukuran langsung — bukan dari referensi sekunder.`,
+
+    2: `Anda memiliki pengalaman nyata menggunakan/menguji ${topik} dalam jangka panjang. Ini bukan unboxing atau komparasi spesifikasi kertas — ini laporan jujur setelah berbulan-bulan pemakaian aktif.
+
+**Pengalaman/Data yang Tersedia:**
+${data}
+
+**Konteks:** ${bisnis}
+
+Tugas Anda:
+Bantu saya menulis review jangka panjang yang benar-benar non-commodity untuk platform ${platform}. Review harus:
+
+1. **Timeline perjalanan:** Bagi pengalaman per periode waktu (Bulan 1–2, Bulan 3–5, dst). Setiap periode harus punya temuan spesifik — bukan kesan umum.
+2. **Kejujuran radikal:** Sebutkan semua yang tidak bekerja, biaya tersembunyi, masalah yang muncul, dan hal yang tidak disebutkan review YouTube. Ini yang membedakan dari konten commodity.
+3. **Angka dan fakta konkret:** Biaya total, frekuensi masalah, persentase perbaikan, durasi pemakaian per hari — semua harus ada angkanya.
+4. **Konteks spesifik:** Review harus mencerminkan kondisi spesifik pemakai (ukuran ruangan, jenis bisnis, jumlah pengguna, dll) — bukan klaim universal.
+5. **Verdict akhir:** Untuk siapa produk/metode ini benar-benar cocok? Untuk siapa sebaiknya dihindari? Berikan recommendation yang jujur, bukan netral.
+
+**Target pembaca:** ${audiens}`,
+
+    3: `Anda memiliki studi kasus nyata dengan angka riil dari proyek yang benar-benar dikerjakan. Bukan template "cara melakukan" yang generik, melainkan laporan empiris dari apa yang Anda kerjakan sendiri.
+
+**Data/Angka Riil yang Tersedia:**
+${data}
+
+**Konteks Proyek:** ${bisnis}
+
+Tugas Anda:
+Bantu saya menulis studi kasus non-commodity untuk platform ${platform}. Struktur yang harus diikuti:
+
+1. **Situasi Awal (Baseline):** Angka/kondisi sebelum intervensi. Spesifik — jangan "performa buruk", tapi "traffic 800/bulan, bounce rate 78%, 0 artikel di AI Overview".
+2. **Tantangan Spesifik:** Apa masalah nyata yang ditemukan? Mengapa solusi generik tidak cukup?
+3. **Strategi yang Diambil:** Apa keputusan spesifik yang dibuat dan mengapa? Termasuk yang gagal — ini penting untuk kredibilitas.
+4. **Proses Eksekusi:** Timeline, langkah-langkah konkret, alat yang digunakan, siapa yang terlibat.
+5. **Hasil Terukur:** Angka akhir yang dapat diverifikasi. Perubahan persentase, nilai absolut, waktu yang dibutuhkan.
+6. **Pelajaran Tidak Terduga:** Apa yang mengejutkan? Apa yang tidak bekerja sesuai ekspektasi? Apa yang akan dilakukan berbeda?
+
+**Target pembaca:** ${audiens}
+**Catatan penting:** Sertakan bagian "Apa yang gagal / tidak bekerja" — ini yang membedakan studi kasus nyata dari konten promosi.`,
+
+    4: `Anda ingin mendokumentasikan proses internal yang biasanya tersembunyi — cara kerja "dapur" bisnis Anda yang tidak pernah diperlihatkan ke publik.
+
+**Proses yang Akan Didokumentasikan:**
+${data}
+
+**Konteks Bisnis:** ${bisnis}
+
+Tugas Anda:
+Bantu saya membuat konten behind-the-scenes / dokumentasi proses yang benar-benar non-commodity untuk platform ${platform}. Konten harus:
+
+1. **Pembukaan dengan konteks nyata:** Berapa lama proses ini dilakukan? Berapa banyak iterasi yang sudah dicoba? Apa yang berubah dari versi awal ke sekarang?
+2. **Detail yang biasanya disembunyikan:** Template pesan internal, daftar pertanyaan yang digunakan, red flags yang dicari, tolok ukur keputusan — detail yang tidak akan ditemukan di artikel panduan umum.
+3. **Alasan di balik setiap langkah:** Mengapa melakukan ini, bukan itu? Apa yang pernah dicoba dan gagal sebelum menemukan cara ini?
+4. **Angka dan benchmarks:** Berapa lama setiap tahap? Berapa biayanya? Berapa tingkat keberhasilan?
+5. **Resource yang bisa langsung dipakai:** Template, checklist, atau framework yang bisa langsung diadopsi pembaca.
+
+**Target pembaca:** ${audiens}
+**Tone:** Transparan dan jujur — seperti berbicara kepada kolega, bukan audiens umum.`,
+
+    5: `Anda telah melakukan uji banding mandiri / A/B test langsung antara dua atau lebih opsi. Ini bukan komparasi spesifikasi atau review dari sumber sekunder — ini hasil eksperimen yang Anda lakukan sendiri.
+
+**Eksperimen yang Dilakukan:**
+${data}
+
+**Konteks:** ${bisnis}
+
+Tugas Anda:
+Bantu saya menulis hasil perbandingan langsung yang benar-benar non-commodity untuk platform ${platform}. Konten harus:
+
+1. **Setup eksperimen yang jelas:** Apa yang dibandingkan, kondisi pengujian, durasi, skala (berapa sampel/transaksi/pengguna), dan bagaimana kontrol dijaga agar adil.
+2. **Metodologi transparan:** Apa yang diukur? Mengapa metrik ini dipilih? Apa potensi bias dalam eksperimen ini?
+3. **Hasil per metrik:** Tabel perbandingan dengan angka absolut dan persentase perbedaan. Jangan hanya sebutkan "yang menang" — tunjukkan selisihnya.
+4. **Temuan yang berlawanan ekspektasi:** Apa yang mengejutkan? Apa yang tidak sesuai dengan "common wisdom" di industri?
+5. **Konteks penting:** Dalam kondisi apa hasil ini berlaku? Kapan opsi yang "kalah" mungkin lebih baik? Siapa yang sebaiknya tidak mengikuti rekomendasi ini?
+6. **Decision framework:** Berikan framework sederhana untuk membantu pembaca memutuskan mana yang tepat untuk situasi spesifik mereka.
+
+**Target pembaca:** ${audiens}`,
+
+    6: `Anda memiliki pengalaman kegagalan nyata yang siap dianalisis secara jujur dan objektif. Konten kegagalan adalah yang paling dicari orang secara rahasia di internet, namun paling jarang dibagikan karena gengsi.
+
+**Kegagalan yang Akan Dianalisis:**
+${data}
+
+**Konteks:** ${bisnis}
+
+Tugas Anda:
+Bantu saya menulis post-mortem / analisis kegagalan yang benar-benar non-commodity untuk platform ${platform}. Konten harus:
+
+1. **Opening yang menetapkan konteks kerugian/kegagalan:** Angka konkret — berapa uang/waktu/opportunity yang hilang? Ini yang membuat pembaca berhenti dan membaca.
+2. **Timeline kegagalan:** Bagi per periode — bukan narasi linear yang terlalu rapi, tapi kronologi jujur yang menunjukkan di mana keputusan salah diambil.
+3. **Root cause per phase:** Untuk setiap phase kegagalan: apa keputusan yang diambil, mengapa keputusan itu terasa masuk akal saat itu, dan apa yang sebenarnya terjadi.
+4. **Tanda-tanda peringatan yang diabaikan:** Apa sinyal yang sebenarnya sudah ada tapi diabaikan? Mengapa diabaikan?
+5. **Apa yang berbeda jika diulang:** Bukan sekadar penyesalan, tapi tindakan konkret yang akan diambil berbeda — assecara spesifik.
+6. **Pelajaran yang bisa diambil pembaca:** Framework atau checklist praktis yang bisa digunakan ${audiens} untuk menghindari kegagalan serupa.
+
+**Tone penting:** Jujur dan objektif — bukan menyalahkan kondisi eksternal, tapi mengakui keputusan internal yang bisa diubah. Ini yang membuat konten ini berharga dan tidak bisa di-fake.
+**Target pembaca:** ${audiens}`,
+  };
+
+  const intro = `Anda adalah content writer spesialis dengan pemahaman mendalam tentang non-commodity content. Prinsip inti: konten non-commodity adalah konten yang TIDAK BISA dihasilkan AI tanpa pengalaman langsung, data original, atau keahlian spesifik yang dimiliki penulis.
+
+**Tipe Konten:** ${typeLabels[ncTypeSelected]}
+**Topik:** ${topik}
+
+---
+
+`;
+
+  const prompt = intro + typePrompts[ncTypeSelected];
+  showOut('out-noncom', prompt);
+}
+
+/* ═══ GENERATOR: SEO STRUKTUR ═══ */
+function genSEO() {
+  const topik = v('seo-topik') || '[topik artikel]';
+  const format = v('seo-format');
+  const panjang = v('seo-panjang');
+  const audiens = v('seo-audiens') || '[target pembaca]';
+  const konteks = v('seo-konteks') || '[tidak ada konteks tambahan]';
+  const tone = v('seo-tone');
+  const elemen = getChips('chips-seo');
+
+  const formatGuide = {
+    'definisi': `Artikel ini berbentuk definisi mendalam (What Is / Apa Itu). Struktur utama: H1 Topik → Intro (langsung jawab definisi) → H2: Apa Itu [Topik] → H2: Mengapa Penting → H2: Cara Kerja / Komponen Utama → H2: Contoh Nyata → H2: Kesalahan Umum → H2: FAQ (5–7 pertanyaan) → H2: Kesimpulan`,
+    'panduan langkah': `Artikel ini berbentuk panduan langkah-langkah (How-To). Struktur: H1 Cara [Melakukan] → Intro (janji hasil + prerequisite) → H2: Persiapan yang Dibutuhkan → H2: Langkah 1 (H3 per sub-langkah) → H2: Langkah 2 → ... → H2: Tips & Trik → H2: Kesalahan yang Harus Dihindari → H2: FAQ → H2: Kesimpulan`,
+    'listicle': `Artikel ini berbentuk daftar (Listicle). Struktur: H1 [Angka] [Item] yang [Manfaat] → Intro (preview value + metodologi pemilihan) → H2: #1 [Item] (H3: Kenapa, H3: Cara Pakai) → H2: #2 → ... → H2: Tips Memilih → H2: FAQ → H2: Kesimpulan`,
+    'perbandingan tabel': `Artikel ini berbentuk perbandingan. Struktur: H1 [A] vs [B]: Perbandingan Lengkap → Intro (kapan artikel ini relevan) → H2: Ringkasan Perbandingan (tabel) → H2: Detail [A] → H2: Detail [B] → H2: Siapa yang Cocok Pilih [A] → H2: Siapa yang Cocok Pilih [B] → H2: FAQ → H2: Kesimpulan & Rekomendasi`,
+    'FAQ tanya jawab': `Artikel ini berbentuk FAQ. Struktur: H1 [Angka] Pertanyaan Umum tentang [Topik] → Intro singkat → H2: Pertanyaan 1 (jawab langsung, 2–4 kalimat) → H2: Pertanyaan 2 → ... → H2: Pertanyaan Lanjutan → H2: Kesimpulan`,
+    'studi kasus': `Artikel ini berbentuk studi kasus. Struktur: H1 [Hasil Spesifik]: Studi Kasus [Konteks] → Intro (hook dengan angka hasil) → H2: Latar Belakang & Tantangan → H2: Strategi yang Digunakan → H2: Proses Eksekusi (H3 per fase) → H2: Hasil yang Dicapai → H2: Pelajaran Utama → H2: Apa yang Bisa Anda Terapkan → H2: FAQ`,
+    'ulasan mendalam': `Artikel ini berbentuk ulasan mendalam. Struktur: H1 Ulasan [Topik]: [Angka] Bulan Penggunaan Nyata → Intro (credential pembuat) → H2: Ringkasan Verdict → H2: Spesifikasi / Fitur Utama → H2: Pengalaman Penggunaan Nyata → H2: Yang Kami Suka → H2: Yang Mengecewakan → H2: Perbandingan Alternatif → H2: Untuk Siapa Ini Cocok → H2: Kesimpulan & Rating`,
+  };
+
+  const prompt = `Anda adalah SEO content strategist dan information architect. Tugas Anda adalah membantu saya membuat brief artikel SEO yang terstruktur sempurna — mudah dibaca manusia dan mudah dipindai oleh AI/Google.
+
+## Informasi Artikel
+
+**Topik Utama:** ${topik}
+**Format Artikel:** ${format}
+**Target Pembaca:** ${audiens}
+**Panjang Target:** ${panjang}
+**Angle / Konteks Unik:** ${konteks}
+**Tone Penulisan:** ${tone}
+**Elemen yang Dibutuhkan:** ${elemen}
+
+---
+
+## Panduan Struktur: ${format}
+
+${formatGuide[format] || formatGuide['panduan langkah']}
+
+---
+
+## Tugas Anda
+
+**1. Buat Outline Lengkap**
+Buat outline artikel dengan hierarki H1 → H2 → H3 yang jelas. Setiap heading harus mencerminkan topik/subtopik yang benar-benar berbeda — bukan variasi keyword yang sama. Sertakan: jumlah kata estimasi per section, dan tipe konten per section (paragraf/tabel/list/gambar).
+
+**2. Buat Meta Information**
+- H1 yang kuat (maksimal 60 karakter, sertakan topik utama di awal)
+- Meta description (140–155 karakter, include CTA)
+- URL slug yang bersih
+
+**3. Tulis Intro yang Kuat (150–200 kata)**
+Hook yang langsung menjawab pertanyaan pembaca dalam 1–2 kalimat pertama. Jangan mulai dengan "Pernahkah Anda..." atau "Di era digital ini...". Langsung ke inti.
+
+**4. Kembangkan Setiap Section**
+Untuk setiap H2 di outline, tulis:
+- 2–4 paragraf konten (masing-masing 2–4 kalimat)
+- Jika ada sub-poin (H3), tulis minimal 3 H3 per H2
+- Gunakan list/tabel jika relevan — jangan paksa semua jadi paragraf
+
+**5. Section FAQ (5–7 Pertanyaan)**
+Tulis pertanyaan seperti cara orang nyata bertanya — bukan kalimat formal. Jawaban langsung, 2–4 kalimat, informatif.
+
+**6. Kesimpulan + CTA**
+Ringkas poin utama dalam 3–4 kalimat. Sertakan CTA yang relevan dengan tujuan artikel.
+
+---
+
+## Aturan Information Architecture (Wajib Diikuti)
+
+✅ **Lakukan:**
+- 1 H1 per artikel — tidak lebih
+- Setiap H2 mencakup topik yang benar-benar berbeda dari H2 lainnya
+- Paragraf 2–4 kalimat — 1 ide utama per paragraf
+- Gunakan list/tabel hanya jika konten memang berbentuk daftar/komparasi
+- Jawaban definisi ada di paragraf pertama setelah H2 yang relevan
+
+❌ **Hindari:**
+- Heading overkill: H2 setiap 2 kalimat (membuat struktur terlihat bot-generated)
+- Wall of text: paragraf 10+ kalimat tanpa pemisah
+- Keyword stuffing di heading: "Jasa SEO Murah | Jasa SEO Terpercaya | Jasa SEO Jakarta"
+- Intro yang menunda jawaban sampai paragraf ke-3
+- Konten generik yang bisa ditulis siapa saja tanpa pengetahuan spesifik
+
+---
+
+## Output yang Diharapkan
+
+Hasilkan dalam urutan berikut:
+1. Meta information (H1, meta desc, URL slug)
+2. Outline lengkap dengan estimasi kata per section
+3. Intro (ditulis lengkap)
+4. Isi lengkap setiap section mengikuti outline
+5. Section FAQ (5–7 Q&A)
+6. Kesimpulan + CTA
+${elemen.includes('Internal Link') ? '7. Saran internal link (3–5 topik artikel terkait yang seharusnya ada di website ini)' : ''}`;
+
+  showOut('out-seo', prompt);
+}
+
+/* ─── INIT ── */
+document.querySelectorAll('.sub-btn')[0].className = 'sub-btn a-or';
+</script>
+</body>
+</html>
