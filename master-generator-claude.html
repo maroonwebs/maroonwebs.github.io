@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Engineering Masterguide — Framework ROLEAX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+/* ─── RESET & BASE ────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2A;--navy2:#16243A;--navy3:#1E2F46;
+  --coral:#E05252;--coral2:#F07070;
+  --teal:#1A8C74;--teal2:#22B090;
+  --amber:#C87B1A;--purple:#4A3AB0;
+  --sky:#1565C0;
+  --bg:#F4F6F9;--surface:#FFFFFF;--surface2:#F0F2F6;--surface3:#E6E9F0;
+  --border:#D8DCE8;--border2:#C8CDD8;
+  --txt:#1A2035;--txt2:#4A526A;--txt3:#7A839A;
+  --radius:12px;--radius-sm:8px;--radius-xs:5px;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.05);
+  --shadow-md:0 2px 8px rgba(0,0,0,.10),0 8px 24px rgba(0,0,0,.06);
+  --mono:'IBM Plex Mono',monospace;
+  --font:'Outfit',sans-serif;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);font-size:15px;color:var(--txt);background:var(--bg);line-height:1.6;min-height:100vh}
+img,svg{display:block;max-width:100%}
+button,select,input,textarea{font-family:var(--font)}
+a{color:var(--sky);text-decoration:none}
+
+/* ─── LAYOUT ──────────────────────────────── */
+.app-wrap{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+@media(min-width:600px){.app-wrap{padding:28px 24px 80px}}
+@media(min-width:900px){.app-wrap{padding:36px 0 80px}}
+
+/* ─── HERO ────────────────────────────────── */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,#0F2D52 55%,var(--purple) 100%);
+  border-radius:var(--radius);padding:28px 24px 24px;
+  margin-bottom:20px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-50px;right:-50px;
+  width:220px;height:220px;border-radius:50%;
+  background:rgba(224,82,82,.12);pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-30px;left:-20px;
+  width:140px;height:140px;border-radius:50%;
+  background:rgba(74,58,176,.15);pointer-events:none;
+}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px}
+.hero-title{font-size:clamp(22px,5vw,30px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:8px}
+.hero-title em{color:var(--coral2);font-style:italic;font-weight:300}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.6);max-width:480px;line-height:1.65}
+.badge-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.badge{font-size:10px;font-weight:500;padding:3px 11px;border-radius:20px;border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.78);letter-spacing:.3px}
+@media(min-width:600px){.hero{padding:32px 32px 28px}}
+
+/* ─── NAV TABS ────────────────────────────── */
+.nav-wrap{position:relative;margin-bottom:20px}
+.nav-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none;-ms-overflow-style:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.tab-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:9px 16px;font-size:12.5px;font-weight:500;white-space:nowrap;
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--txt2);cursor:pointer;
+  transition:all .15s ease;flex-shrink:0;line-height:1;
+}
+.tab-btn:hover:not(.active){background:var(--surface2);color:var(--txt)}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tab-btn .ti{font-size:15px}
+@media(max-width:520px){
+  .tab-btn{padding:9px 13px;font-size:12px}
+  .tab-btn .ti{font-size:14px}
+}
+
+/* ─── SECTIONS ────────────────────────────── */
+.section{display:none;animation:fadeUp .18s ease}
+.section.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── CARD ────────────────────────────────── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card-title{font-size:11px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.card-title .ti{font-size:16px;color:var(--coral)}
+@media(min-width:600px){.card{padding:24px}}
+
+/* ─── FORMULA GRID ────────────────────────── */
+.formula-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+@media(min-width:500px){.formula-grid{grid-template-columns:repeat(6,1fr)}}
+.formula-card{padding:14px 10px;border-radius:var(--radius-sm);text-align:center;border:1.5px solid transparent;transition:transform .15s,box-shadow .15s}
+.formula-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.formula-card .letter{font-size:28px;font-weight:700;line-height:1;margin-bottom:4px}
+.formula-card .word{font-size:11px;font-weight:600;margin-bottom:2px}
+.formula-card .desc{font-size:9.5px;opacity:.72;line-height:1.3}
+.fc-r{background:#EBF3FD;color:#0D4C9E;border-color:#C0D8F5}
+.fc-o{background:#FDF1E2;color:#7A4210;border-color:#F5CF90}
+.fc-l{background:#EFEDFD;color:#3E2FA8;border-color:#CECCF6}
+.fc-e{background:#E2F6EF;color:#095043;border-color:#9FE2CC}
+.fc-a{background:#FDEDE9;color:#7A2D14;border-color:#F5C4B0}
+.fc-x{background:#EBF5E0;color:#2B5812;border-color:#BFDF97}
+
+/* ─── XML EXAMPLE ─────────────────────────── */
+.xml-example{
+  background:var(--navy);border-radius:var(--radius-sm);
+  padding:14px 16px;font-family:var(--mono);font-size:11.5px;
+  line-height:1.85;color:#A8B4C8;margin-bottom:10px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+}
+.xml-example .xt{color:#F07070}
+.xml-example .xv{color:#7AC4FF}
+.xml-example .xc{color:#6B7E94}
+
+/* ─── DO / DON'T ──────────────────────────── */
+.do-dont{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+@media(max-width:480px){.do-dont{grid-template-columns:1fr}}
+.do-box,.dont-box{padding:12px 14px;border-radius:var(--radius-sm);font-size:12.5px;line-height:1.55}
+.do-box{background:#E4F5EE;color:#0A4830;border-left:3px solid var(--teal)}
+.dont-box{background:#FCEAEA;color:#5A1212;border-left:3px solid var(--coral)}
+.do-box h5,.dont-box h5{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;opacity:.7}
+
+/* ─── PRINCIPLE LIST ──────────────────────── */
+.principle-list{display:flex;flex-direction:column;gap:10px}
+.principle-item{padding:13px 16px;border-left:3px solid;border-radius:0 var(--radius-sm) var(--radius-sm) 0;background:var(--surface2)}
+.pi-1{border-color:var(--coral)}
+.pi-2{border-color:var(--purple)}
+.pi-3{border-color:var(--sky)}
+.pi-4{border-color:var(--teal)}
+.pi-5{border-color:#D05E28}
+.pi-6{border-color:var(--amber)}
+.pi-7{border-color:#5A8C22}
+.principle-item h4{font-size:13px;font-weight:600;margin-bottom:4px}
+.principle-item p{font-size:12.5px;color:var(--txt2);line-height:1.55}
+.principle-item code{font-family:var(--mono);font-size:11px;background:var(--surface);padding:1px 6px;border-radius:4px;color:var(--navy2);border:1px solid var(--border)}
+
+/* ─── PROMPT BUILDER ──────────────────────── */
+.prompt-builder{background:var(--surface2);border-radius:var(--radius-sm);padding:16px;margin-bottom:14px;border:1px solid var(--border)}
+.pb-label{font-size:10.5px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;margin-top:12px}
+.pb-label:first-child{margin-top:0}
+.pb-select,.pb-textarea{
+  width:100%;padding:9px 12px;font-size:13px;
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--txt);
+  margin-bottom:4px;transition:border-color .15s;
+}
+.pb-select:focus,.pb-textarea:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 3px rgba(21,101,192,.1)}
+select.pb-select{cursor:pointer}
+.pb-textarea{min-height:80px;resize:vertical;line-height:1.5}
+.build-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:11px 20px;font-size:13.5px;font-weight:600;
+  background:var(--navy);color:#fff;border:none;
+  border-radius:var(--radius-sm);cursor:pointer;
+  transition:all .15s;margin-top:6px;
+}
+.build-btn:hover{background:#1A2F4A;transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.build-btn:active{transform:scale(.98)}
+.build-btn .ti{font-size:16px}
+.output-box{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);padding:14px;
+  font-size:12px;line-height:1.7;color:var(--txt2);
+  font-family:var(--mono);white-space:pre-wrap;
+  display:none;margin-top:12px;overflow-x:auto;
+}
+.output-box.show{display:block}
+.copy-btn{
+  font-size:11px;font-weight:500;padding:5px 12px;
+  border:1px solid var(--border2);border-radius:20px;
+  background:var(--surface2);color:var(--txt3);
+  cursor:pointer;float:right;margin-bottom:10px;
+  display:inline-flex;align-items:center;gap:4px;
+  transition:all .12s;
+}
+.copy-btn:hover{background:var(--surface3);color:var(--txt)}
+.copy-btn .ti{font-size:13px}
+
+/* ─── ROLE GRID ───────────────────────────── */
+.role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+@media(min-width:480px){.role-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:680px){.role-grid{grid-template-columns:repeat(5,1fr)}}
+.role-card{
+  padding:14px 12px;border-radius:var(--radius-sm);
+  cursor:pointer;border:1.5px solid transparent;
+  transition:all .15s;
+}
+.role-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.role-card.selected{border-width:2px;box-shadow:var(--shadow-md)}
+.rc-dev{background:#EBF3FD;color:#0D4C9E}.rc-dev.selected{border-color:#1565C0}
+.rc-mkt{background:#FDF1E2;color:#7A4210}.rc-mkt.selected{border-color:#C87B1A}
+.rc-hr{background:#EFEDFD;color:#3E2FA8}.rc-hr.selected{border-color:#4A3AB0}
+.rc-write{background:#E2F6EF;color:#095043}.rc-write.selected{border-color:#1A8C74}
+.rc-seo{background:#FDEDE9;color:#7A2D14}.rc-seo.selected{border-color:#C04030}
+.role-icon{font-size:22px;margin-bottom:6px;line-height:1}
+.role-name{font-size:12.5px;font-weight:600;margin-bottom:2px}
+.role-hint{font-size:10.5px;opacity:.68}
+
+/* ─── TEMPLATE BOX ────────────────────────── */
+.template-box{
+  background:var(--surface2);border-radius:var(--radius-sm);
+  padding:16px;margin-bottom:14px;display:none;
+  border:1px solid var(--border);
+}
+.template-box.show{display:block;animation:fadeUp .18s ease}
+.tpl-header{font-size:12.5px;font-weight:600;color:var(--txt2);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.tpl-content{font-size:11.5px;font-family:var(--mono);line-height:1.75;color:var(--txt);white-space:pre-wrap;overflow-x:auto}
+.tpl-content .tag{color:var(--coral)}
+.tpl-content .val{color:var(--navy2)}
+
+/* ─── TIP LIST ────────────────────────────── */
+.tip-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.tip-list li{font-size:13px;color:var(--txt2);line-height:1.55;padding-left:20px;position:relative}
+.tip-list li::before{content:'→';position:absolute;left:0;color:var(--coral);font-weight:600}
+.tip-list li strong{color:var(--txt);font-weight:600}
+
+/* ─── CHECKLIST ───────────────────────────── */
+.checklist{display:flex;flex-direction:column;gap:4px}
+.check-item{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13px;color:var(--txt2);cursor:pointer;
+  padding:8px 10px;border-radius:var(--radius-xs);
+  transition:background .1s;
+}
+.check-item:hover{background:var(--surface2)}
+.check-item input[type=checkbox]{
+  margin-top:2px;accent-color:var(--navy);flex-shrink:0;
+  width:15px;height:15px;cursor:pointer;
+}
+.check-item label{cursor:pointer;line-height:1.45}
+.check-item input:checked+label{color:var(--txt3);text-decoration:line-through}
+.score-bar{margin-top:14px;padding:12px 16px;background:var(--surface2);border-radius:var(--radius-sm);font-size:13px;font-weight:500;color:var(--txt2);text-align:center;border:1px solid var(--border)}
+
+/* ─── XML TAGS SECTION ────────────────────── */
+.tag-pills{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.tag-pill{font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:4px;background:var(--surface2);border:1px solid var(--border2);color:var(--navy2)}
+
+/* ─── FOOTER ──────────────────────────────── */
+.footer{text-align:center;font-size:11.5px;color:var(--txt3);margin-top:40px;padding-top:20px;border-top:1px solid var(--border)}
+.footer a{color:var(--sky)}
+</style>
+</head>
+<body>
+<div class="app-wrap">
+
+  <!-- HERO -->
+  <header class="hero" role="banner">
+    <div class="hero-eyebrow">Anthropic Official Best Practices · 2025–2026</div>
+    <h1 class="hero-title">Panduan <em>Prompt Engineering</em><br>Masterclass</h1>
+    <p class="hero-sub">Framework, teknik, dan template siap pakai — dari sumber resmi Anthropic docs, GitHub courses, dan prompt engineering tutorials.</p>
+    <div class="badge-row" role="list" aria-label="Profesi yang dicakup">
+      <span class="badge" role="listitem">Web Dev</span>
+      <span class="badge" role="listitem">Marketer</span>
+      <span class="badge" role="listitem">HR</span>
+      <span class="badge" role="listitem">Writer</span>
+      <span class="badge" role="listitem">SEO</span>
+    </div>
+  </header>
+
+  <!-- NAV TABS -->
+  <nav class="nav-wrap" aria-label="Navigasi tab">
+    <div class="nav-tabs" role="tablist">
+      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-framework" onclick="switchTab('framework',this)"><span class="ti ti-bulb" aria-hidden="true"></span>Framework ROLEAX</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-prinsip" onclick="switchTab('prinsip',this)"><span class="ti ti-list-check" aria-hidden="true"></span>7 Prinsip Utama</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-builder" onclick="switchTab('builder',this)"><span class="ti ti-wand" aria-hidden="true"></span>Prompt Builder</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-template" onclick="switchTab('template',this)"><span class="ti ti-template" aria-hidden="true"></span>Template Profesi</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-xml" onclick="switchTab('xml',this)"><span class="ti ti-code" aria-hidden="true"></span>XML &amp; Struktur</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-checklist" onclick="switchTab('checklist',this)"><span class="ti ti-checkbox" aria-hidden="true"></span>Checklist</button>
+    </div>
+  </nav>
+
+  <!-- ═══ TAB: FRAMEWORK ═══ -->
+  <section id="tab-framework" class="section active" role="tabpanel">
+
+    <div class="card">
+      <div class="card-title"><span class="ti ti-bulb" aria-hidden="true"></span>Framework ROLEAX — Rumusan Prompt Engineering</div>
+      <p style="font-size:13px;color:var(--txt2);margin-bottom:16px;line-height:1.6">Rumusan ini disusun berdasarkan <strong style="color:var(--txt)">Anthropic Official Docs</strong>, GitHub Interactive Tutorial (9 chapter), dan real-world prompting course. Setiap elemen bersifat opsional — makin lengkap makin presisi outputnya.</p>
+      <div class="formula-grid" role="list" aria-label="Elemen ROLEAX">
+        <div class="formula-card fc-r" role="listitem"><div class="letter">R</div><div class="word">Role</div><div class="desc">Beri Claude peran / identitas yang spesifik</div></div>
+        <div class="formula-card fc-o" role="listitem"><div class="letter">O</div><div class="word">Objective</div><div class="desc">Tugas utama secara jelas dan eksplisit</div></div>
+        <div class="formula-card fc-l" role="listitem"><div class="letter">L</div><div class="word">Limitations</div><div class="desc">Batasan, constraint, dan hal yang dihindari</div></div>
+        <div class="formula-card fc-e" role="listitem"><div class="letter">E</div><div class="word">Examples</div><div class="desc">Contoh input-output (few-shot prompting)</div></div>
+        <div class="formula-card fc-a" role="listitem"><div class="letter">A</div><div class="word">Audience &amp; Format</div><div class="desc">Target pembaca &amp; format output</div></div>
+        <div class="formula-card fc-x" role="listitem"><div class="letter">X</div><div class="word">Xtended Thinking</div><div class="desc">Instruksi berpikir bertahap (chain of thought)</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ti ti-layout-rows" aria-hidden="true"></span>Anatomi Prompt Ideal</div>
+      <div class="xml-example" role="region" aria-label="Contoh anatomi prompt"><span class="xc">[SYSTEM PROMPT — Identitas &amp; konteks permanen]</span>
+<span class="xt">Role:</span> <span class="xv">Kamu adalah [JABATAN] berpengalaman di bidang [INDUSTRI].</span>
+<span class="xt">Konteks:</span> <span class="xv">Kamu membantu [SIAPA] untuk [TUJUAN BISNIS].</span>
+<span class="xt">Gaya:</span> <span class="xv">Gunakan nada [formal/kasual/teknis], bahasa [Indonesia/Inggris].</span>
+
+<span class="xc">[USER PROMPT — Tugas spesifik]</span>
+<span class="xt">&lt;task&gt;</span>
+<span class="xv">  [OBJECTIVE — Apa yang harus dikerjakan, spesifik &amp; eksplisit]</span>
+<span class="xt">&lt;/task&gt;</span>
+
+<span class="xt">&lt;context&gt;</span>
+<span class="xv">  [Latar belakang, data, atau dokumen relevan]</span>
+<span class="xt">&lt;/context&gt;</span>
+
+<span class="xt">&lt;constraints&gt;</span>
+<span class="xv">  - [Batasan 1]</span>
+<span class="xv">  - [Batasan 2, misal: max 200 kata, tanpa bullet point]</span>
+<span class="xt">&lt;/constraints&gt;</span>
+
+<span class="xt">&lt;examples&gt;</span>
+<span class="xv">  [Contoh 1–3 pasang input-output yang relevan]</span>
+<span class="xt">&lt;/examples&gt;</span>
+
+<span class="xt">&lt;output_format&gt;</span>
+<span class="xv">  Format: [JSON / Markdown / Prose / Tabel / Kode]</span>
+<span class="xv">  Panjang: [Pendek/Sedang/Panjang atau estimasi kata]</span>
+<span class="xt">&lt;/output_format&gt;</span>
+
+<span class="xt">&lt;thinking&gt;</span>
+<span class="xv">  Sebelum menjawab, pikirkan langkah demi langkah:</span>
+<span class="xv">  1. Pahami tujuan utama</span>
+<span class="xv">  2. Identifikasi kendala</span>
+<span class="xv">  3. Susun pendekatan terbaik</span>
+<span class="xt">&lt;/thinking&gt;</span></div>
+      <p style="font-size:11px;color:var(--txt3);text-align:center">Tidak semua blok wajib diisi — sesuaikan dengan kompleksitas tugas</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ti ti-arrows-right-left" aria-hidden="true"></span>Do vs Don't</div>
+      <div class="do-dont">
+        <div class="do-box"><h5>✓ Lakukan</h5>"Tulis email penolakan lamaran yang sopan, profesional, menyebutkan nama kandidat, 100–150 kata, dalam bahasa Indonesia formal."</div>
+        <div class="dont-box"><h5>✗ Hindari</h5>"Buatkan email HR."<br><br>Terlalu vague → Claude akan menebak-nebak dan hasilnya tidak presisi.</div>
+      </div>
+      <div class="do-dont" style="margin-top:8px">
+        <div class="do-box"><h5>✓ Lakukan</h5>"Jelaskan langkah-langkah deploy React app ke Vercel. Gunakan numbered list, sertakan perintah terminal lengkap."</div>
+        <div class="dont-box"><h5>✗ Hindari</h5>"Jangan lupa jelaskan deploynya ya dan juga kalau bisa ada comandnya tapi ga usah panjang-panjang."</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══ TAB: PRINSIP ═══ -->
+  <section id="tab-prinsip" class="section" role="tabpanel">
+    <div class="card">
+      <div class="card-title"><span class="ti ti-list-check" aria-hidden="true"></span>7 Prinsip Utama — Anthropic Official</div>
+      <div class="principle-list">
+        <div class="principle-item pi-1">
+          <h4>1. Jelas &amp; Eksplisit (Be Clear and Direct)</h4>
+          <p>Anggap Claude sebagai karyawan baru yang cerdas namun tidak tahu konteks bisnis Anda. Semakin spesifik instruksi, semakin baik hasilnya. <strong>Golden rule:</strong> tunjukkan prompt Anda ke kolega — kalau mereka bingung, Claude pun akan bingung.</p>
+        </div>
+        <div class="principle-item pi-2">
+          <h4>2. Beri Konteks &amp; Motivasi</h4>
+          <p>Jelaskan <em>mengapa</em> tugas itu penting. Misal: <code>"Ini untuk presentasi ke investor, jadi nada harus profesional dan data-driven."</code> Claude cukup cerdas untuk mengeneralisasi dari penjelasan konteks.</p>
+        </div>
+        <div class="principle-item pi-3">
+          <h4>3. Gunakan Contoh (Few-shot Prompting)</h4>
+          <p>Sertakan 3–5 contoh input-output yang relevan. Bungkus dalam tag <code>&lt;examples&gt;</code>. Pastikan contoh beragam dan merepresentasikan edge cases, bukan hanya kasus ideal.</p>
+        </div>
+        <div class="principle-item pi-4">
+          <h4>4. Struktur dengan XML Tags</h4>
+          <p>Gunakan tag XML (<code>&lt;task&gt;</code>, <code>&lt;context&gt;</code>, <code>&lt;constraints&gt;</code>) untuk memisahkan instruksi, data, dan contoh. Ini membantu Claude mem-parse prompt kompleks dengan lebih akurat.</p>
+        </div>
+        <div class="principle-item pi-5">
+          <h4>5. Tetapkan Peran (Role Prompting)</h4>
+          <p>Beri Claude identitas di system prompt: <code>"Kamu adalah Senior SEO Specialist dengan 10 tahun pengalaman di e-commerce Asia Tenggara."</code> Satu kalimat pun sudah mengubah tone dan kedalaman jawaban.</p>
+        </div>
+        <div class="principle-item pi-6">
+          <h4>6. Kontrol Format Output</h4>
+          <p>Instruksikan apa yang <em>harus dilakukan</em>, bukan apa yang tidak boleh. Daripada "jangan pakai bullet", lebih baik: <code>"Tulis dalam paragraf mengalir tanpa bullet point."</code> Sesuaikan format: JSON, tabel, prosa, kode, dll.</p>
+        </div>
+        <div class="principle-item pi-7">
+          <h4>7. Aktifkan Penalaran Bertahap (Chain of Thought)</h4>
+          <p>Untuk tugas kompleks, minta Claude berpikir step-by-step sebelum menjawab. Gunakan tag <code>&lt;thinking&gt;</code> atau instruksi: <code>"Sebelum menjawab, analisis dulu: 1) tujuan, 2) hambatan, 3) pendekatan terbaik."</code></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TAB: BUILDER ═══ -->
+  <section id="tab-builder" class="section" role="tabpanel">
+    <div class="card">
+      <div class="card-title"><span class="ti ti-wand" aria-hidden="true"></span>Interactive Prompt Builder</div>
+      <p style="font-size:13px;color:var(--txt2);margin-bottom:14px">Isi field di bawah, klik Generate, lalu copy prompt siap pakai.</p>
+      <div class="prompt-builder">
+        <div class="pb-label">Profesi / Peran Claude</div>
+        <select class="pb-select" id="pb-role">
+          <option value="">— Pilih peran —</option>
+          <option value="Senior Web Developer yang ahli React, Next.js, dan Tailwind CSS">Web Developer</option>
+          <option value="Digital Marketing Specialist berpengalaman di e-commerce dan media sosial">Digital Marketer</option>
+          <option value="HR Manager profesional di perusahaan teknologi">HR Manager</option>
+          <option value="Senior Copywriter dan Content Writer berbahasa Indonesia">Content Writer</option>
+          <option value="SEO Specialist dengan keahlian di technical SEO dan content strategy">SEO Specialist</option>
+          <option value="custom">Custom...</option>
+        </select>
+        <div id="custom-role-wrap" style="display:none">
+          <div class="pb-label">Deskripsikan peran custom</div>
+          <textarea class="pb-textarea" id="pb-custom-role" placeholder="Contoh: Business Analyst berpengalaman di industri perbankan Indonesia..." style="min-height:55px"></textarea>
+        </div>
+        <div class="pb-label">Tugas Utama (Objective)</div>
+        <textarea class="pb-textarea" id="pb-task" placeholder="Apa yang ingin dikerjakan? Misal: Buat konten Instagram untuk produk skincare lokal targeting Gen Z wanita 18–25 tahun di Jawa..."></textarea>
+        <div class="pb-label">Batasan &amp; Constraint (opsional)</div>
+        <textarea class="pb-textarea" id="pb-limit" placeholder="Misal: Maksimal 150 kata, gunakan bahasa Indonesia santai, sertakan 3 hashtag relevan, hindari kata 'terbaik' dan 'ter-...'" style="min-height:55px"></textarea>
+        <div class="pb-label">Format Output yang Diinginkan</div>
+        <select class="pb-select" id="pb-format">
+          <option value="Tulis dalam paragraf prosa yang mengalir">Paragraf / Prosa</option>
+          <option value="Gunakan numbered list untuk langkah-langkah">Numbered List (langkah)</option>
+          <option value="Gunakan bullet points untuk poin-poin kunci">Bullet Points</option>
+          <option value="Format sebagai tabel Markdown">Tabel Markdown</option>
+          <option value="Format sebagai JSON yang valid">JSON</option>
+          <option value="Sertakan kode dengan penjelasan">Kode + Penjelasan</option>
+          <option value="Buat dalam format post media sosial (singkat, impactful)">Post Media Sosial</option>
+        </select>
+        <div class="pb-label">Perlu Penalaran Bertahap?</div>
+        <select class="pb-select" id="pb-think">
+          <option value="">Tidak (tugas sederhana)</option>
+          <option value="yes">Ya — tambahkan instruksi chain of thought</option>
+        </select>
+        <br>
+        <button class="build-btn" onclick="buildPrompt()"><span class="ti ti-sparkles" aria-hidden="true"></span>Generate Prompt</button>
+        <div class="output-box" id="pb-output">
+          <button class="copy-btn" onclick="copyOutput()"><span class="ti ti-copy" aria-hidden="true"></span>Copy</button>
+          <div id="pb-result" style="clear:both"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TAB: TEMPLATE ═══ -->
+  <section id="tab-template" class="section" role="tabpanel">
+    <div class="card">
+      <div class="card-title"><span class="ti ti-template" aria-hidden="true"></span>Pilih Profesi</div>
+      <div class="role-grid" role="list" aria-label="Pilih profesi">
+        <div class="role-card rc-dev" role="button" tabindex="0" onclick="showTemplate('dev',this)" onkeypress="if(event.key==='Enter')showTemplate('dev',this)"><div class="role-icon">💻</div><div class="role-name">Web Developer</div><div class="role-hint">React, API, debugging</div></div>
+        <div class="role-card rc-mkt" role="button" tabindex="0" onclick="showTemplate('mkt',this)" onkeypress="if(event.key==='Enter')showTemplate('mkt',this)"><div class="role-icon">📣</div><div class="role-name">Marketer</div><div class="role-hint">Konten, iklan, kampanye</div></div>
+        <div class="role-card rc-hr" role="button" tabindex="0" onclick="showTemplate('hr',this)" onkeypress="if(event.key==='Enter')showTemplate('hr',this)"><div class="role-icon">👥</div><div class="role-name">HR Manager</div><div class="role-hint">Rekrutmen, kebijakan, email</div></div>
+        <div class="role-card rc-write" role="button" tabindex="0" onclick="showTemplate('write',this)" onkeypress="if(event.key==='Enter')showTemplate('write',this)"><div class="role-icon">✍️</div><div class="role-name">Writer</div><div class="role-hint">Artikel, blog, copywriting</div></div>
+        <div class="role-card rc-seo" role="button" tabindex="0" onclick="showTemplate('seo',this)" onkeypress="if(event.key==='Enter')showTemplate('seo',this)"><div class="role-icon">🔍</div><div class="role-name">SEO Specialist</div><div class="role-hint">Meta, keyword, konten SEO</div></div>
+      </div>
+    </div>
+
+    <!-- Template: Dev -->
+    <div class="template-box" id="tpl-dev">
+      <div class="tpl-header">💻 Template: Web Developer <button class="copy-btn" onclick="copyTemplate('dev')"><span class="ti ti-copy" aria-hidden="true"></span>Copy</button></div>
+      <div class="tpl-content" id="tc-dev"><span class="tag">[SYSTEM]</span>
+<span class="val">Kamu adalah Senior Full-Stack Developer berpengalaman 8+ tahun, ahli di React, Next.js, TypeScript, Node.js, dan PostgreSQL. Kamu selalu menulis kode yang bersih, terdokumentasi, dan mengikuti best practices.</span>
+
+<span class="tag">&lt;task&gt;</span>
+<span class="val">[DESKRIPSIKAN FITUR/MASALAH YANG INGIN DISELESAIKAN]</span>
+<span class="tag">&lt;/task&gt;</span>
+
+<span class="tag">&lt;context&gt;</span>
+<span class="val">Stack: [Next.js 14 / React 18 / dll]
+Database: [PostgreSQL / MongoDB / dll]
+Existing code:
+```
+[PASTE KODE YANG RELEVAN DI SINI]
+```</span>
+<span class="tag">&lt;/context&gt;</span>
+
+<span class="tag">&lt;constraints&gt;</span>
+<span class="val">- Gunakan TypeScript dengan tipe yang ketat
+- Ikuti pola folder yang sudah ada
+- Sertakan error handling
+- Tambahkan komentar pada logika yang kompleks</span>
+<span class="tag">&lt;/constraints&gt;</span>
+
+<span class="tag">&lt;output_format&gt;</span>
+<span class="val">1. Kode lengkap dengan syntax highlighting
+2. Penjelasan singkat setiap bagian
+3. Cara penggunaan / cara test</span>
+<span class="tag">&lt;/output_format&gt;</span></div>
+    </div>
+
+    <!-- Template: Marketer -->
+    <div class="template-box" id="tpl-mkt">
+      <div class="tpl-header">📣 Template: Digital Marketer <button class="copy-btn" onclick="copyTemplate('mkt')"><span class="ti ti-copy" aria-hidden="true"></span>Copy</button></div>
+      <div class="tpl-content" id="tc-mkt"><span class="tag">[SYSTEM]</span>
+<span class="val">Kamu adalah Digital Marketing Specialist berpengalaman di e-commerce dan brand lokal Indonesia. Kamu memahami perilaku konsumen Indonesia, tren media sosial, dan storytelling yang menggerakkan konversi.</span>
+
+<span class="tag">&lt;task&gt;</span>
+<span class="val">[JENIS KONTEN: caption Instagram / iklan Meta / email blast / dll]
+untuk produk: [NAMA &amp; DESKRIPSI PRODUK]</span>
+<span class="tag">&lt;/task&gt;</span>
+
+<span class="tag">&lt;context&gt;</span>
+<span class="val">Brand voice: [kasual &amp; fun / profesional / inspiratif]
+Target audience: [usia, gender, lokasi, pain point]
+Tujuan kampanye: [awareness / consideration / conversion]
+USP produk: [keunggulan utama yang membedakan dari kompetitor]</span>
+<span class="tag">&lt;/context&gt;</span>
+
+<span class="tag">&lt;constraints&gt;</span>
+<span class="val">- Bahasa Indonesia yang natural, bukan terjemahan kaku
+- Hindari klaim berlebihan ("terbaik", "nomor satu")
+- Caption maks 150 kata
+- Sertakan CTA yang jelas
+- 5 hashtag relevan</span>
+<span class="tag">&lt;/constraints&gt;</span>
+
+<span class="tag">&lt;examples&gt;</span>
+<span class="val">Contoh tone yang diinginkan:
+"Panas-panas gini, yang diperlukan cuma satu: es krim rasa [X]. Bukan sekadar manis — tapi nemenin hari kamu supaya lebih ringan. 🍦 [CTA]"</span>
+<span class="tag">&lt;/examples&gt;</span>
+
+<span class="tag">&lt;output_format&gt;</span>
+<span class="val">Buat 3 variasi konten dengan angle berbeda:
+1. Emotional / storytelling
+2. Product benefit
+3. Social proof / FOMO</span>
+<span class="tag">&lt;/output_format&gt;</span></div>
+    </div>
+
+    <!-- Template: HR -->
+    <div class="template-box" id="tpl-hr">
+      <div class="tpl-header">👥 Template: HR Manager <button class="copy-btn" onclick="copyTemplate('hr')"><span class="ti ti-copy" aria-hidden="true"></span>Copy</button></div>
+      <div class="tpl-content" id="tc-hr"><span class="tag">[SYSTEM]</span>
+<span class="val">Kamu adalah HR Manager profesional di perusahaan teknologi Indonesia. Kamu memahami hukum ketenagakerjaan, best practices rekrutmen, dan bagaimana berkomunikasi secara empatik namun profesional.</span>
+
+<span class="tag">&lt;task&gt;</span>
+<span class="val">[PILIH SALAH SATU:]
+- Buat job description untuk posisi: [NAMA POSISI]
+- Tulis email [penolakan / undangan interview / offering] untuk kandidat: [NAMA]
+- Buat pertanyaan interview untuk posisi: [NAMA POSISI]
+- Rancang SOP untuk: [PROSES HR]</span>
+<span class="tag">&lt;/task&gt;</span>
+
+<span class="tag">&lt;context&gt;</span>
+<span class="val">Perusahaan: [NAMA &amp; INDUSTRI]
+Ukuran tim: [JUMLAH KARYAWAN]
+Budaya perusahaan: [NILAI-NILAI / CULTURE]
+Spesifik konteks: [DETAIL TAMBAHAN]</span>
+<span class="tag">&lt;/context&gt;</span>
+
+<span class="tag">&lt;constraints&gt;</span>
+<span class="val">- Nada: profesional namun hangat
+- Bahasa Indonesia formal
+- Inklusif dan non-diskriminatif
+- Sesuai regulasi Ketenagakerjaan Indonesia</span>
+<span class="tag">&lt;/constraints&gt;</span>
+
+<span class="tag">&lt;output_format&gt;</span>
+<span class="val">Format dokumen siap pakai dengan section yang jelas.
+Jika email: sertakan subject line dan body lengkap.</span>
+<span class="tag">&lt;/output_format&gt;</span></div>
+    </div>
+
+    <!-- Template: Writer -->
+    <div class="template-box" id="tpl-write">
+      <div class="tpl-header">✍️ Template: Content Writer <button class="copy-btn" onclick="copyTemplate('write')"><span class="ti ti-copy" aria-hidden="true"></span>Copy</button></div>
+      <div class="tpl-content" id="tc-write"><span class="tag">[SYSTEM]</span>
+<span class="val">Kamu adalah Senior Content Writer yang ahli menulis artikel mendalam, engaging, dan berbasis riset untuk media digital Indonesia. Kamu memahami storytelling, struktur artikel yang baik, dan cara menjaga pembaca tetap terpaku dari awal hingga akhir.</span>
+
+<span class="tag">&lt;task&gt;</span>
+<span class="val">Tulis [JENIS KONTEN: artikel blog / opini / listicle / how-to guide]
+Topik: [TOPIK SPESIFIK]
+Angle: [SUDUT PANDANG UNIK YANG MEMBEDAKAN DARI ARTIKEL LAIN]</span>
+<span class="tag">&lt;/task&gt;</span>
+
+<span class="tag">&lt;context&gt;</span>
+<span class="val">Media / platform: [NAMA MEDIA / WEBSITE]
+Target pembaca: [PROFIL PEMBACA]
+Tone: [informatif / inspiratif / kritis / conversational]
+Panjang: [ESTIMASI KATA]
+Referensi / riset yang tersedia: [DATA / SUMBER BILA ADA]</span>
+<span class="tag">&lt;/context&gt;</span>
+
+<span class="tag">&lt;constraints&gt;</span>
+<span class="val">- Paragraf pendek, maks 3–4 kalimat
+- Hindari jargon berlebihan
+- Setiap section harus ada transisi yang smooth
+- Pembuka (hook) harus langsung menarik dalam 2 kalimat pertama</span>
+<span class="tag">&lt;/constraints&gt;</span>
+
+<span class="tag">&lt;thinking&gt;</span>
+<span class="val">Sebelum menulis, tentukan:
+1. Hook / pembuka yang kuat
+2. Struktur outline 3–5 section
+3. Poin unik yang belum umum dibahas
+Kemudian tulis artikel lengkap.</span>
+<span class="tag">&lt;/thinking&gt;</span></div>
+    </div>
+
+    <!-- Template: SEO -->
+    <div class="template-box" id="tpl-seo">
+      <div class="tpl-header">🔍 Template: SEO Specialist <button class="copy-btn" onclick="copyTemplate('seo')"><span class="ti ti-copy" aria-hidden="true"></span>Copy</button></div>
+      <div class="tpl-content" id="tc-seo"><span class="tag">[SYSTEM]</span>
+<span class="val">Kamu adalah SEO Specialist berpengalaman dengan keahlian di technical SEO, on-page optimization, dan content strategy untuk pasar Indonesia. Kamu mengikuti perkembangan algoritma Google dan memahami search intent.</span>
+
+<span class="tag">&lt;task&gt;</span>
+<span class="val">[PILIH:]
+- Buat meta title &amp; meta description untuk halaman: [URL/TOPIK]
+- Tulis artikel SEO-optimized untuk keyword: [KEYWORD]
+- Lakukan keyword research untuk topik: [TOPIK]
+- Review on-page SEO untuk konten: [PASTE KONTEN]</span>
+<span class="tag">&lt;/task&gt;</span>
+
+<span class="tag">&lt;context&gt;</span>
+<span class="val">Website: [NAMA WEBSITE &amp; NICHE]
+Primary keyword: [KEYWORD UTAMA]
+Secondary keywords: [3–5 LSI KEYWORDS]
+Search intent: [informational / navigational / transactional / commercial]
+Kompetitor utama: [DOMAIN KOMPETITOR BILA ADA]</span>
+<span class="tag">&lt;/context&gt;</span>
+
+<span class="tag">&lt;constraints&gt;</span>
+<span class="val">- Meta title: 50–60 karakter, keyword di depan
+- Meta description: 150–160 karakter, ada CTA
+- Keyword density natural, bukan keyword stuffing
+- Gunakan heading hierarchy yang benar (H1 &gt; H2 &gt; H3)</span>
+<span class="tag">&lt;/constraints&gt;</span>
+
+<span class="tag">&lt;output_format&gt;</span>
+<span class="val">1. Meta title (dengan karakter count)
+2. Meta description (dengan karakter count)
+3. Rekomendasi heading structure
+4. 5 LSI keyword tambahan
+5. Internal linking suggestions</span>
+<span class="tag">&lt;/output_format&gt;</span></div>
+    </div>
+
+  </section>
+
+  <!-- ═══ TAB: XML ═══ -->
+  <section id="tab-xml" class="section" role="tabpanel">
+    <div class="card">
+      <div class="card-title"><span class="ti ti-code" aria-hidden="true"></span>XML Tags — Best Practices Struktur Prompt</div>
+      <p style="font-size:13px;color:var(--txt2);margin-bottom:14px;line-height:1.6">Anthropic secara resmi merekomendasikan XML tags untuk memisahkan komponen prompt. Claude dilatih untuk memahami dan mem-parse struktur XML dengan sangat akurat.</p>
+      <div class="principle-list">
+        <div class="principle-item pi-1">
+          <h4>Tag Utama yang Direkomendasikan</h4>
+          <div class="tag-pills">
+            <code class="tag-pill">&lt;task&gt;</code><code class="tag-pill">&lt;context&gt;</code><code class="tag-pill">&lt;instructions&gt;</code><code class="tag-pill">&lt;examples&gt;</code><code class="tag-pill">&lt;constraints&gt;</code><code class="tag-pill">&lt;output_format&gt;</code><code class="tag-pill">&lt;thinking&gt;</code><code class="tag-pill">&lt;input&gt;</code>
+          </div>
+          <p>Setiap tag memberi Claude "kotak" yang jelas untuk mem-parse masing-masing komponen secara terpisah dan akurat.</p>
+        </div>
+        <div class="principle-item pi-3">
+          <h4>Prompting Dokumen Panjang (Long Context)</h4>
+          <p>Untuk input dokumen panjang, tempatkan dokumen di <strong>atas prompt</strong>, instruksi di bawah. Ini meningkatkan kualitas respons hingga 30%. Gunakan: <code>&lt;document index="1"&gt;&lt;source&gt;...&lt;/source&gt;&lt;document_content&gt;...&lt;/document_content&gt;&lt;/document&gt;</code></p>
+        </div>
+        <div class="principle-item pi-4">
+          <h4>Variabel dalam Template (Reusable Prompts)</h4>
+          <p>Gunakan placeholder seperti <code>{{NAMA_PRODUK}}</code>, <code>{{TARGET_AUDIENCE}}</code>, <code>{{TONE}}</code> untuk membuat template yang bisa diisi ulang tanpa menulis ulang prompt dari awal. Ini pola yang digunakan di Claude Console's prompt generator.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ti ti-link" aria-hidden="true"></span>Chaining Prompts — Untuk Tugas Kompleks</div>
+      <ul class="tip-list">
+        <li><strong>Pola Generate → Review → Refine:</strong> Buat draft dulu, lalu minta Claude mereview berdasarkan kriteria, lalu perbaiki. Setiap langkah = API call terpisah.</li>
+        <li><strong>Pola Extraction → Analysis:</strong> Ekstrak data dari dokumen dulu, baru lakukan analisis pada data hasil ekstraksi.</li>
+        <li><strong>Pola Research → Write:</strong> Kumpulkan informasi dari berbagai sumber dulu, baru tulis konten berdasarkan ringkasan yang sudah ada.</li>
+        <li><strong>Self-checking:</strong> Tambahkan di akhir prompt: <em>"Sebelum selesai, verifikasi jawabanmu terhadap kriteria berikut: [KRITERIA]."</em></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ TAB: CHECKLIST ═══ -->
+  <section id="tab-checklist" class="section" role="tabpanel">
+    <div class="card">
+      <div class="card-title"><span class="ti ti-checkbox" aria-hidden="true"></span>Checklist Sebelum Send Prompt</div>
+      <p style="font-size:13px;color:var(--txt2);margin-bottom:14px">Centang setiap poin sebelum mengirim prompt — terutama untuk tugas penting.</p>
+      <div class="checklist" id="checklist">
+        <div class="check-item"><input type="checkbox" id="c1"><label for="c1">Sudahkah saya menentukan <strong>peran Claude</strong> yang spesifik? (Role)</label></div>
+        <div class="check-item"><input type="checkbox" id="c2"><label for="c2">Apakah <strong>tugas/objective</strong> dinyatakan secara eksplisit, bukan ambigu?</label></div>
+        <div class="check-item"><input type="checkbox" id="c3"><label for="c3">Sudahkah saya menjelaskan <strong>konteks &amp; motivasi</strong> di balik permintaan?</label></div>
+        <div class="check-item"><input type="checkbox" id="c4"><label for="c4">Apakah <strong>format output</strong> sudah ditentukan (panjang, struktur, bahasa)?</label></div>
+        <div class="check-item"><input type="checkbox" id="c5"><label for="c5">Apakah ada <strong>batasan/constraint</strong> yang perlu dicantumkan?</label></div>
+        <div class="check-item"><input type="checkbox" id="c6"><label for="c6">Untuk tugas kompleks: sudahkah saya menyertakan <strong>contoh I/O</strong> yang relevan?</label></div>
+        <div class="check-item"><input type="checkbox" id="c7"><label for="c7">Apakah perlu <strong>instruksi berpikir bertahap</strong> (chain of thought)?</label></div>
+        <div class="check-item"><input type="checkbox" id="c8"><label for="c8">Jika ada data/dokumen panjang: apakah diletakkan <strong>di atas instruksi</strong>?</label></div>
+        <div class="check-item"><input type="checkbox" id="c9"><label for="c9">Apakah saya menggunakan <strong>kalimat positif</strong> ("tulis prosa") bukan negatif ("jangan pakai bullet")?</label></div>
+        <div class="check-item"><input type="checkbox" id="c10"><label for="c10">Sudahkah saya membaca ulang prompt — apakah kolega yang tidak tahu konteks bisa memahaminya?</label></div>
+      </div>
+      <div class="score-bar" id="checklist-score" role="status" aria-live="polite">0 dari 10 checklist tercentang</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="ti ti-rocket" aria-hidden="true"></span>Tips Iterasi &amp; Perbaikan Prompt</div>
+      <ul class="tip-list">
+        <li><strong>Mulai dari draft sederhana,</strong> lalu tambahkan elemen ROLEAX satu per satu. Identifikasi apa yang masih kurang dari output.</li>
+        <li><strong>Jika output terlalu generik:</strong> tambahkan lebih banyak context spesifik dan contoh.</li>
+        <li><strong>Jika output salah format:</strong> instruksikan format secara positif dan berikan contoh output yang diinginkan.</li>
+        <li><strong>Jika output terlalu panjang/pendek:</strong> tentukan estimasi kata atau jumlah poin secara eksplisit.</li>
+        <li><strong>Jika Claude menebak-nebak:</strong> tambahkan lebih banyak context dan batasan. Jangan biarkan ruang ambigu.</li>
+        <li><strong>Gunakan Claude Console</strong> (platform.claude.com) untuk A/B test prompt dengan fitur Prompt Improver bawaan.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Disusun dari <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener">Anthropic Docs</a> &amp; <a href="https://github.com/anthropics/courses" target="_blank" rel="noopener">GitHub Courses</a> · 2025–2026</p>
+  </footer>
+
+</div><!-- /app-wrap -->
+
+<script>
+// ─── TAB SWITCHING ────────────────────────────
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
+}
+
+// ─── CUSTOM ROLE TOGGLE ──────────────────────
+document.getElementById('pb-role').addEventListener('change', function () {
+  document.getElementById('custom-role-wrap').style.display = this.value === 'custom' ? 'block' : 'none';
+});
+
+// ─── PROMPT BUILDER ──────────────────────────
+function buildPrompt() {
+  const roleEl = document.getElementById('pb-role');
+  const role = roleEl.value === 'custom'
+    ? document.getElementById('pb-custom-role').value.trim()
+    : roleEl.value;
+  const task = document.getElementById('pb-task').value.trim();
+  const limit = document.getElementById('pb-limit').value.trim();
+  const fmt = document.getElementById('pb-format').value;
+  const think = document.getElementById('pb-think').value;
+
+  if (!role) { alert('Pilih atau isi peran Claude terlebih dahulu.'); return; }
+  if (!task) { alert('Isi tugas utama terlebih dahulu.'); return; }
+
+  let p = `[SYSTEM]\nKamu adalah ${role}.\n\n<task>\n${task}\n</task>`;
+  if (limit) p += `\n\n<constraints>\n${limit}\n</constraints>`;
+  p += `\n\n<output_format>\n${fmt}\n</output_format>`;
+  if (think === 'yes') p += `\n\n<thinking>\nSebelum menjawab, pikirkan langkah demi langkah:\n1. Pahami tujuan utama tugas ini\n2. Identifikasi kendala dan batasan\n3. Pilih pendekatan terbaik\nKemudian berikan jawaban lengkap.\n</thinking>`;
+
+  document.getElementById('pb-result').textContent = p;
+  document.getElementById('pb-output').classList.add('show');
+}
+
+function copyOutput() {
+  const text = document.getElementById('pb-result').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('#pb-output .copy-btn');
+    btn.innerHTML = '<span class="ti ti-check"></span>Copied!';
+    setTimeout(() => { btn.innerHTML = '<span class="ti ti-copy" aria-hidden="true"></span>Copy'; }, 2000);
+  });
+}
+
+// ─── TEMPLATE ────────────────────────────────
+function showTemplate(id, el) {
+  document.querySelectorAll('.role-card').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+  document.querySelectorAll('.template-box').forEach(t => t.classList.remove('show'));
+  const box = document.getElementById('tpl-' + id);
+  box.classList.add('show');
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyTemplate(id) {
+  const text = document.getElementById('tc-' + id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('#tpl-' + id + ' .copy-btn');
+    btn.innerHTML = '<span class="ti ti-check"></span>Copied!';
+    setTimeout(() => { btn.innerHTML = '<span class="ti ti-copy" aria-hidden="true"></span>Copy'; }, 2000);
+  });
+}
+
+// ─── CHECKLIST ───────────────────────────────
+const checkboxes = document.querySelectorAll('#checklist input[type=checkbox]');
+const scoreEl = document.getElementById('checklist-score');
+checkboxes.forEach(cb => {
+  cb.addEventListener('change', () => {
+    const n = [...checkboxes].filter(c => c.checked).length;
+    scoreEl.textContent = `${n} dari 10 checklist tercentang`;
+    scoreEl.style.color = n >= 8 ? '#0A6B3E' : n >= 5 ? '#8B5E00' : '#4A526A';
+    scoreEl.style.fontWeight = n >= 8 ? '600' : '500';
+  });
+});
+</script>
+</body>
+</html>
