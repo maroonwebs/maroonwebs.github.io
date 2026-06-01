@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Generator Berita Nasional</title>
+  <meta name="description" content="Generator prompt final untuk berita nasional berbasis Google Trends, Discover, Discoverability, Search/AEO, first-hand evidence, dan non-commodity content." />
+  <style>
+    :root{--bg:#f5f7fb;--card:#fff;--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--dark:#111827;--accent:#2563eb;--soft:#dbeafe;--danger:#fee2e2;--radius:22px;--shadow:0 16px 40px rgba(15,23,42,.08)}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top left,rgba(37,99,235,.10),transparent 32rem),radial-gradient(circle at top right,rgba(14,165,233,.08),transparent 26rem),var(--bg);color:var(--text)}
+    header{background:rgba(255,255,255,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}.wrap{width:min(1440px,calc(100% - 32px));margin:0 auto}.hero{padding:28px 0;display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:end}.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--soft);color:#1d4ed8;font-size:13px;font-weight:800;margin-bottom:14px}h1{margin:0;font-size:clamp(30px,4vw,54px);line-height:1.02;letter-spacing:-.045em}.subtitle{margin:16px 0 0;max-width:900px;color:var(--muted);font-size:16px;line-height:1.7}.stats,.card,.output-card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.stats{padding:18px}.stats-title{color:var(--muted);font-size:13px;font-weight:800;margin:0 0 6px}.stats-value{font-size:30px;font-weight:900;margin:0;letter-spacing:-.03em}.bar{height:10px;background:#e5e7eb;border-radius:999px;margin:14px 0 10px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),#0ea5e9);border-radius:999px;transition:width .25s ease}
+    main{padding:26px 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,.95fr);gap:24px;align-items:start}.right{position:sticky;top:128px}.card{margin-bottom:18px;overflow:hidden}.card-head{padding:18px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);background:#fbfdff}.icon{width:38px;height:38px;display:grid;place-items:center;border-radius:14px;background:#eef2ff;color:#3730a3;font-weight:900}h2{margin:0;font-size:18px;letter-spacing:-.02em}.card-body{padding:20px;display:grid;gap:16px}label span{display:block;margin-bottom:8px;font-size:13px;color:#334155;font-weight:800}textarea{width:100%;border:1px solid #cbd5e1;background:#fff;color:var(--text);border-radius:16px;padding:13px 14px;font-size:14px;line-height:1.55;outline:none;transition:border-color .15s ease,box-shadow .15s ease;font-family:inherit;min-height:88px;resize:vertical}.large textarea{min-height:140px}textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+    .output-card{overflow:hidden}.output-head{padding:18px;display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid var(--line)}.output-head p{margin:4px 0 0;color:var(--muted);font-size:13px;line-height:1.4}.btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}button{border:0;border-radius:14px;padding:11px 14px;font-weight:900;cursor:pointer;transition:transform .12s ease;font-size:13px}button:hover{transform:translateY(-1px)}.primary{background:var(--dark);color:white}.secondary{background:#e2e8f0;color:#0f172a}.danger{background:var(--danger);color:#991b1b}#promptOutput{display:block;width:100%;min-height:calc(100vh - 300px);border:0;border-radius:0;background:#0b1220;color:#e5e7eb;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:12px;line-height:1.65;padding:18px;resize:vertical;outline:none}.hint{padding:12px 18px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.toast{position:fixed;right:18px;bottom:18px;background:#052e16;color:white;padding:13px 16px;border-radius:16px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transform:translateY(12px);transition:all .2s ease;z-index:99;font-size:14px;font-weight:800}.toast.show{opacity:1;transform:translateY(0)}footer{color:var(--muted);font-size:13px;padding:0 0 28px;text-align:center}
+    @media(max-width:1100px){.hero,main{grid-template-columns:1fr}.right{position:static}#promptOutput{min-height:560px}header{position:static}}@media(max-width:640px){.wrap{width:min(100% - 20px,1440px)}.hero{padding:20px 0}main{padding-top:14px}.output-head{align-items:flex-start;flex-direction:column}.btns{justify-content:flex-start;width:100%}button{width:100%}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap hero">
+    <div>
+      <div class="badge">✨ Prompt Generator Final — Berita Nasional + Discoverability</div>
+      <h1>Generator Prompt Konten Berita Nasional</h1>
+      <p class="subtitle">Isi form untuk membuat prompt lengkap bagi portal berita nasional: Google Trends, Search Console, Discover, Discoverability, media sosial, data resmi, news value, first-hand evidence, non-commodity content, Search/AEO, dan QC redaksi.</p>
+    </div>
+    <div class="stats">
+      <p class="stats-title">Progress input</p>
+      <p class="stats-value"><span id="filledCount">0</span>/<span id="totalCount">0</span> bagian terisi</p>
+      <div class="bar"><span id="progressBar"></span></div>
+      <p class="stats-title">Output prompt otomatis diperbarui setiap form diisi.</p>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <section class="left" id="formContainer"></section>
+  <aside class="right">
+    <div class="output-card">
+      <div class="output-head">
+        <div><h2>Output Prompt Lengkap</h2><p>Salin prompt ini lalu gunakan di ChatGPT untuk membuat kalender konten berita nasional.</p></div>
+        <div class="btns"><button class="primary" id="copyBtn">Copy Prompt</button><button class="secondary" id="downloadBtn">Download TXT</button><button class="danger" id="resetBtn">Reset</button></div>
+      </div>
+      <textarea id="promptOutput" readonly></textarea>
+      <div class="hint"><span>Tip: data resmi, GSC, Discover, dan social listening akan membuat output lebih tajam.</span><span id="charCount">0 karakter</span></div>
+    </div>
+  </aside>
+</main>
+<footer class="wrap">Internal tool redaksi untuk menyusun prompt perencanaan konten nasional berbasis Search, Discover, Discoverability, AEO, dan Beyond SERP.</footer>
+<div class="toast" id="toast">Prompt berhasil disalin.</div>
+
+<script>
+const defaults={
+namaPortal:"",
+jenisPortal:"Berita nasional / jaringan media / portal umum",
+rubrikUtama:"Nasional, Ekonomi, Otomotif, Teknologi, Lifestyle, Entertainment, Sport, Pendidikan, Kesehatan",
+subRubrik:"kebijakan publik, harga pangan, CPNS, bansos, kendaraan, AI, selebritas, sepak bola, kesehatan keluarga",
+targetAudiens:"pembaca nasional, pekerja urban, keluarga muda, mahasiswa, pelaku UMKM, pengguna kendaraan, pencari kerja, ibu rumah tangga, penggemar hiburan",
+cakupanGeografis:"Nasional / Indonesia / kota besar / lintas provinsi",
+durasiTren:"30 hari terakhir",
+tujuanKonten:"traffic Discover, Search evergreen, breaking news, social sharing, otoritas rubrik, retensi pembaca",
+formatKonten:"artikel berita, artikel feature, artikel data, artikel panduan, live update, profil tokoh, explainer, fact check, video pendek, carousel Instagram, newsletter",
+kompetitor:"Kompas.com, Detik.com, Tribunnews, CNN Indonesia, CNBC Indonesia, Tempo.co, Liputan6.com, Suara.com",
+areaFokus:"harga pangan, BBM, CPNS, bansos, otomotif, AI, kesehatan, pendidikan, selebritas, olahraga nasional",
+asetInternal:"reporter nasional, desk daerah, fotografer, arsip berita, data GSC, data Discover, akses narasumber, komunitas pembaca, media sosial, newsletter",
+batasanRedaksi:"tidak boleh clickbait, wajib netral, wajib sumber jelas, tidak boleh klaim tanpa narasumber, hindari rumor, patuhi kode etik jurnalistik",
+googleTrends:"",gsc:"",discoverPerformance:"",artikelBagus:"",artikelTurun:"",beritaNasional:"",pernyataanResmi:"",dataPublik:"",mediaSosial:"",youtube:"",komunitas:"",seoTools:"",agendaNasional:"",dataTambahan:""
+};
+let form={...defaults};
+const groups=[
+{title:"Profil Portal & Cakupan Nasional",icon:"📰",compact:true,fields:[["namaPortal","Nama portal/media","Contoh: JawaPos.com / portal jaringan Anda"],["jenisPortal","Jenis portal","Berita nasional / jaringan media / portal umum"],["rubrikUtama","Rubrik utama","Nasional, Ekonomi, Otomotif, Teknologi, Lifestyle"],["subRubrik","Sub-rubrik","Kebijakan publik, harga pangan, CPNS, bansos, AI"],["targetAudiens","Target audiens","Pembaca nasional, pekerja urban, keluarga muda"],["cakupanGeografis","Cakupan geografis","Nasional / Indonesia / kota besar / lintas provinsi"]]},
+{title:"Tujuan, Format, Kompetitor, dan Batasan",icon:"🎯",compact:true,fields:[["durasiTren","Durasi waktu tren","7 / 30 / 60 / 90 hari terakhir"],["tujuanKonten","Tujuan utama konten","Discover / Search / breaking news / social sharing"],["formatKonten","Format konten","Artikel berita, explainer, live update, video pendek"],["kompetitor","Kompetitor","Daftar media/portal pesaing"],["areaFokus","Area fokus yang sudah dibahas","Topik yang sudah sering ditulis"],["asetInternal","Aset internal yang tersedia","Reporter, data GSC/Discover, arsip, narasumber"],["batasanRedaksi","Batasan redaksi","Netral, tidak clickbait, wajib sumber, hindari rumor"]]},
+{title:"Data Tren & Performa Internal",icon:"📈",compact:false,fields:[["googleTrends","A. Google Trends","Paste rising queries, related topics, wilayah, tanggal"],["gsc","B. Google Search Console","Paste query naik/turun, impressions, CTR, artikel yang mulai naik"],["discoverPerformance","C. Google Discover Performance","Paste artikel Discover, impressions, CTR, gambar, tanggal publish"],["artikelBagus","D. Artikel internal performa bagus","Judul, URL, performa, rubrik, tanggal, angle, gambar"],["artikelTurun","E. Artikel internal performa turun","Judul, URL, query turun, dugaan penyebab, tanggal"]]},
+{title:"Sumber Nasional, Resmi, Sosial, dan Komunitas",icon:"🔎",compact:false,fields:[["beritaNasional","F. Berita nasional terbaru","Headline, media, tanggal, sumber, isu utama"],["pernyataanResmi","G. Pernyataan resmi/dokumen/kebijakan","Rilis pemerintah, peraturan, pernyataan kementerian/lembaga"],["dataPublik","H. Data publik atau data industri","BPS, BI, OJK, Kemenkeu, Kemenhub, Kemenkes, BMKG"],["mediaSosial","I. Media sosial","Topik viral X/Twitter, TikTok, Instagram, Threads"],["youtube","J. YouTube","Judul video trending, channel, view, komentar penting"],["komunitas","K. Forum/komunitas","Grup Facebook, Reddit, Kaskus, komentar YouTube"],["seoTools","L. SEO tools","Keyword/topik dari Ahrefs/Semrush/Ubersuggest tanpa volume"],["agendaNasional","M. Agenda/event/momentum nasional","CPNS, mudik, libur nasional, event olahraga, rilis data"],["dataTambahan","N. Data tambahan","Sumber lain yang relevan"]]}
+];
+function esc(s){return String(s||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
+function renderForm(){const c=document.getElementById("formContainer");c.innerHTML=groups.map(g=>`<div class="card"><div class="card-head"><div class="icon">${g.icon}</div><h2>${g.title}</h2></div><div class="card-body ${g.compact?"":"large"}">${g.fields.map(([k,l,p])=>`<label><span>${l}</span><textarea data-key="${k}" placeholder="${esc(p)}">${esc(form[k])}</textarea></label>`).join("")}</div></div>`).join("");c.querySelectorAll("textarea").forEach(el=>el.addEventListener("input",e=>{form[e.target.dataset.key]=e.target.value;updateOutput()}))}
+function val(k){const x=String(form[k]||"").trim();return x||"[BELUM DIISI]"}
+function buildPrompt(){return `Anda adalah Senior Newsroom SEO Editor, Google Discover Strategist, AEO/GEO Content Planner, dan Managing Editor untuk portal berita nasional.
+
+Tugas Anda adalah membuat perencanaan konten berbasis data tren untuk portal berita nasional. Output harus cocok untuk artikel berita umum yang mengejar pageviews nasional, Google Discover, Search, AEO/AI Overview, dan social sharing, tetapi tetap menjaga standar jurnalistik.
+
+Jangan hanya membuat daftar keyword. Setiap ide harus diuji dari sisi news value, first-hand evidence, non-commodity angle, Discover potential, dan Search/AEO structure.
+
+Gunakan 6 prinsip utama berikut.
+
+==================================================
+1. NEWS VALUE NASIONAL
+==================================================
+
+Setiap topik harus memiliki alasan jurnalistik yang kuat untuk diterbitkan di portal berita nasional.
+
+Minimal memiliki 2 unsur berikut:
+- aktualitas nasional
+- dampak publik luas
+- kebijakan pemerintah/regulasi
+- konsekuensi ekonomi masyarakat
+- keselamatan/risiko publik
+- perubahan perilaku masyarakat
+- tokoh nasional/public figure
+- konflik/kontroversi
+- data baru
+- layanan publik
+- tren sosial
+- tren konsumsi
+- momentum musiman nasional
+- viralitas digital
+- human interest yang relevan luas
+- kedekatan emosional dengan pembaca umum
+- relevansi terhadap kelas menengah, pekerja, keluarga, pelajar, mahasiswa, konsumen, pengguna teknologi, pengguna kendaraan, atau masyarakat umum
+
+Prioritaskan isu yang punya dampak nasional atau bisa dibaca oleh audiens lintas daerah.
+
+==================================================
+2. NON-COMMODITY CONTENT
+==================================================
+
+Hindari artikel generik yang mudah dibuat AI dalam 10 detik. Jika AI bisa membuat artikel yang mirip tanpa data, narasumber, observasi, dokumen, pengalaman, simulasi, atau konteks baru, tandai sebagai Commodity Risk: Tinggi.
+
+Ubah topik commodity menjadi non-commodity dengan data terbaru, dokumen resmi, pernyataan pejabat, wawancara ahli/pelaku terdampak, pantauan media sosial, simulasi biaya, timeline, klarifikasi hoaks, studi kasus, survei pembaca, arsip pemberitaan, data GSC/Discover, foto/video asli, atau insight redaksi.
+
+==================================================
+3. FIRST-HAND EXPERIENCE ≠ SEKADAR POV
+==================================================
+
+POV biasa adalah cara menyampaikan pendapat. First-hand evidence adalah bukti bahwa redaksi memiliki data, observasi, wawancara, dokumen, simulasi, atau keterlibatan langsung.
+
+Gunakan formula: Experience + Evidence + Original Insight.
+
+==================================================
+4. GOOGLE DISCOVER OPTIMIZATION
+==================================================
+
+Setiap artikel harus dikemas agar layak untuk Google Discover:
+- judul merangkum isi, tidak clickbait, tidak menahan informasi penting, tidak sensasional berlebihan
+- relevan dengan minat pembaca nasional
+- punya manfaat langsung, cerita kuat, atau insight unik
+- gambar utama relevan, menarik, horizontal 16:9, minimal 1200 px
+- og:image bukan logo atau gambar generik
+- caption dan alt text jelas
+- halaman mengizinkan max-image-preview:large
+
+==================================================
+5. SEARCH, AEO, DAN AI OVERVIEW
+==================================================
+
+Setiap artikel prioritas harus memiliki keyword natural, lead yang menjawab inti topik, ringkasan jawaban 2–3 kalimat, H2/H3 jelas, definisi/timeline/tabel/checklist jika relevan, FAQ long-tail, internal link, sumber kredibel, data terstruktur Article/NewsArticle, dan penjelasan dampak bagi pembaca.
+
+==================================================
+6. EDITORIAL INTEGRITY
+==================================================
+
+Jangan mengarang data, jangan membuat klaim teknis/kesehatan/hukum/finansial/keselamatan tanpa sumber, jangan menulis seolah ada wawancara jika tidak ada, jangan mengubah rumor menjadi fakta, jangan menyebut volume pencarian, dan jangan memaksakan topik jika data tidak cukup. Jika data kurang, tulis “Butuh Data Tambahan” atau “Watchlist”.
+
+==================================================
+INPUT DASAR
+==================================================
+
+Nama portal/media:
+${val("namaPortal")}
+
+Jenis portal:
+${val("jenisPortal")}
+
+Rubrik utama:
+${val("rubrikUtama")}
+
+Sub-rubrik:
+${val("subRubrik")}
+
+Target audiens:
+${val("targetAudiens")}
+
+Cakupan geografis:
+${val("cakupanGeografis")}
+
+Durasi waktu tren:
+${val("durasiTren")}
+
+Tujuan utama konten:
+${val("tujuanKonten")}
+
+Format konten:
+${val("formatKonten")}
+
+Kompetitor:
+${val("kompetitor")}
+
+Area fokus yang sudah dibahas:
+${val("areaFokus")}
+
+Aset internal yang tersedia:
+${val("asetInternal")}
+
+Batasan redaksi:
+${val("batasanRedaksi")}
+
+==================================================
+DATA TREN DAN DATA PENDUKUNG
+==================================================
+
+A. Google Trends
+${val("googleTrends")}
+
+B. Google Search Console
+${val("gsc")}
+
+C. Google Discover Performance
+${val("discoverPerformance")}
+
+D. Artikel internal performa bagus
+${val("artikelBagus")}
+
+E. Artikel internal performa turun
+${val("artikelTurun")}
+
+F. Berita nasional terbaru
+${val("beritaNasional")}
+
+G. Pernyataan resmi/dokumen/kebijakan
+${val("pernyataanResmi")}
+
+H. Data publik atau data industri
+${val("dataPublik")}
+
+I. Media sosial
+${val("mediaSosial")}
+
+J. YouTube
+${val("youtube")}
+
+K. Forum/komunitas
+${val("komunitas")}
+
+L. SEO tools
+${val("seoTools")}
+
+M. Agenda/event/momentum nasional
+${val("agendaNasional")}
+
+N. Data tambahan
+${val("dataTambahan")}
+
+
+==================================================
+MODUL TAMBAHAN — DISCOVERABILITY & BEYOND SERP
+==================================================
+
+Selain Search dan Discover, nilai setiap topik berdasarkan kemampuan konten untuk ditemukan, disebut, dikutip, dibagikan, dan dipahami oleh sistem discovery, AI Overview, assistant engines, media sosial, dan pembaca.
+
+Untuk setiap topik, tambahkan penilaian berikut:
+
+1. Interest Signal
+Apakah topik sesuai minat pembaca saat ini?
+Sinyal bisa berasal dari Google Discover performance, Google Trends, media sosial, YouTube, komentar pembaca, GSC, berita kompetitor, atau momentum musiman nasional.
+
+2. Entity Strength
+Apakah topik memiliki entity kuat?
+Contoh: tokoh nasional, public figure, brand, klub, kota, lembaga, produk, kebijakan, perusahaan, aplikasi, kendaraan, event, kasus hukum, regulasi, atau isu nasional.
+
+3. Shareability
+Apakah artikel punya alasan untuk dibagikan?
+Contoh: berguna, mengejutkan secara wajar, menyentuh emosi, membantu keputusan, menjawab kebingungan, atau terkait kepentingan publik nasional.
+
+4. Assistant Readiness
+Apakah artikel mudah dipahami oleh AI/assistant?
+Pastikan ada ringkasan, struktur H2 jelas, timeline, FAQ, data, entity, kutipan sumber, dan konteks nasional.
+
+5. Mention & Citation Potential
+Apakah artikel berpotensi disebut atau dijadikan rujukan oleh media lain, komunitas, AI Overview, atau platform sosial?
+Perkuat dengan data original, wawancara, visual, dokumen, kronologi, klarifikasi, atau penjelasan yang lebih jernih dari kompetitor.
+
+6. Visual Feed Strength
+Apakah gambar utama cukup kuat untuk feed Discover?
+Nilai:
+- relevan
+- horizontal 16:9
+- minimal 1200 px
+- bukan logo
+- bukan gambar generik
+- tidak terlalu banyak teks
+- punya objek utama jelas
+- bisa dipahami tanpa membaca artikel panjang
+
+7. Multi-format Potential
+Apakah topik perlu dibuat dalam format lain?
+Pilih:
+- artikel teks
+- video pendek
+- YouTube
+- carousel Instagram
+- timeline visual
+- infografis
+- FAQ card
+- live update
+- foto story
+- explainer 60 detik
+
+8. Discoverability Score
+Beri skor 0–10 berdasarkan:
+- kekuatan interest
+- kekuatan entity
+- kekuatan visual
+- news value nasional
+- usefulness
+- uniqueness
+- shareability
+- multi-format potential
+
+Tambahkan kolom output:
+- Interest Signal
+- Entity Strength
+- Visual Feed Strength
+- Shareability
+- Assistant Readiness
+- Mention/Citation Potential
+- Multi-format Recommendation
+- Discoverability Score
+
+==================================================
+TUGAS 1 — VALIDASI DATA
+==================================================
+
+Sebelum membuat ide konten, nilai kualitas data input. Berikan:
+1. Data paling kuat
+2. Data paling lemah
+3. Data yang belum cukup
+4. Topik yang didukung minimal 2 sinyal
+5. Topik yang hanya boleh masuk Watchlist
+6. Risiko bias data
+7. Risiko rumor/hoaks
+8. Data tambahan yang perlu diminta ke reporter/editor
+9. Sumber resmi yang perlu dicek
+10. Topik yang tidak layak ditulis karena data tidak cukup
+
+==================================================
+TUGAS 2 — IDENTIFIKASI 15–30 TOPIK NASIONAL
+==================================================
+
+Buat 15–30 topik yang layak dikerjakan. Untuk setiap topik, isi:
+1. Label topik, maksimal 6 kata
+2. Ringkasan tren
+3. Apa yang berubah baru-baru ini
+4. News value nasional
+5. Mengapa penting bagi pembaca nasional
+6. Siapa yang paling peduli
+7. Cakupan audiens
+8. Sinyal tren yang mendukung
+9. Data first-hand atau data resmi yang harus dikumpulkan
+10. Narasumber yang perlu diwawancarai
+11. Bukti visual yang perlu disiapkan
+12. Commodity Risk: Rendah/Sedang/Tinggi
+13. Alasan risiko commodity
+14. Cara membuatnya non-commodity
+15. Original insight yang bisa dikejar
+16. Skor kekuatan tren 0–10
+17. Skor news value 0–10
+18. Skor first-hand evidence 0–10
+19. Skor Discover potential 0–10
+20. Skor peluang Search/AEO 0–10
+21. Interest Signal
+22. Entity Strength
+23. Visual Feed Strength
+24. Shareability
+25. Assistant Readiness
+26. Mention/Citation Potential
+27. Multi-format Recommendation
+28. Discoverability Score 0–10
+29. Skor risiko editorial 0–10
+30. Jenis peluang konten
+31. Status: Eksekusi cepat / Butuh peliputan / Butuh verifikasi / Watchlist
+32. Catatan editor
+
+==================================================
+TUGAS 3 — ANGLE EDITORIAL NASIONAL
+==================================================
+
+Untuk setiap topik prioritas, buat 5 angle:
+A. Angle berita cepat
+B. Angle explainer nasional
+C. Angle non-commodity
+D. Angle Discover
+E. Angle AEO/Search
+
+Setiap angle harus menyertakan premis artikel, keyword utama, pertanyaan pembaca, data/bukti, narasumber/sumber resmi, konteks nasional, elemen visual, interest signal, entity strength, shareability, multi-format recommendation, risiko generik, risiko editorial, dan tone redaksi.
+
+==================================================
+TUGAS 4 — PAKET JUDUL
+==================================================
+
+Untuk 10 topik prioritas, buat 8 jenis judul:
+1. Search-friendly
+2. Discover-friendly
+3. News Value
+4. Non-Commodity
+5. AEO-friendly
+6. Social-friendly
+7. Aman Editor
+8. Follow-up
+
+==================================================
+TUGAS 5 — STRUKTUR ARTIKEL LENGKAP
+==================================================
+
+Untuk 10 topik terbaik, buat struktur: judul utama, meta title, meta description, slug, ringkasan jawaban, lead, H2/H3, data first-hand/resmi, narasumber dan pertanyaan wawancara, timeline/kronologi, tabel/checklist/simulasi, FAQ long-tail 5 pertanyaan, entitas penting, internal link, external/source citation, ide foto Discover, alt text, caption, ide video pendek, catatan teknis SEO, Discover, Discoverability & Beyond SERP, AEO/AI Overview, non-commodity, risiko editorial, dan kebutuhan update.
+
+==================================================
+TUGAS 6 — KALENDER KONTEN 30 HARI
+==================================================
+
+Susun kalender konten 30 hari dengan kolom: tanggal/hari ke-, topik, judul utama, rubrik, format, target kanal, tingkat urgensi, status, kebutuhan data, narasumber/sumber resmi, visual, interest signal, entity strength, multi-format recommendation, alasan publish, internal link, output sosial, potensi follow-up, catatan editor.
+
+Distribusi:
+- 30% Discover-oriented
+- 25% Search evergreen non-commodity
+- 20% berita cepat aktual
+- 10% explainer nasional
+- 10% analisis/data/studi kasus
+- 5% social-first/video-first
+
+==================================================
+TUGAS 7 — KLASTER DAN HUB PAGE NASIONAL
+==================================================
+
+Kelompokkan topik ke 5–8 klaster tematik. Untuk setiap klaster berikan nama hub page, deskripsi, artikel pilar, artikel pendukung, peluang internal linking, FAQ utama, potensi Discover, potensi Search evergreen, potensi sponsor/iklan, format sosial, celah konten, dan risiko jika terlalu generik.
+
+==================================================
+TUGAS 8 — PRIORITAS TOP 10
+==================================================
+
+Pilih 10 topik terbaik. Nilai berdasarkan urgensi momentum, dampak nasional, intensi pembaca, news value, Discover potential, peluang Search/AEO, interest signal, entity strength, visual feed strength, shareability, assistant readiness, mention/citation potential, multi-format potential, first-hand evidence, non-commodity, celah kompetitor, kemudahan eksekusi, risiko editorial, potensi follow-up, dan keselarasan tujuan.
+
+Berikan ranking, skor prioritas, alasan, risiko, aksi redaksi hari ini, deadline ideal, data minimal sebelum publish, kelayakan publish cepat/verifikasi, dan potensi artikel lanjutan.
+
+==================================================
+TUGAS 9 — QUALITY CONTROL SEBELUM PUBLISH
+==================================================
+
+Buat checklist QC:
+A. Newsroom QC
+B. First-Hand QC
+C. Non-Commodity QC
+D. Discover QC
+E. Discoverability & Beyond SERP QC
+- Apakah topik memiliki interest signal yang jelas?
+- Apakah entity utama kuat dan mudah dikenali secara nasional?
+- Apakah artikel punya alasan untuk dibagikan?
+- Apakah artikel mudah dipahami oleh AI/assistant?
+- Apakah artikel berpotensi disebut/dikutip oleh media lain, komunitas, AI Overview, atau platform sosial?
+- Apakah visual feed cukup kuat untuk Discover?
+- Apakah ada rekomendasi multi-format: video, YouTube, carousel, timeline, infografis, FAQ card, live update, atau explainer?
+- Apakah Discoverability Score cukup tinggi untuk diprioritaskan?
+F. SEO/AEO QC
+G. Integrity QC
+
+==================================================
+FORMAT OUTPUT WAJIB
+==================================================
+
+A) Executive Summary
+B) Audit Kualitas Data
+C) Tabel Lengkap 15–30 Topik Nasional, termasuk kolom Discoverability & Beyond SERP
+D) 10 Topik Prioritas
+E) Paket Judul
+F) Struktur Artikel Lengkap
+G) Kalender Konten 30 Hari
+H) Peta Klaster dan Hub Page Nasional
+I) Checklist QC Editor
+J) Catatan Data Kurang`;
+}
+function updateOutput(){const p=buildPrompt();document.getElementById("promptOutput").value=p;document.getElementById("charCount").textContent=p.length.toLocaleString("id-ID")+" karakter";const keys=Object.keys(form);const filled=keys.filter(k=>String(form[k]||"").trim()).length;document.getElementById("filledCount").textContent=filled;document.getElementById("totalCount").textContent=keys.length;document.getElementById("progressBar").style.width=((filled/keys.length)*100)+"%"}
+function toast(t){const e=document.getElementById("toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),1800)}
+document.getElementById("copyBtn").addEventListener("click",async()=>{const t=document.getElementById("promptOutput").value;try{await navigator.clipboard.writeText(t)}catch(e){const o=document.getElementById("promptOutput");o.focus();o.select();document.execCommand("copy")}toast("Prompt berhasil disalin.")});
+document.getElementById("downloadBtn").addEventListener("click",()=>{const t=document.getElementById("promptOutput").value;const b=new Blob([t],{type:"text/plain;charset=utf-8"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download="prompt-final-berita-nasional.txt";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u);toast("File TXT dibuat.")});
+document.getElementById("resetBtn").addEventListener("click",()=>{if(!confirm("Reset semua input ke contoh awal?"))return;form={...defaults};renderForm();updateOutput();toast("Form direset.")});
+renderForm();updateOutput();
+</script>
+</body>
+</html>
