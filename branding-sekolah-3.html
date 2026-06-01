@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Prompt Branding Sekolah AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .tab-active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        .tab-inactive {
+            background-color: white;
+            color: #64748b;
+            border-color: #e2e8f0;
+        }
+        .tab-inactive:hover {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        .prompt-card {
+            transition: all 0.2s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .prompt-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 50;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 15px;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+        .toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen pb-20">
+
+    <div id="toast" class="toast flex items-center gap-3 shadow-lg">
+        <i class="fa-solid fa-check-circle text-green-400 text-xl"></i>
+        <span id="toast-message">Berhasil dicopy!</span>
+    </div>
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-br from-blue-600 to-indigo-600 text-white p-2 rounded-lg shadow-md">
+                    <i class="fa-solid fa-school text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold text-slate-900 leading-tight">BrandingSekolah AI</h1>
+                    <p class="text-xs md:text-sm text-slate-500 font-medium">Generator Prompt Profesional</p>
+                </div>
+            </div>
+            <a href="#" class="hidden md:flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition">
+                <i class="fa-regular fa-circle-question"></i> Bantuan
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 md:p-8 mb-10 border border-blue-100 relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 opacity-10">
+                <i class="fa-solid fa-wand-magic-sparkles text-9xl text-blue-600"></i>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2 relative z-10">
+                Buat Branding Sekolah dalam Sekejap ⚡
+            </h2>
+            <p class="text-slate-600 max-w-2xl relative z-10 text-sm md:text-base leading-relaxed">
+                Generator prompt AI lengkap untuk cover semua kebutuhan konten sosial media, identitas merek, SPMB, hingga video promosi sekolah.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <div class="lg:col-span-5 space-y-6">
+                <form id="brandingForm" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-6">
+                    
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-bold">1</span>
+                            Data & Profil Sekolah
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Jenis / Jenjang</label>
+                                <select id="schoolType" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm bg-white">
+                                    <option>SD</option>
+                                    <option>SMP</option>
+                                    <option selected>SMA</option>
+                                    <option>SMK</option>
+                                    <option>TK</option>
+                                    <option>Pondok Pesantren</option>
+                                    <option>Madrasah (MI/MTs/MA)</option>
+                                    <option>Lembaga Kursus / Bimbel</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Kota / Lokasi</label>
+                                <input type="text" id="schoolCity" placeholder="Contoh: Bandung, Jawa Barat" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Tahun Berdiri</label>
+                                <input type="text" id="schoolYear" placeholder="Contoh: 1998" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                            </div>
+                            <div class="col-span-1 sm:col-span-2">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Nama Sekolah / Lembaga</label>
+                                <input type="text" id="schoolName" placeholder="Contoh: SMA Nusantara Unggulan" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                            </div>
+                            <div class="col-span-1 sm:col-span-2">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Motto / Tagline Sekolah</label>
+                                <input type="text" id="schoolMotto" placeholder="Contoh: Cerdas, Berkarakter, Berprestasi" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-slate-100">
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold">2</span>
+                            Identitas Visual
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Warna Utama</label>
+                                <input type="text" id="primaryColor" placeholder="Contoh: Biru Navy (#003366)" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Warna Aksen / Sekunder</label>
+                                <input type="text" id="accentColor" placeholder="Contoh: Emas (#FFD700)" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition text-sm">
+                            </div>
+                            <div class="col-span-1 sm:col-span-2">
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Gaya Desain</label>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    <label class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50 transition">
+                                        <input type="radio" name="designStyle" value="Modern" checked class="text-purple-600 focus:ring-purple-500">
+                                        <span class="text-sm">Modern</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50 transition">
+                                        <input type="radio" name="designStyle" value="Profesional" class="text-purple-600 focus:ring-purple-500">
+                                        <span class="text-sm">Profesional</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50 transition">
+                                        <input type="radio" name="designStyle" value="Elegan Premium" class="text-purple-600 focus:ring-purple-500">
+                                        <span class="text-sm">Elegan Premium</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50 transition">
+                                        <input type="radio" name="designStyle" value="Islami" class="text-purple-600 focus:ring-purple-500">
+                                        <span class="text-sm">Islami</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50 transition">
+                                        <input type="radio" name="designStyle" value="Modern Playful & Colorful" class="text-purple-600 focus:ring-purple-500">
+                                        <span class="text-sm">Playful</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50 transition">
+                                        <input type="radio" name="designStyle" value="Minimalis Bersih" class="text-purple-600 focus:ring-purple-500">
+                                        <span class="text-sm">Minimalis Bersih</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50 transition">
+                                        <input type="radio" name="designStyle" value="Akademik Klasik" class="text-purple-600 focus:ring-purple-500">
+                                        <span class="text-sm">Akademik Klasik</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50 transition">
+                                        <input type="radio" name="designStyle" value="Bold & Dynamic" class="text-purple-600 focus:ring-purple-500">
+                                        <span class="text-sm">Bold & Dynamic</span>
+                                    </label>
+                                    <label id="labelCustom" class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50 transition">
+                                        <input type="radio" name="designStyle" value="Custom" id="customDesignRadio" class="text-purple-600 focus:ring-purple-500">
+                                        <span class="text-sm">Custom / Lainnya</span>
+                                    </label>
+                                </div>
+                                <div id="customDesignContainer" class="mt-3 hidden">
+                                    <input type="text" id="customDesignInput" placeholder="Tulis gaya desain custom di sini..." class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition text-sm bg-white">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-slate-100">
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-sm font-bold">3</span>
+                            Program & Fasilitas
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Program Jurusan / Keahlian</label>
+                                <textarea id="achievements" rows="2" placeholder="Contoh: MIPA, IPS, Bahasa, Teknik Komputer, Multimedia" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition text-sm"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Fasilitas Unggulan</label>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
+                                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                        <input type="checkbox" class="rounded text-orange-600 focus:ring-orange-500" checked> Lab Komputer
+                                    </label>
+                                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                        <input type="checkbox" class="rounded text-orange-600 focus:ring-orange-500"> Lapangan Sport
+                                    </label>
+                                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                        <input type="checkbox" class="rounded text-orange-600 focus:ring-orange-500" checked> Perpustakaan
+                                    </label>
+                                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                        <input type="checkbox" class="rounded text-orange-600 focus:ring-orange-500"> Masjid
+                                    </label>
+                                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                        <input type="checkbox" class="rounded text-orange-600 focus:ring-orange-500"> Lab Sains
+                                    </label>
+                                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                        <input type="checkbox" class="rounded text-orange-600 focus:ring-orange-500"> Asrama
+                                    </label>
+                                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                        <input type="checkbox" class="rounded text-orange-600 focus:ring-orange-500"> Aula
+                                    </label>
+                                    <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                        <input type="checkbox" class="rounded text-orange-600 focus:ring-orange-500"> Kolam Renang
+                                    </label>
+                                </div>
+                                <input type="text" id="customFacilities" placeholder="Tambahkan fasilitas lain (pisah koma)..." class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-slate-100">
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm font-bold">4</span>
+                            Target & Platform
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Target Audiens</label>
+                                <input type="text" id="targetAudience" placeholder="Contoh: Orang tua siswa SMP, Siswa baru, Alumni" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Tagline SPMB / PPDB</label>
+                                <input type="text" id="spmbTagline" placeholder="Contoh: PPDB 2026 Gelombang 1 - Diskon 20%" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Target Platform Utama</label>
+                                <div class="flex flex-wrap gap-2">
+                                    <label class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:bg-slate-200 transition has-[:checked]:bg-pink-100 has-[:checked]:text-pink-600 has-[:checked]:border has-[:checked]:border-pink-200">
+                                        <input type="checkbox" class="hidden" checked> <i class="fa-brands fa-instagram"></i> Instagram
+                                    </label>
+                                    <label class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:bg-slate-200 transition has-[:checked]:bg-blue-100 has-[:checked]:text-blue-600 has-[:checked]:border has-[:checked]:border-blue-200">
+                                        <input type="checkbox" class="hidden"> <i class="fa-brands fa-facebook"></i> Facebook
+                                    </label>
+                                    <label class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:bg-slate-200 transition has-[:checked]:bg-black has-[:checked]:text-white has-[:checked]:border has-[:checked]:border-gray-800">
+                                        <input type="checkbox" class="hidden"> <i class="fa-brands fa-tiktok"></i> TikTok
+                                    </label>
+                                    <label class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:bg-slate-200 transition has-[:checked]:bg-red-100 has-[:checked]:text-red-600 has-[:checked]:border has-[:checked]:border-red-200">
+                                        <input type="checkbox" class="hidden"> <i class="fa-brands fa-youtube"></i> YouTube
+                                    </label>
+                                    <label class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:bg-slate-200 transition has-[:checked]:bg-green-100 has-[:checked]:text-green-600 has-[:checked]:border has-[:checked]:border-green-200">
+                                        <input type="checkbox" class="hidden"> <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                                    </label>
+                                    <label class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:bg-slate-200 transition has-[:checked]:bg-slate-800 has-[:checked]:text-white has-[:checked]:border has-[:checked]:border-slate-600">
+                                        <input type="checkbox" class="hidden"> <i class="fa-brands fa-x-twitter"></i> X / Twitter
+                                    </label>
+                                    <label class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:bg-slate-200 transition has-[:checked]:bg-indigo-100 has-[:checked]:text-indigo-600 has-[:checked]:border has-[:checked]:border-indigo-200">
+                                        <input type="checkbox" class="hidden"> Threads
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-slate-100">
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-sm font-bold">5</span>
+                            Kontak & Digital Presence
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="relative">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Instagram</label>
+                                <span class="input-icon"><i class="fa-brands fa-instagram"></i></span>
+                                <input type="text" id="instagram" placeholder="@sekolah_unggul" class="w-full pl-9 px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-sm">
+                            </div>
+                            <div class="relative">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">TikTok</label>
+                                <span class="input-icon"><i class="fa-brands fa-tiktok"></i></span>
+                                <input type="text" id="tiktok" placeholder="@sekolah_unggul" class="w-full pl-9 px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-sm">
+                            </div>
+                            <div class="relative">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">YouTube</label>
+                                <span class="input-icon"><i class="fa-brands fa-youtube"></i></span>
+                                <input type="text" id="youtube" placeholder="Nama Channel / Link" class="w-full pl-9 px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-sm">
+                            </div>
+                            <div class="relative">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Website Sekolah</label>
+                                <span class="input-icon"><i class="fa-solid fa-globe"></i></span>
+                                <input type="text" id="website" placeholder="https://sekolah.sch.id" class="w-full pl-9 px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-sm">
+                            </div>
+                            <div class="relative">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">WA Pendaftaran (PPDB)</label>
+                                <span class="input-icon"><i class="fa-brands fa-whatsapp"></i></span>
+                                <input type="text" id="waPpdb" placeholder="0812-xxxx-xxxx" class="w-full pl-9 px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-sm">
+                            </div>
+                            <div class="relative">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Telepon Sekolah</label>
+                                <span class="input-icon"><i class="fa-solid fa-phone"></i></span>
+                                <input type="text" id="phone" placeholder="(022) xxx-xxxx" class="w-full pl-9 px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="generatePrompts()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-blue-500/30 transition transform active:scale-95 flex items-center justify-center gap-2 text-base">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Semua Prompt
+                    </button>
+
+                </form>
+            </div>
+
+            <div class="lg:col-span-7 space-y-6">
+                
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-2">
+                            <div class="text-3xl font-bold text-blue-600 font-heading" id="totalPromptCount">0</div>
+                            <div class="text-sm text-slate-500 font-medium leading-tight">Total Prompt<br>Dihasilkan</div>
+                        </div>
+                        <div class="flex gap-2">
+                             <button onclick="copyAll()" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium transition">
+                                <i class="fa-regular fa-copy"></i> Copy Semua
+                            </button>
+                            <button onclick="clearAll()" class="flex items-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2 rounded-lg text-sm font-medium transition">
+                                <i class="fa-regular fa-trash-can"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="emptyState" class="bg-white rounded-2xl border border-dashed border-slate-300 p-12 text-center">
+                    <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-clipboard-list text-4xl text-slate-300"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-700 mb-2">Belum Ada Prompt</h3>
+                    <p class="text-slate-500 text-sm max-w-sm mx-auto">Isi formulir di samping dan klik tombol <strong>"Generate"</strong> untuk membuat prompt branding sekolah Anda.</p>
+                </div>
+
+                <div id="resultsContainer" class="hidden space-y-6 fade-in">
+                    
+                    <div class="flex overflow-x-auto pb-2 gap-2 scrollbar-hide" id="tabsContainer">
+                        <button onclick="switchTab('brand')" class="tab-btn tab-active whitespace-nowrap px-4 py-2 rounded-lg text-sm font-bold border transition" data-tab="brand">
+                            🎨 Brand Identity
+                        </button>
+                        <button onclick="switchTab('feed')" class="tab-btn tab-inactive whitespace-nowrap px-4 py-2 rounded-lg text-sm font-bold border transition" data-tab="feed">
+                            📱 Sosmed Feed
+                        </button>
+                        <button onclick="switchTab('spmb')" class="tab-btn tab-inactive whitespace-nowrap px-4 py-2 rounded-lg text-sm font-bold border transition" data-tab="spmb">
+                            📋 SPMB
+                        </button>
+                        <button onclick="switchTab('daily')" class="tab-btn tab-inactive whitespace-nowrap px-4 py-2 rounded-lg text-sm font-bold border transition" data-tab="daily">
+                            📅 Konten Harian
+                        </button>
+                        <button onclick="switchTab('carousel')" class="tab-btn tab-inactive whitespace-nowrap px-4 py-2 rounded-lg text-sm font-bold border transition" data-tab="carousel">
+                            🎠 Carousel
+                        </button>
+                        <button onclick="switchTab('video')" class="tab-btn tab-inactive whitespace-nowrap px-4 py-2 rounded-lg text-sm font-bold border transition" data-tab="video">
+                            🎬 Video
+                        </button>
+                    </div>
+
+                    <div id="tab-brand" class="tab-content space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-solid fa-palette text-blue-500"></i> Brand Identity</h3>
+                            <span class="text-xs font-medium bg-blue-100 text-blue-600 px-2 py-1 rounded-full">12 Prompt</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="brand-prompts-list"></div>
+                    </div>
+
+                    <div id="tab-feed" class="tab-content hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-brands fa-instagram text-pink-500"></i> Sosmed Feed</h3>
+                            <span class="text-xs font-medium bg-pink-100 text-pink-600 px-2 py-1 rounded-full">16 Prompt</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="feed-prompts-list"></div>
+                    </div>
+
+                    <div id="tab-spmb" class="tab-content hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-solid fa-bullhorn text-green-500"></i> SPMB / PPDB</h3>
+                            <span class="text-xs font-medium bg-green-100 text-green-600 px-2 py-1 rounded-full">8 Prompt</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="spmb-prompts-list"></div>
+                    </div>
+
+                    <div id="tab-daily" class="tab-content hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-regular fa-calendar-days text-yellow-500"></i> Konten Harian</h3>
+                            <span class="text-xs font-medium bg-yellow-100 text-yellow-600 px-2 py-1 rounded-full">9 Prompt</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="daily-prompts-list"></div>
+                    </div>
+
+                    <div id="tab-carousel" class="tab-content hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-solid fa-layer-group text-purple-500"></i> Carousel / Tutorial</h3>
+                            <span class="text-xs font-medium bg-purple-100 text-purple-600 px-2 py-1 rounded-full">6 Prompt</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="carousel-prompts-list"></div>
+                    </div>
+
+                    <div id="tab-video" class="tab-content hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-slate-700 flex items-center gap-2"><i class="fa-solid fa-video text-red-500"></i> Video / Reels</h3>
+                            <span class="text-xs font-medium bg-red-100 text-red-600 px-2 py-1 rounded-full">8 Prompt</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="video-prompts-list"></div>
+                    </div>
+
+                </div>
+
+                <div class="bg-slate-50 rounded-xl border border-slate-200 p-6 mt-8">
+                    <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2"><i class="fa-regular fa-lightbulb text-yellow-500"></i> Tips Penggunaan</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
+                            <span>Paste prompt ke <strong>Midjourney</strong>, <strong>DALL-E 3</strong>, atau <strong>Adobe Firefly</strong> untuk hasil gambar.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
+                            <span>Untuk video, gunakan <strong>Sora</strong>, <strong>Runway Gen-3</strong>, atau <strong>Kling AI</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-check text-green-500 mt-1"></i>
+                            <span>Edit prompt di Canva Magic Media atau Adobe Express untuk desain langsung.</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Custom Design toggle
+        var customRadio = document.getElementById('customDesignRadio');
+        var customInput = document.getElementById('customDesignInput');
+        var customContainer = document.getElementById('customDesignContainer');
+        
+        if (customRadio) {
+            customContainer.classList.add('hidden');
+            customRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    customContainer.classList.remove('hidden');
+                    customInput.focus();
+                } else {
+                    customContainer.classList.add('hidden');
+                }
+            });
+        }
+
+        var generatedData = {
+            brand: [], feed: [], spmb: [], daily: [], carousel: [], video: []
+        };
+
+        function showToast(message) {
+            var toast = document.getElementById("toast");
+            document.getElementById("toast-message").textContent = message;
+            toast.className = "toast show flex items-center gap-3 shadow-lg";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        function switchTab(tabName) {
+            var contents = document.querySelectorAll('.tab-content');
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.add('hidden');
+            }
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+            
+            var buttons = document.querySelectorAll('.tab-btn');
+            for (var j = 0; j < buttons.length; j++) {
+                buttons[j].classList.remove('tab-active');
+                buttons[j].classList.add('tab-inactive');
+            }
+            
+            var activeBtn = document.querySelector('.tab-btn[data-tab="' + tabName + '"]');
+            if (activeBtn) {
+                activeBtn.classList.add('tab-active');
+                activeBtn.classList.remove('tab-inactive');
+            }
+        }
+
+        function generatePromptString(subject, details) {
+            var schoolName = document.getElementById('schoolName').value || "Sekolah";
+            var schoolType = document.getElementById('schoolType').value || "Sekolah";
+            var motto = document.getElementById('schoolMotto').value;
+            var primaryColor = document.getElementById('primaryColor').value || "Biru Navy";
+            var accentColor = document.getElementById('accentColor').value || "Emas";
+            var city = document.getElementById('schoolCity').value;
+            
+            // Get design style
+            var styleRadios = document.querySelectorAll('input[name="designStyle"]');
+            var finalStyle = "Modern";
+            for (var i = 0; i < styleRadios.length; i++) {
+                if (styleRadios[i].checked) {
+                    if (styleRadios[i].value === "Custom") {
+                        finalStyle = customInput.value || "Custom";
+                    } else {
+                        finalStyle = styleRadios[i].value;
+                    }
+                    break;
+                }
+            }
+
+            // Contact info
+            var contactInfo = [];
+            var ig = document.getElementById('instagram').value;
+            var tiktok = document.getElementById('tiktok').value;
+            var yt = document.getElementById('youtube').value;
+            var website = document.getElementById('website').value;
+            var wa = document.getElementById('waPpdb').value;
+            var phone = document.getElementById('phone').value;
+            
+            if (ig) contactInfo.push("IG: " + ig);
+            if (tiktok) contactInfo.push("TikTok: " + tiktok);
+            if (yt) contactInfo.push("YouTube: " + yt);
+            if (website) contactInfo.push("Web: " + website);
+            if (wa) contactInfo.push("WA: " + wa);
+            if (phone) contactInfo.push("Telp: " + phone);
+            
+            var contactStr = contactInfo.length > 0 ? "Tampilkan kontak: " + contactInfo.join(", ") + "." : "Sertakan area placeholder untuk kontak.";
+            var mottoStr = motto ? 'Tampilkan tagline: "' + motto + '".' : "";
+
+            var prompt = "Buat desain " + subject + " untuk " + schoolType + ' "' + schoolName + '" yang berlokasi di ' + (city || "Indonesia") + ".\n";
+            prompt += "Gaya Desain: " + finalStyle + ".\n";
+            prompt += "Warna Utama: " + primaryColor + ". Warna Aksen: " + accentColor + ".\n";
+            prompt += "Detail Visual: " + details + ".\n";
+            prompt += "Karakter: Berwibawa, terpercaya, inspiratif, ramah, dan modern. Mencerminkan sekolah berkualitas tinggi.\n";
+            if (mottoStr) prompt += mottoStr + "\n";
+            prompt += contactStr + "\n";
+            prompt += "Resolusi tinggi, 4k, profesional, siap cetak/digital.";
+            
+            return prompt;
+        }
+
+        function getFacilities() {
+            var facilities = [];
+            var checkboxes = document.querySelectorAll('input[type="checkbox"].rounded');
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    var label = checkboxes[i].closest('label');
+                    if (label) facilities.push(label.textContent.trim());
+                }
+            }
+            var customFac = document.getElementById('customFacilities').value;
+            if (customFac) facilities.push(customFac);
+            return facilities.join(", ");
+        }
+
+        function generatePrompts() {
+            var facilitiesText = getFacilities();
+            
+            generatedData = { brand: [], feed: [], spmb: [], daily: [], carousel: [], video: [] };
+
+            // --- BRAND IDENTITY ---
+            generatedData.brand = [
+                { title: "Logo Utama", desc: "Logo vektor utama sekolah", dim: "SVG / Vector", prompt: generatePromptString("Logo", "Simbol pendidikan (buku/pohon/topi wisuda) modern, minimalis. Warna dominan. Tipografi Sans-Serif tebal untuk nama sekolah. Latar belakang putih bersih.") },
+                { title: "Logo Alternatif (Ikon)", desc: "Logogram untuk avatar/favicon", dim: "1024x1024", prompt: generatePromptString("Icon", "Bentuk geometris atau inisial nama sekolah, flat design, warna solid, cocok untuk favicon dan profile picture media sosial.") },
+                { title: "Kop Surat Resmi", desc: "Header dokumen A4", dim: "A4 (210x297mm)", prompt: generatePromptString("Kop Surat", "Header di atas dengan logo kiri, nama sekolah besar, garis horizontal aksen. Footer berisi alamat, email, website, dan logo kecil di kanan.") },
+                { title: "Kartu Nama Guru", desc: "Identitas pengajar", dim: "9x5.4 cm", prompt: generatePromptString("Kartu Nama", "Layout horizontal bersih. Sisi depan logo tengah. Sisi belakang: nama, jabatan, kontak, email. Warna dasar putih dengan border aksen.") },
+                { title: "ID Card Siswa", desc: "Tanda pengenal", dim: "85.6x54 mm", prompt: generatePromptString("ID Card", "Desain vertikal. Foto siswa besar di atas, nama dan NIS di bawah. Header berwarna utama dengan logo sekolah. Background pattern tipis logo sekolah (opacity 10%).") },
+                { title: "Amplop Surat", desc: "Amplop dinas", dim: "DL (11x22cm)", prompt: generatePromptString("Amplop", "Warna putih polos, logo kecil di kiri atas. Garis tipis aksen di sepanjang tepi amplop. Area tulis jelas.") },
+                { title: "Amplop Besar", desc: "Amplop dokumen F4", dim: "F4", prompt: generatePromptString("Amplop Besar", "Desain konsisten dengan amplop kecil namun lebih besar. Logo watermark besar di tengah (transparan).") },
+                { title: "Map Dokumen", desc: "Folder berkas", dim: "F4", prompt: generatePromptString("Map Dokumen", "Cover depan full color dengan logo putih besar. Ada slot kartu nama di depan dalam. Material art paper.") },
+                { title: "Stempel Basah", desc: "Stempel resmi", dim: "Vector", prompt: generatePromptString("Stempel", "Bentuk bulat standar instansi. Teks melingkar nama sekolah. Logo sekolah di tengah. Warna tinta biru standar.") },
+                { title: "Goodie Bag", desc: "Tas paper bag seminar", dim: "24x30cm", prompt: generatePromptString("Goodie Bag", "Tas kertas warna utama. Logo putih besar di tengah. Bagian bawah ada pattern geometris warna aksen. Tali twisted color.") },
+                { title: "Watermark Logo", desc: "Overlay transparan", dim: "PNG", prompt: generatePromptString("Watermark", "Logo versi putih solid, opacity 50%. Tanpa background. Digunakan untuk overlay di atas foto kegiatan atau video.") },
+                { title: "Favicon", desc: "Ikon website", dim: "32x32, 64x64", prompt: generatePromptString("Favicon", "Hanya ikon simbol/logo tanpa teks. Kontras tinggi agar terlihat jelas di ukuran kecil browser.") }
+            ];
+
+            // --- FEED SOSMED ---
+            generatedData.feed = [
+                { title: "Feed Quote Motivasi", desc: "Kutipan inspiratif", dim: "1080x1350", prompt: generatePromptString("Poster Quote", "Background tekstur kertas halus atau gradient lembut. Teks quote font Serif elegan di tengah. Logo sekolah kecil di pojok bawah. Warna teks kontras.") },
+                { title: "Feed Info Fasilitas", desc: "Sorotan fasilitas", dim: "1080x1080", prompt: generatePromptString("Infografis Fasilitas", "Layout grid 4 kotak foto fasilitas. Overlay teks nama fasilitas dengan background aksen transparan. Ikon pendukung modern.") },
+                { title: "Feed Prestasi Siswa", desc: "Pengumuman juara", dim: "1080x1350", prompt: generatePromptString("Pengumuman Prestasi", "Desain megah dengan elemen emas/piala 3D. Foto siswa di tengah (frame bulat/arsip). Teks besar JUARA 1. Warna dominan utama.") },
+                { title: "Feed Testimoni Alumni", desc: "Kata mereka", dim: "1080x1080", prompt: generatePromptString("Kartu Testimoni", "Foto alumni di kiri (masking bulat). Teks testimoni di kanan. Tanda kutip besar elemen dekoratif. Nama dan angkatan alumni.") },
+                { title: "Feed Event Sekolah", desc: "Info kegiatan", dim: "1080x1350", prompt: generatePromptString("Poster Event", "Judul event besar dan catchy. Ilustrasi atau foto kegiatan sebagai background (blur). Detail tanggal dan tempat jelas. CTA Datanglah!") },
+                { title: "Feed Selamat Hari Besar", desc: "Nasional/Agama", dim: "1080x1080", prompt: generatePromptString("Ucapan Hari Besar", "Ilustrasi tematik sesuai hari (misal: bendera/ketupat). Teks ucapan elegan. Footer logo sekolah dan motto.") },
+                { title: "Feed Tips Belajar", desc: "Konten edukatif", dim: "1080x1350", prompt: generatePromptString("Tips Belajar", "Layout checklist. Background warna pastel. Judul 5 Tips Belajar Efektif. Ikon buku/pensil minimalis.") },
+                { title: "Feed Kenali Guru", desc: "Profil pengajar", dim: "1080x1350", prompt: generatePromptString("Profile Guru", "Bingkai foto artistik warna utama. Nama Guru, Mapel yang diampu, dan Quote favorit guru. Background pola halus.") },
+                { title: "Feed Behind The Scene", desc: "Kegiatan di balik layar", dim: "1080x1350", prompt: generatePromptString("Behind The Scene", "Kolase 3 foto candid kegiatan sekolah. Gaya polaroid dengan shadow. Teks Keseruan Hari Ini.") },
+                { title: "Feed Karya Siswa", desc: "Showcase hasil karya", dim: "1080x1080", prompt: generatePromptString("Showcase Karya", "Background studio putih bersih. Foto karya siswa ditengah dengan spotlight effect. Watermark logo sekolah di pojok.") },
+                { title: "Feed Statistik Sekolah", desc: "Angka penting", dim: "1080x1080", prompt: generatePromptString("Infografis Statistik", "Angka besar (Jumlah Siswa, % Kelulusan). Ikon pendukung (topi wisuda/siswa). Warna brand utama dan aksen.") },
+                { title: "Feed Countdown", desc: "Hitung mundur event", dim: "1080x1350", prompt: generatePromptString("Countdown Poster", "Angka hitung mundur (H-3) sangat besar dan bold. Background foto sekolah gelap (overlay hitam 50%). Teks Menuju Acara...") },
+                { title: "Feed Agenda Minggu Ini", desc: "Jadwal kegiatan", dim: "1080x1080", prompt: generatePromptString("Agenda Mingguan", "Tabel kalender visual minimalis. Highlight tanggal hari ini dengan warna aksen. List kegiatan di samping.") },
+                { title: "Feed Pertanyaan Interaktif", desc: "Engagement", dim: "1080x1080", prompt: generatePromptString("Pertanyaan Interaktif", "Teks besar KAMU TIM MANA?. Visual terbagi dua (kiri vs kanan). Elemen polling/emoji.") },
+                { title: "Feed Video Thumbnail", desc: "Cover IGTV/Reels", dim: "1080x1920", prompt: generatePromptString("Thumbnail Video", "Judul video catchy di tengah. Wajah ekspresif (jika ada). Panah atau elemen grafis penunjuk. Warna cerah.") },
+                { title: "Feed Terima Kasih", desc: "Apresiasi", dim: "1080x1080", prompt: generatePromptString("Ucapan Terima Kasih", "Ilustrasi bunga/salaman tangan. Teks Terima Kasih Orang Tua Siswa. Warna lembut dan menenangkan.") }
+            ];
+
+            // --- SPMB ---
+            generatedData.spmb = [
+                { title: "Poster Utama PPDB", desc: "Announcement", dim: "A3 / Digital", prompt: generatePromptString("Poster PPDB", "Headline besar. Foto siswa bahagia memegang buku/tas sekolah. Tombol visual DAFTAR SEKARANG. Footer berisi kontak lengkap (IG, WA, Web).") },
+                { title: "Flyer Broadcast", desc: "Untuk sebar WA/Telegram", dim: "1080x1920", prompt: generatePromptString("Flyer Broadcast", "Format story. Judul besar. Poin-poin keunggulan (Bullet points). Biaya masuk promo. QR Code besar untuk pendaftaran. Warna cerah.") },
+                { title: "Banner Website", desc: "Header web sekolah", dim: "1920x600", prompt: generatePromptString("Header Website", "Hero section style. Background gedung sekolah lebar. Teks overlay Penerimaan Peserta Didik Baru. Tombol CTA Info Selengkapnya.") },
+                { title: "Instagram Story", desc: "Info singkat", dim: "1080x1920", prompt: generatePromptString("IG Story PPDB", "Background gradient. Teks Gelombang 1 Diskon 20%. Link sticker placeholder. Countdown sticker. Logo sekolah.") },
+                { title: "X-Banner", desc: "Cetak berdiri", dim: "60x160cm", prompt: generatePromptString("X-Banner", "Desain vertikal tegak. Teks besar terbaca dari jauh. Poin keunggulan utama. Logo besar di atas. Kontak di bawah.") },
+                { title: "Spanduk Jalan", desc: "Outdoor", dim: "300x90cm", prompt: generatePromptString("Spanduk Jalan", "Warna kontras tinggi (Kuning/Merah atau Biru/Kuning). Teks PPDB DIBUKA. Nomor telepon raksasa. Tanpa detail kecil.") },
+                { title: "Brosur Lipat 3", desc: "Profil lengkap", dim: "A4 Fold", prompt: generatePromptString("Brosur", "Cover: Foto gedung dan logo. Dalam: Visi Misi, Program, Fasilitas (" + facilitiesText + "). Balik: Alur Pendaftaran dan Biaya.") },
+                { title: "Iklan Facebook", desc: "Ad Creative", dim: "1080x1080", prompt: generatePromptString("Facebook Ads", "Visual hook kuat (foto anak belajar). Teks overlay Beasiswa Berprestasi. Tombol CTA Hubungi Kami. Target: Orang Tua.") }
+            ];
+
+            // --- DAILY CONTENT ---
+            generatedData.daily = [
+                { title: "Quote Harian", desc: "Wisdom", dim: "1080x1080", prompt: generatePromptString("Quote Harian", "Background alam pegunungan atau laut lembut. Teks quote putih dengan shadow. Logo kecil di bawah.") },
+                { title: "Info Cuaca/Aktivitas", desc: "Daily Update", dim: "1080x1350", prompt: generatePromptString("Info Hari Ini", "Ikon matahari/hujan. Teks Aktivitas Hari Ini: Upacara Bendera. Warna biru cerah pagi.") },
+                { title: "Ucapan Selamat Pagi", desc: "Greeting", dim: "1080x1920", prompt: generatePromptString("Good Morning", "Ilustrasi matahari terbit, meja belajar rapi, segelas susu. Teks Selamat Pagi Semangat! Warna pastel.") },
+                { title: "Reminder Tugas/Ujian", desc: "Academic", dim: "1080x1080", prompt: generatePromptString("Reminder", "Ikon lonceng atau jam dinding. Warna latar kuning/oranye peringatan. Teks Ingat! Besok Ujian Matematika.") },
+                { title: "Spotlight Fasilitas", desc: "Mini Tour", dim: "1080x1350", prompt: generatePromptString("Fasilitas Highlight", "Foto close-up satu fasilitas. Teks deskripsi singkat di bawah. Layout majalah.") },
+                { title: "Fact of the Day", desc: "Edukasi", dim: "1080x1080", prompt: generatePromptString("Fakta Unik", 'Layout "Did You Know?". Ilustrasi sains atau sejarah sederhana. Teks fakta menarik tentang dunia.') },
+                { title: "Menu Kantin Sehat", desc: "Health", dim: "1080x1350", prompt: generatePromptString("Menu Kantin", "Foto makanan sehat (buah/sayur). Label harga dan manfaat gizi. Layout grid bersih. Warna hijau segar.") },
+                { title: "Doa Harian", desc: "Religious", dim: "1080x1080", prompt: generatePromptString("Doa Harian", "Ornamen islami geometric pattern. Teks Arab indah, latin, dan terjemahan. Background hijau tua/emas.") },
+                { title: "Good Night Wishes", desc: "Closing", dim: "1080x1920", prompt: generatePromptString("Good Night", "Warna biru malam gelap. Bintang dan bulan sabit. Teks pengingat istirahat dan belajar untuk besok.") }
+            ];
+
+            // --- CAROUSEL ---
+            generatedData.carousel = [
+                { title: "Carousel Profil Sekolah", desc: "Intro", dim: "5 Slide", prompt: generatePromptString("Carousel Profil", "Slide 1: Cover Judul dan Foto Gedung. Slide 2: Visi dan Misi. Slide 3: Fasilitas Unggulan (" + facilitiesText + "). Slide 4: Ekstrakurikuler. Slide 5: CTA Daftar via WA.") },
+                { title: "Carousel Tips Belajar", desc: "Educational", dim: "5 Slide", prompt: generatePromptString("Carousel Tips", "Slide 1: Judul 5 Cara Belajar Keren. Slide 2-4: Poin tips dengan ikon. Slide 5: Save postingan ini.") },
+                { title: "Carousel Jurusan/Prodi", desc: "Info Akademik", dim: "4 Slide", prompt: generatePromptString("Carousel Jurusan", 'Slide 1: Cover "Kenali Jurusan Kami". Slide 2: Jurusan A. Slide 3: Jurusan B. Slide 4: "Pilih Masa Depanmu".') },
+                { title: "Tutorial Pendaftaran", desc: "How-to", dim: "6 Slide", prompt: generatePromptString("Carousel Tutorial", "Slide 1: Intro. Slide 2: Buka Website. Slide 3-5: Screenshot langkah isi form. Slide 6: Selesai.") },
+                { title: "Carousel Ekskul", desc: "Activities", dim: "4 Slide", prompt: generatePromptString("Carousel Ekskul", "Slide 1: Cover Wadah Minat Bakat. Slide 2: Olahraga. Slide 3: Seni dan Sains. Slide 4: Gabung Sekarang!") },
+                { title: "Carousel Beasiswa", desc: "Opportunity", dim: "4 Slide", prompt: generatePromptString("Carousel Beasiswa", "Slide 1: Judul Beasiswa Berprestasi. Slide 2: Syarat. Slide 3: Benefit (Potongan Biaya). Slide 4: Deadline Pendaftaran.") }
+            ];
+
+            // --- VIDEO ---
+            generatedData.video = [
+                { title: "Video Profil Sekolah", desc: "Cinematic", dim: "16:9", prompt: generatePromptString("Video Profil", "Drone shot gedung sekolah dari atas. Transisi ke siswa berjalan masuk gerbang. Shot aktivitas di kelas, lab, dan lapangan. Musik inspiratif uplifting. Overlay teks motto sekolah.") },
+                { title: "Reels TikTok Day in Life", desc: "Vlog", dim: "9:16", prompt: generatePromptString("Video Day in Life", "POV (Point of View). Shot 1: Alarm dan sarapan. Shot 2: Naik kendaraan. Shot 3: Salam guru di gerbang. Shot 4: Belajar di kelas. Fast cut editing. Musik trending upbeat.") },
+                { title: "Reels Transisi Seragam", desc: "Trend", dim: "9:16", prompt: generatePromptString("Video Transition", "Shot siswa pakai baju tidur. Snap Jari. Ganti Seragam Putih Abu. Snap Jari. Ganti Batik/Ekskul. High energy, beat sync.") },
+                { title: "Video Testimoni Alumni", desc: "Interview", dim: "16:9 / 9:16", prompt: generatePromptString("Video Alumni", "Talking head: Alumni sukses (dosen/pengusaha) di lokasi kerjanya. B-Roll foto kenangan di sekolah. Overlay teks kutipan Sekolah ini mengubah hidup saya...") },
+                { title: "Video Teaser PPDB", desc: "Hype", dim: "9:16", prompt: generatePromptString("Video Teaser", "Visual cepat (fast paced). Beat drop musik. Highlight fasilitas mewah dan piala prestasi. Teks besar: SEGERA DIBUKA. Warna dominan.") },
+                { title: "Video Tutorial Fasilitas", desc: "Showcase", dim: "9:16", prompt: generatePromptString("Video Lab Tour", "Gimbal shot masuk ke fasilitas sekolah (" + facilitiesText + "). Close up detail alat (mikroskop/komputer). Siswa sedang praktik dengan wajah fokus. Voiceover penjelasan.") },
+                { title: "Video Ucapan Kepala Sekolah", desc: "Formal", dim: "16:9", prompt: generatePromptString("Video Sambutan", "Static tripod shot. Kepala Sekolah duduk di ruang kerja rapi. Pencahayaan softbox (terang wajah). Lower third Nama dan Jabatan.") },
+                { title: "Video Highlight Event", desc: "Recap", dim: "9:16", prompt: generatePromptString("Video Recap", "Montase klip kegiatan pentas seni/olahraga. Suara sorak penonton (audio original). Color grading vibrant ceria. Teks penutup Sampai Jumpa Tahun Depan!") }
+            ];
+
+            renderPrompts();
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.remove('hidden');
+            var total = generatedData.brand.length + generatedData.feed.length + generatedData.spmb.length + generatedData.daily.length + generatedData.carousel.length + generatedData.video.length;
+            document.getElementById('totalPromptCount').textContent = total;
+            showToast("Prompt berhasil di-generate! 🎉");
+        }
+
+        function renderPrompts() {
+            var brandList = document.getElementById('brand-prompts-list');
+            brandList.innerHTML = '';
+            for (var i = 0; i < generatedData.brand.length; i++) {
+                brandList.innerHTML += createCard(generatedData.brand[i]);
+            }
+
+            var feedList = document.getElementById('feed-prompts-list');
+            feedList.innerHTML = '';
+            for (var j = 0; j < generatedData.feed.length; j++) {
+                feedList.innerHTML += createCard(generatedData.feed[j]);
+            }
+
+            var spmbList = document.getElementById('spmb-prompts-list');
+            spmbList.innerHTML = '';
+            for (var k = 0; k < generatedData.spmb.length; k++) {
+                spmbList.innerHTML += createCard(generatedData.spmb[k]);
+            }
+
+            var dailyList = document.getElementById('daily-prompts-list');
+            dailyList.innerHTML = '';
+            for (var l = 0; l < generatedData.daily.length; l++) {
+                dailyList.innerHTML += createCard(generatedData.daily[l]);
+            }
+
+            var carouselList = document.getElementById('carousel-prompts-list');
+            carouselList.innerHTML = '';
+            for (var m = 0; m < generatedData.carousel.length; m++) {
+                carouselList.innerHTML += createCard(generatedData.carousel[m]);
+            }
+
+            var videoList = document.getElementById('video-prompts-list');
+            videoList.innerHTML = '';
+            for (var n = 0; n < generatedData.video.length; n++) {
+                videoList.innerHTML += createCard(generatedData.video[n]);
+            }
+        }
+
+        function createCard(item) {
+            var escapedPrompt = item.prompt.replace(/"/g, '&quot;');
+            return '<div class="prompt-card bg-white rounded-xl p-4 flex flex-col gap-3">' +
+                '<div class="flex items-start justify-between">' +
+                '<div class="flex-1 pr-2">' +
+                '<h4 class="font-bold text-slate-800 text-sm md:text-base mb-1">' + item.title + '</h4>' +
+                '<p class="text-xs text-slate-500 mb-2 line-clamp-2">' + item.desc + '</p>' +
+                '</div>' +
+                '<span class="bg-slate-100 text-slate-500 px-2 py-0.5 rounded text-[10px] font-mono whitespace-nowrap">' + item.dim + '</span>' +
+                '</div>' +
+                '<div class="bg-slate-50 p-3 rounded-lg border border-slate-100 relative group">' +
+                '<p class="text-xs text-slate-700 font-mono leading-relaxed break-words select-all whitespace-pre-wrap">' + item.prompt + '</p>' +
+                '<button onclick="copyToClipboard(this.getAttribute(\'data-text\'))" class="absolute top-2 right-2 bg-white p-1.5 rounded shadow-sm border border-slate-200 hover:bg-slate-100 transition text-slate-600" title="Copy" data-text="' + escapedPrompt + '">' +
+                '<i class="fa-regular fa-copy"></i>' +
+                '</button>' +
+                '</div>' +
+                '</div>';
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                showToast("Prompt berhasil dicopy!");
+            }).catch(function() {
+                showToast("Gagal copy.");
+            });
+        }
+
+        function copyAll() {
+            var allText = "";
+            var cats = ["Brand Identity", "Sosmed Feed", "SPMB", "Konten Harian", "Carousel", "Video"];
+            var keys = ["brand", "feed", "spmb", "daily", "carousel", "video"];
+            
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                if (generatedData[key].length > 0) {
+                    allText += "=== " + cats[i] + " ===\n";
+                    for (var j = 0; j < generatedData[key].length; j++) {
+                        var item = generatedData[key][j];
+                        allText += "[" + item.dim + "] " + item.title + ": \n" + item.prompt + "\n\n";
+                    }
+                    allText += "\n";
+                }
+            }
+            
+            if (!allText) {
+                showToast("Belum ada prompt untuk dicopy.");
+                return;
+            }
+            copyToClipboard(allText);
+        }
+
+        function clearAll() {
+            if (confirm("Hapus semua output dan reset form?")) {
+                document.getElementById('brandingForm').reset();
+                document.getElementById('resultsContainer').classList.add('hidden');
+                document.getElementById('emptyState').classList.remove('hidden');
+                document.getElementById('totalPromptCount').textContent = "0";
+                generatedData = { brand: [], feed: [], spmb: [], daily: [], carousel: [], video: [] };
+                if (customContainer) customContainer.classList.add('hidden');
+                showToast("Form direset.");
+            }
+        }
+    </script>
+</body>
+</html>
+
