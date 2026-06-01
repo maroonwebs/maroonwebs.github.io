@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Prompt Generator — Social Media, Multimedia, Video &amp; Image AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+/* ─── RESET & BASE ─────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2A;--navy2:#16243A;
+  --bg:#F4F6F9;--surface:#FFFFFF;--surface2:#F0F2F6;--surface3:#E6E9F0;
+  --border:#D8DCE8;--border2:#C8CDD8;
+  --txt:#1A2035;--txt2:#4A526A;--txt3:#7A839A;
+  --radius:12px;--radius-sm:8px;--radius-xs:5px;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.05);
+  --shadow-md:0 2px 8px rgba(0,0,0,.10),0 8px 24px rgba(0,0,0,.06);
+  /* Category accent colors */
+  --c-sm:#0A5C44; --c-sm-bg:#E3F6EF; --c-sm-border:#8FDCC4;
+  --c-mm:#7A1F0E; --c-mm-bg:#FDECEB; --c-mm-border:#F59080;
+  --c-vid:#322BA0; --c-vid-bg:#EEEDFD; --c-vid-border:#B4B0F2;
+  --c-img:#7A3E08; --c-img-bg:#FDF1E2; --c-img-border:#F5CA80;
+  --mono:'IBM Plex Mono',monospace;
+  --font:'Outfit',sans-serif;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);font-size:15px;color:var(--txt);background:var(--bg);line-height:1.6;min-height:100vh}
+button,select,input,textarea{font-family:var(--font)}
+a{color:#1565C0}
+
+/* ─── LAYOUT ─────────────────────────────── */
+.app-wrap{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+@media(min-width:600px){.app-wrap{padding:28px 24px 80px}}
+@media(min-width:900px){.app-wrap{padding:36px 0 80px}}
+
+/* ─── HERO ───────────────────────────────── */
+.hero{background:var(--navy);border-radius:var(--radius);padding:28px 24px 24px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;border:50px solid rgba(26,140,116,.10);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-30px;left:-30px;width:150px;height:150px;border-radius:50%;background:rgba(50,43,160,.12);pointer-events:none}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.hero-title{font-size:clamp(20px,4.5vw,28px);font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.55);max-width:480px;line-height:1.65}
+.pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.pill{font-size:10px;font-weight:600;padding:3px 11px;border-radius:20px;border:1px solid;letter-spacing:.3px}
+.pill-sm{background:rgba(0,200,150,.12);color:#5DDEBC;border-color:rgba(93,222,188,.35)}
+.pill-mm{background:rgba(240,120,90,.12);color:#F5A090;border-color:rgba(245,160,144,.3)}
+.pill-vid{background:rgba(140,130,240,.12);color:#A8A0F5;border-color:rgba(168,160,245,.3)}
+.pill-img{background:rgba(245,190,80,.12);color:#F5CA80;border-color:rgba(245,202,128,.3)}
+@media(min-width:600px){.hero{padding:32px 32px 28px}}
+
+/* ─── CAT NAV ────────────────────────────── */
+.cat-nav{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 6px;margin-bottom:20px;scrollbar-width:none;-ms-overflow-style:none}
+.cat-nav::-webkit-scrollbar{display:none}
+.cat-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:10px 16px;font-size:12.5px;font-weight:600;white-space:nowrap;
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--txt2);cursor:pointer;
+  transition:all .15s ease;flex-shrink:0;
+}
+.cat-btn:hover:not(.a-sm):not(.a-mm):not(.a-vid):not(.a-img){background:var(--surface2);color:var(--txt)}
+.cat-btn .ti{font-size:16px}
+.cat-btn.a-sm{background:var(--c-sm);color:#fff;border-color:var(--c-sm)}
+.cat-btn.a-mm{background:var(--c-mm);color:#fff;border-color:var(--c-mm)}
+.cat-btn.a-vid{background:var(--c-vid);color:#fff;border-color:var(--c-vid)}
+.cat-btn.a-img{background:var(--c-img);color:#fff;border-color:var(--c-img)}
+@media(max-width:500px){.cat-btn{padding:9px 13px;font-size:12px}.cat-btn .ti{font-size:15px}}
+
+/* ─── PANES ──────────────────────────────── */
+.pane{display:none;animation:fadeUp .18s ease}
+.pane.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── CARD ───────────────────────────────── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+@media(min-width:600px){.card{padding:24px}}
+.card-hd{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--txt3);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.card-hd .ti{font-size:17px}
+
+/* ─── PLATFORM GRID ──────────────────────── */
+.plat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px}
+@media(min-width:440px){.plat-grid{grid-template-columns:repeat(6,1fr)}}
+.plat-btn{
+  padding:9px 6px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-size:11px;font-weight:600;cursor:pointer;text-align:center;
+  background:var(--surface2);color:var(--txt2);transition:all .15s;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  min-height:52px;justify-content:center;line-height:1.2;
+}
+.plat-btn .ti{font-size:17px}
+.plat-btn:hover:not(.sel){background:var(--surface3);color:var(--txt)}
+/* Selected states per platform */
+.plat-btn.sel-ig{background:#FBEAF0;color:#72243E;border-color:#E88AAE;border-width:2px}
+.plat-btn.sel-tt{background:#1A1A2E;color:#fff;border-color:#555;border-width:2px}
+.plat-btn.sel-li{background:#E6F1FB;color:#0C3E7A;border-color:#6EA8E0;border-width:2px}
+.plat-btn.sel-tw{background:#E4F3FD;color:#0A4A7C;border-color:#6AB8F0;border-width:2px}
+.plat-btn.sel-yt{background:#FDECEC;color:#8C1C1C;border-color:#F08080;border-width:2px}
+.plat-btn.sel-fb{background:#E6F1FB;color:#042050;border-color:#8AB6E8;border-width:2px}
+.plat-btn.sel-active{background:var(--c-sm-bg);color:var(--c-sm);border-color:var(--c-sm-border);border-width:2px}
+
+/* ─── FORM ELEMENTS ──────────────────────── */
+.lbl{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;margin-top:14px;display:block}
+.lbl:first-child{margin-top:0}
+.inp{
+  width:100%;padding:9px 12px;font-size:13px;
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--txt);
+  transition:border-color .15s;
+}
+.inp:focus{outline:none;border-color:#1565C0;box-shadow:0 0 0 3px rgba(21,101,192,.1)}
+select.inp{cursor:pointer}
+textarea.inp{min-height:72px;resize:vertical;line-height:1.5}
+.inp-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:440px){.inp-row{grid-template-columns:1fr}}
+
+/* ─── CHIPS ──────────────────────────────── */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;margin-bottom:4px}
+.chip{
+  font-size:11.5px;font-weight:500;padding:5px 12px;border-radius:20px;
+  background:var(--surface2);border:1px solid var(--border2);
+  color:var(--txt2);cursor:pointer;transition:all .12s;
+  user-select:none;line-height:1;
+}
+.chip:hover{background:var(--surface3);color:var(--txt)}
+.chip.on{color:#fff;border-color:transparent}
+.chip.on-sm{background:var(--c-sm)}
+.chip.on-mm{background:var(--c-mm)}
+.chip.on-vid{background:var(--c-vid)}
+.chip.on-img{background:var(--c-img)}
+.chip.on-dk{background:var(--navy)}
+
+/* ─── GENERATE BUTTON ────────────────────── */
+.gen-btn{
+  width:100%;margin-top:14px;padding:12px 20px;
+  font-size:13.5px;font-weight:700;border:none;border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  letter-spacing:.2px;
+}
+.gen-btn .ti{font-size:17px}
+.gen-btn:hover{opacity:.9;transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.gen-btn:active{transform:scale(.99)}
+.gen-sm{background:var(--c-sm);color:#fff}
+.gen-mm{background:var(--c-mm);color:#fff}
+.gen-vid{background:var(--c-vid);color:#fff}
+.gen-img{background:var(--c-img);color:#fff}
+
+/* ─── OUTPUT BOX ─────────────────────────── */
+.out-box{display:none;margin-top:14px;border-radius:var(--radius-sm);overflow:hidden;box-shadow:var(--shadow)}
+.out-box.show{display:block;animation:fadeUp .15s ease}
+.out-top{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:var(--surface2);border-bottom:1px solid var(--border)}
+.out-label{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:1px}
+.cp-btn{
+  font-size:11px;font-weight:500;padding:5px 12px;
+  border:1px solid var(--border2);border-radius:20px;
+  background:var(--surface);color:var(--txt3);cursor:pointer;
+  display:inline-flex;align-items:center;gap:4px;transition:all .12s;
+}
+.cp-btn:hover{background:var(--surface3);color:var(--txt)}
+.cp-btn .ti{font-size:13px}
+.out-body{padding:14px;background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm)}
+.out-text{font-size:12px;font-family:var(--mono);line-height:1.8;color:var(--txt2);white-space:pre-wrap;word-break:break-word;overflow-x:auto}
+
+/* ─── ACCORDION ──────────────────────────── */
+.acc{border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden}
+.acc-hd{
+  padding:12px 16px;display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;background:var(--surface2);font-size:13px;font-weight:600;
+  user-select:none;transition:background .12s;
+}
+.acc-hd:hover{background:var(--surface3)}
+.acc-hd .ti{font-size:15px;color:var(--txt3);transition:transform .2s;flex-shrink:0}
+.acc-hd.open .ti{transform:rotate(180deg)}
+.acc-body{display:none;padding:14px 16px;font-size:12.5px;color:var(--txt2);line-height:1.7;background:var(--surface)}
+.acc-body.open{display:block}
+
+/* ─── FORMULA STRIP ──────────────────────── */
+.formula-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px}
+@media(max-width:500px){.formula-strip{grid-template-columns:repeat(4,1fr)}}
+.fs-item{padding:9px 6px;border-radius:var(--radius-sm);text-align:center;font-size:9.5px;line-height:1.3}
+.fs-item strong{display:block;font-size:17px;font-weight:700;margin-bottom:3px;line-height:1}
+
+/* ─── EXAMPLE GRID ───────────────────────── */
+.ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+@media(max-width:480px){.ex-grid{grid-template-columns:1fr}}
+.ex-card{padding:11px 13px;border-radius:var(--radius-sm);border:1px solid;font-size:12px;line-height:1.55}
+.ex-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;opacity:.68}
+
+/* ─── SECTION DIVIDER ────────────────────── */
+.sec-note{font-size:12.5px;color:var(--txt2);margin-bottom:14px;line-height:1.55}
+
+/* ─── FOOTER ─────────────────────────────── */
+.footer{text-align:center;font-size:11.5px;color:var(--txt3);margin-top:40px;padding-top:20px;border-top:1px solid var(--border)}
+.footer a{color:#1565C0}
+</style>
+</head>
+<body>
+<div class="app-wrap">
+
+  <!-- HERO -->
+  <header class="hero" role="banner">
+    <div class="hero-eyebrow">Lanjutan Prompt Engineering Masterclass</div>
+    <h1 class="hero-title">Creative &amp; Visual Prompt Generator</h1>
+    <p class="hero-sub">Template dan builder khusus untuk sosial media, multimedia, video AI, dan image AI — semua dalam satu tempat.</p>
+    <div class="pill-row" role="list" aria-label="Kategori generator">
+      <span class="pill pill-sm" role="listitem">Social Media</span>
+      <span class="pill pill-mm" role="listitem">Multimedia</span>
+      <span class="pill pill-vid" role="listitem">Video AI</span>
+      <span class="pill pill-img" role="listitem">Image AI</span>
+    </div>
+  </header>
+
+  <!-- CAT NAV -->
+  <nav class="cat-nav" aria-label="Navigasi kategori" role="tablist">
+    <button class="cat-btn a-sm" id="btn-sm" role="tab" aria-selected="true" aria-controls="pane-sm" onclick="switchPane('sm',this)"><span class="ti ti-brand-instagram" aria-hidden="true"></span>Social Media</button>
+    <button class="cat-btn" id="btn-mm" role="tab" aria-selected="false" aria-controls="pane-mm" onclick="switchPane('mm',this)"><span class="ti ti-player-play" aria-hidden="true"></span>Multimedia</button>
+    <button class="cat-btn" id="btn-vid" role="tab" aria-selected="false" aria-controls="pane-vid" onclick="switchPane('vid',this)"><span class="ti ti-movie" aria-hidden="true"></span>Video AI Prompt</button>
+    <button class="cat-btn" id="btn-img" role="tab" aria-selected="false" aria-controls="pane-img" onclick="switchPane('img',this)"><span class="ti ti-photo" aria-hidden="true"></span>Image AI Prompt</button>
+  </nav>
+
+  <!-- ═══════ PANE: SOCIAL MEDIA ═══════ -->
+  <section id="pane-sm" class="pane active" role="tabpanel">
+    <div class="card">
+      <div class="card-hd" style="color:var(--c-sm)"><span class="ti ti-brand-instagram" aria-hidden="true"></span>Social Media Content Generator</div>
+      <p class="sec-note">Pilih platform, isi detail konten, generate prompt siap pakai untuk dikirim ke Claude.</p>
+
+      <label class="lbl">Platform</label>
+      <div class="plat-grid" role="group" aria-label="Pilih platform">
+        <button class="plat-btn sel-ig" id="p-ig" onclick="selPlat('ig',this)" aria-pressed="true"><span class="ti ti-brand-instagram" aria-hidden="true"></span>Instagram</button>
+        <button class="plat-btn" id="p-tt" onclick="selPlat('tt',this)" aria-pressed="false"><span class="ti ti-brand-tiktok" aria-hidden="true"></span>TikTok</button>
+        <button class="plat-btn" id="p-li" onclick="selPlat('li',this)" aria-pressed="false"><span class="ti ti-brand-linkedin" aria-hidden="true"></span>LinkedIn</button>
+        <button class="plat-btn" id="p-tw" onclick="selPlat('tw',this)" aria-pressed="false"><span class="ti ti-brand-twitter" aria-hidden="true"></span>X/Twitter</button>
+        <button class="plat-btn" id="p-yt" onclick="selPlat('yt',this)" aria-pressed="false"><span class="ti ti-brand-youtube" aria-hidden="true"></span>YouTube</button>
+        <button class="plat-btn" id="p-fb" onclick="selPlat('fb',this)" aria-pressed="false"><span class="ti ti-brand-facebook" aria-hidden="true"></span>Facebook</button>
+      </div>
+
+      <label class="lbl" for="sm-type">Jenis Konten</label>
+      <select class="inp" id="sm-type">
+        <option value="caption">Caption / Post</option>
+        <option value="script">Script Video / Reel</option>
+        <option value="bio">Bio / Profile</option>
+        <option value="hooks">Opening Hook (3 variasi)</option>
+        <option value="cta">Call-to-Action Variants</option>
+        <option value="calendar">Ide Konten (Kalender 1 Minggu)</option>
+        <option value="hashtag">Riset Hashtag</option>
+        <option value="collab">Naskah Kolaborasi / UGC Brief</option>
+      </select>
+
+      <div class="inp-row">
+        <div>
+          <label class="lbl" for="sm-niche">Niche / Industri</label>
+          <input class="inp" id="sm-niche" placeholder="Skincare, Kuliner, Finance...">
+        </div>
+        <div>
+          <label class="lbl" for="sm-tone">Tone / Gaya</label>
+          <select class="inp" id="sm-tone">
+            <option value="kasual dan relatable">Kasual &amp; Relatable</option>
+            <option value="profesional dan informatif">Profesional</option>
+            <option value="inspiratif dan motivasi">Inspiratif</option>
+            <option value="edukasi dan storytelling">Edukasi</option>
+            <option value="humor dan entertaining">Humor</option>
+            <option value="luxury dan aspirasional">Luxury</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="lbl" for="sm-topic">Topik / Produk / Pesan Utama</label>
+      <textarea class="inp" id="sm-topic" placeholder="Jelaskan topik, produk, atau pesan yang ingin disampaikan. Misal: Launching serum vitamin C baru, target mahasiswi 18–25 tahun, USP: harga terjangkau, formula BPOM..."></textarea>
+
+      <label class="lbl">Variasi Output</label>
+      <div class="chips" id="sm-var-chips">
+        <span class="chip on on-sm" onclick="toggleChip(this,'sm')">3 Variasi Angle</span>
+        <span class="chip" onclick="toggleChip(this,'sm')">Emotional / Story</span>
+        <span class="chip" onclick="toggleChip(this,'sm')">Hard Sell</span>
+        <span class="chip" onclick="toggleChip(this,'sm')">Educational</span>
+        <span class="chip" onclick="toggleChip(this,'sm')">FOMO / Urgency</span>
+      </div>
+
+      <button class="gen-btn gen-sm" onclick="genSM()"><span class="ti ti-sparkles" aria-hidden="true"></span>Generate Prompt untuk Claude</button>
+
+      <div class="out-box" id="out-sm">
+        <div class="out-top"><span class="out-label">Prompt siap pakai</span><button class="cp-btn" onclick="cpOut('out-sm-text')"><span class="ti ti-copy" aria-hidden="true"></span>Copy</button></div>
+        <div class="out-body"><div class="out-text" id="out-sm-text"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" style="color:var(--c-sm)"><span class="ti ti-layout-list" aria-hidden="true"></span>Tips per Platform</div>
+      <div class="acc"><div class="acc-hd" onclick="toggleAcc(this)">Instagram — caption &amp; reels <span class="ti ti-chevron-down" aria-hidden="true"></span></div><div class="acc-body">Hook 1–2 kalimat pertama sangat krusial karena dipotong "more". Gunakan baris kosong untuk breathing room. Ideal: 150–300 kata. Sertakan 3–5 hashtag campuran (niche + trending). Untuk Reels: minta script dengan breakdown per detik (0–3 detik hook, 3–10 produk, 10–25 value, 25–30 CTA).</div></div>
+      <div class="acc"><div class="acc-hd" onclick="toggleAcc(this)">TikTok — script &amp; hooks <span class="ti ti-chevron-down" aria-hidden="true"></span></div><div class="acc-body">Detik 0–2 adalah segalanya: pertanyaan, kontroversi ringan, atau visual mengejutkan. Script TikTok bersifat conversational, bukan formal. Minta Claude format "hook | masalah | solusi | CTA" per detik. Panjang ideal: 30–60 detik = 75–150 kata script.</div></div>
+      <div class="acc"><div class="acc-hd" onclick="toggleAcc(this)">LinkedIn — thought leadership <span class="ti ti-chevron-down" aria-hidden="true"></span></div><div class="acc-body">Pembuka 1–2 baris yang kuat (jangan "Excited to share..."). Gunakan pola: Hook → Cerita → Insight → CTA. Daftar pendek lebih mudah di-scan. Minta Claude versi "personal story angle" untuk engagement lebih tinggi. Hindari jargon berlebihan.</div></div>
+      <div class="acc"><div class="acc-hd" onclick="toggleAcc(this)">YouTube — deskripsi &amp; script <span class="ti ti-chevron-down" aria-hidden="true"></span></div><div class="acc-body">Deskripsi YouTube: 2–3 paragraf (intros, detail, CTA), lalu timestamps, lalu link. Untuk script: minta format "B-roll suggestion | Narasi | On-screen text" per segmen. Hook 15 detik pertama harus menjawab "mengapa harus nonton video ini".</div></div>
+    </div>
+  </section>
+
+  <!-- ═══════ PANE: MULTIMEDIA ═══════ -->
+  <section id="pane-mm" class="pane" role="tabpanel">
+    <div class="card">
+      <div class="card-hd" style="color:var(--c-mm)"><span class="ti ti-microphone" aria-hidden="true"></span>Multimedia Content Builder</div>
+      <p class="sec-note">Untuk podcast, script presentasi, naskah iklan audio/visual, dan konten multimedia lainnya.</p>
+
+      <label class="lbl" for="mm-type">Jenis Konten Multimedia</label>
+      <select class="inp" id="mm-type">
+        <option value="podcast">Podcast Episode Script</option>
+        <option value="webinar">Webinar / Presentasi Script</option>
+        <option value="iklan-radio">Iklan Radio / Audio Ad</option>
+        <option value="iklan-tv">Iklan TV / Video Ad (TVC)</option>
+        <option value="explainer">Explainer Video Script</option>
+        <option value="slide">Narasi Slide Presentasi</option>
+        <option value="training">Materi Training / E-Learning</option>
+        <option value="vlog">Vlog Script / Travel Content</option>
+      </select>
+
+      <div class="inp-row">
+        <div>
+          <label class="lbl" for="mm-topic">Topik / Tema</label>
+          <input class="inp" id="mm-topic" placeholder="Topik utama konten...">
+        </div>
+        <div>
+          <label class="lbl" for="mm-dur">Durasi Target</label>
+          <select class="inp" id="mm-dur">
+            <option value="30 detik">30 detik</option>
+            <option value="60 detik">60 detik</option>
+            <option value="3–5 menit" selected>3–5 menit</option>
+            <option value="10–15 menit">10–15 menit</option>
+            <option value="30–45 menit">30–45 menit</option>
+            <option value="60+ menit">60+ menit</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="lbl" for="mm-audience">Audiens &amp; Tujuan</label>
+      <textarea class="inp" id="mm-audience" placeholder="Siapa audiensnya? Apa yang ingin mereka pelajari/rasakan setelah menonton/mendengar? Misal: Startup founder Indonesia, ingin memahami strategi fundraising Series A..."></textarea>
+
+      <label class="lbl">Gaya Penyampaian</label>
+      <div class="chips" id="mm-style-chips">
+        <span class="chip on on-mm" onclick="toggleChip(this,'mm')">Conversational</span>
+        <span class="chip" onclick="toggleChip(this,'mm')">Storytelling</span>
+        <span class="chip" onclick="toggleChip(this,'mm')">Akademis/Riset</span>
+        <span class="chip" onclick="toggleChip(this,'mm')">Interview/Q&amp;A</span>
+        <span class="chip" onclick="toggleChip(this,'mm')">Step-by-Step</span>
+        <span class="chip" onclick="toggleChip(this,'mm')">Dramatis/Emosional</span>
+      </div>
+
+      <label class="lbl">Elemen Tambahan (opsional)</label>
+      <div class="chips" id="mm-extra-chips">
+        <span class="chip" onclick="toggleChip(this,'mm')">Sound cue / music note</span>
+        <span class="chip" onclick="toggleChip(this,'mm')">B-roll directions</span>
+        <span class="chip" onclick="toggleChip(this,'mm')">On-screen text</span>
+        <span class="chip" onclick="toggleChip(this,'mm')">Speaker notes</span>
+        <span class="chip" onclick="toggleChip(this,'mm')">Timestamps</span>
+      </div>
+
+      <button class="gen-btn gen-mm" onclick="genMM()"><span class="ti ti-sparkles" aria-hidden="true"></span>Generate Prompt Multimedia</button>
+
+      <div class="out-box" id="out-mm">
+        <div class="out-top"><span class="out-label">Prompt siap pakai</span><button class="cp-btn" onclick="cpOut('out-mm-text')"><span class="ti ti-copy" aria-hidden="true"></span>Copy</button></div>
+        <div class="out-body"><div class="out-text" id="out-mm-text"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ PANE: VIDEO AI ═══════ -->
+  <section id="pane-vid" class="pane" role="tabpanel">
+    <div class="card">
+      <div class="card-hd" style="color:var(--c-vid)"><span class="ti ti-movie" aria-hidden="true"></span>AI Video Prompt Builder</div>
+      <p class="sec-note">Generate prompt untuk Sora, Runway Gen-4, Kling AI, Hailuo, dan Pika. Output dalam bahasa Inggris karena dioptimalkan untuk model-model tersebut.</p>
+
+      <label class="lbl">Target Tool</label>
+      <div class="plat-grid" role="group" aria-label="Pilih tool video AI">
+        <button class="plat-btn sel-active" id="vt-sora" onclick="selVTool('sora',this)" aria-pressed="true">Sora</button>
+        <button class="plat-btn" id="vt-run" onclick="selVTool('run',this)" aria-pressed="false">Runway</button>
+        <button class="plat-btn" id="vt-kl" onclick="selVTool('kl',this)" aria-pressed="false">Kling AI</button>
+        <button class="plat-btn" id="vt-hai" onclick="selVTool('hai',this)" aria-pressed="false">Hailuo</button>
+        <button class="plat-btn" id="vt-pika" onclick="selVTool('pika',this)" aria-pressed="false">Pika</button>
+        <button class="plat-btn" id="vt-any" onclick="selVTool('any',this)" aria-pressed="false">Universal</button>
+      </div>
+
+      <label class="lbl" for="vid-subject">Subjek Utama (Subject)</label>
+      <input class="inp" id="vid-subject" placeholder="Siapa/apa yang menjadi fokus video? Misal: a young Indonesian woman, a futuristic city at dawn, a coffee cup...">
+
+      <div class="inp-row">
+        <div>
+          <label class="lbl" for="vid-action">Aksi / Gerakan (Action)</label>
+          <input class="inp" id="vid-action" placeholder="walking slowly, blooming, pouring...">
+        </div>
+        <div>
+          <label class="lbl" for="vid-setting">Setting / Lokasi</label>
+          <input class="inp" id="vid-setting" placeholder="tropical forest, neon-lit Tokyo alley...">
+        </div>
+      </div>
+
+      <label class="lbl">Gaya Visual (Style)</label>
+      <div class="chips" id="vid-style-chips">
+        <span class="chip on on-vid" onclick="toggleChip(this,'vid')">Cinematic</span>
+        <span class="chip" onclick="toggleChip(this,'vid')">Anime</span>
+        <span class="chip" onclick="toggleChip(this,'vid')">Documentary</span>
+        <span class="chip" onclick="toggleChip(this,'vid')">Surrealist</span>
+        <span class="chip" onclick="toggleChip(this,'vid')">Hyperrealistic</span>
+        <span class="chip" onclick="toggleChip(this,'vid')">Lo-fi / Vintage</span>
+        <span class="chip" onclick="toggleChip(this,'vid')">3D CGI</span>
+      </div>
+
+      <div class="inp-row">
+        <div>
+          <label class="lbl" for="vid-light">Pencahayaan (Lighting)</label>
+          <select class="inp" id="vid-light">
+            <option value="golden hour sunlight">Golden Hour</option>
+            <option value="soft studio lighting">Soft Studio</option>
+            <option value="dramatic side lighting">Dramatic Side</option>
+            <option value="neon rim lighting">Neon Rim</option>
+            <option value="overcast natural light">Overcast Natural</option>
+            <option value="moonlight, blue hour">Moonlight / Blue Hour</option>
+            <option value="candlelight, warm glow">Candlelight</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl" for="vid-cam">Gerakan Kamera</label>
+          <select class="inp" id="vid-cam">
+            <option value="slow dolly push in">Dolly Push In</option>
+            <option value="orbiting shot">Orbit Shot</option>
+            <option value="handheld, slightly shaky">Handheld</option>
+            <option value="static wide shot">Static Wide</option>
+            <option value="aerial top-down">Aerial Top-Down</option>
+            <option value="slow zoom out">Slow Zoom Out</option>
+            <option value="tracking shot">Tracking Shot</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="inp-row">
+        <div>
+          <label class="lbl" for="vid-mood">Mood / Atmosfer</label>
+          <select class="inp" id="vid-mood">
+            <option value="nostalgic and melancholic">Nostalgic</option>
+            <option value="epic and powerful">Epic</option>
+            <option value="serene and peaceful">Serene</option>
+            <option value="mysterious and eerie">Mysterious</option>
+            <option value="joyful and uplifting">Joyful</option>
+            <option value="dark and intense">Dark &amp; Intense</option>
+            <option value="romantic and dreamy">Romantic</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl" for="vid-ratio">Durasi &amp; Rasio</label>
+          <select class="inp" id="vid-ratio">
+            <option value="16:9, 5 seconds">16:9 — 5 detik</option>
+            <option value="16:9, 10 seconds">16:9 — 10 detik</option>
+            <option value="9:16 vertical, 5 seconds">9:16 Vertikal — 5 det</option>
+            <option value="1:1 square, 5 seconds">1:1 Square — 5 det</option>
+            <option value="2.39:1 cinematic, 10 seconds">2.39:1 Sinema — 10 det</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="lbl" for="vid-extra">Elemen Tambahan (opsional)</label>
+      <input class="inp" id="vid-extra" placeholder="Slow motion, particle effects, rain, depth of field, film grain...">
+
+      <button class="gen-btn gen-vid" onclick="genVid()"><span class="ti ti-sparkles" aria-hidden="true"></span>Generate Video AI Prompt</button>
+
+      <div class="out-box" id="out-vid">
+        <div class="out-top"><span class="out-label">Video AI Prompt (EN)</span><button class="cp-btn" onclick="cpOut('out-vid-text')"><span class="ti ti-copy" aria-hidden="true"></span>Copy Prompt</button></div>
+        <div class="out-body"><div class="out-text" id="out-vid-text"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" style="color:var(--c-vid)"><span class="ti ti-book" aria-hidden="true"></span>Formula Anatomi Video Prompt</div>
+      <div class="formula-strip" role="list" aria-label="Formula SASVLCM">
+        <div class="fs-item" style="background:#EFEDFD;color:#322BA0" role="listitem"><strong>S</strong>Subject</div>
+        <div class="fs-item" style="background:#E3F6EF;color:#0A5C44" role="listitem"><strong>A</strong>Action</div>
+        <div class="fs-item" style="background:#FDF1E2;color:#7A3E08" role="listitem"><strong>S</strong>Setting</div>
+        <div class="fs-item" style="background:#EBF3FD;color:#0D4C9E" role="listitem"><strong>V</strong>Visual</div>
+        <div class="fs-item" style="background:#FDECEB;color:#7A1F0E" role="listitem"><strong>L</strong>Lighting</div>
+        <div class="fs-item" style="background:#EBF5E0;color:#2B5812" role="listitem"><strong>C</strong>Camera</div>
+        <div class="fs-item" style="background:#FBEAF0;color:#72243E" role="listitem"><strong>M</strong>Mood</div>
+      </div>
+      <div class="ex-grid">
+        <div class="ex-card" style="background:#EFEDFD;border-color:#B4B0F2;color:#26215C">
+          <div class="ex-lbl">Contoh Kling / Hailuo</div>
+          A young woman in traditional batik dress walks through a misty Borobudur temple at dawn, cinematic style, golden hour side lighting, slow dolly push in, peaceful and majestic mood, 16:9, 5 seconds, high detail
+        </div>
+        <div class="ex-card" style="background:#E3F6EF;border-color:#8FDCC4;color:#04342C">
+          <div class="ex-lbl">Contoh Sora / Runway</div>
+          Extreme close-up of coffee being poured into a glass mug, the cream swirling in slow motion, warm studio lighting, static macro shot, cozy and indulgent atmosphere, 1:1, realistic, 8K detail, no text
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ PANE: IMAGE AI ═══════ -->
+  <section id="pane-img" class="pane" role="tabpanel">
+    <div class="card">
+      <div class="card-hd" style="color:var(--c-img)"><span class="ti ti-photo" aria-hidden="true"></span>AI Image Prompt Builder</div>
+      <p class="sec-note">Generate prompt untuk Midjourney, DALL-E 3, Stable Diffusion, Ideogram, dan Adobe Firefly. Output dalam bahasa Inggris, siap paste langsung.</p>
+
+      <label class="lbl">Tool Target</label>
+      <div class="plat-grid" role="group" aria-label="Pilih tool image AI">
+        <button class="plat-btn sel-active" id="it-mj" onclick="selITool('mj',this)" aria-pressed="true">Midjourney</button>
+        <button class="plat-btn" id="it-de" onclick="selITool('de',this)" aria-pressed="false">DALL-E 3</button>
+        <button class="plat-btn" id="it-sd" onclick="selITool('sd',this)" aria-pressed="false">Stable Diff</button>
+        <button class="plat-btn" id="it-ig" onclick="selITool('ig',this)" aria-pressed="false">Ideogram</button>
+        <button class="plat-btn" id="it-af" onclick="selITool('af',this)" aria-pressed="false">Firefly</button>
+        <button class="plat-btn" id="it-any" onclick="selITool('any',this)" aria-pressed="false">Universal</button>
+      </div>
+
+      <label class="lbl" for="img-subject">Subjek Utama</label>
+      <input class="inp" id="img-subject" placeholder="Apa / siapa yang menjadi fokus gambar? Misal: a serene Indonesian woman, futuristic warung makan, abstract geometric mandala...">
+
+      <label class="lbl">Gaya Artistik</label>
+      <div class="chips" id="img-art-chips">
+        <span class="chip on on-img" onclick="toggleChip(this,'img')">Photorealistic</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Oil Painting</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Watercolor</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Anime / Manga</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Concept Art</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Flat Design</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Pixel Art</span>
+        <span class="chip" onclick="toggleChip(this,'img')">3D Render</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Surrealism</span>
+      </div>
+
+      <div class="inp-row">
+        <div>
+          <label class="lbl" for="img-light">Pencahayaan</label>
+          <select class="inp" id="img-light">
+            <option value="golden hour, soft warm sunlight">Golden Hour</option>
+            <option value="studio lighting, even and soft">Studio</option>
+            <option value="dramatic chiaroscuro lighting">Chiaroscuro</option>
+            <option value="neon lights, cyberpunk glow">Neon / Cyberpunk</option>
+            <option value="natural overcast light">Overcast Natural</option>
+            <option value="backlit, rim light, silhouette">Backlit / Rim</option>
+            <option value="volumetric fog, god rays">Volumetric</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl" for="img-comp">Komposisi</label>
+          <select class="inp" id="img-comp">
+            <option value="portrait, close-up face">Portrait Close-Up</option>
+            <option value="full body shot">Full Body</option>
+            <option value="wide establishing shot">Wide Shot</option>
+            <option value="bird's eye view, top down">Top Down</option>
+            <option value="extreme macro detail">Macro</option>
+            <option value="rule of thirds composition">Rule of Thirds</option>
+            <option value="symmetrical composition">Symmetrical</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="inp-row">
+        <div>
+          <label class="lbl" for="img-mood">Mood / Palet Warna</label>
+          <select class="inp" id="img-mood">
+            <option value="warm earth tones, golden palette">Warm Earth Tones</option>
+            <option value="cool blue and grey tones">Cool Blues</option>
+            <option value="vibrant, saturated tropical colors">Tropical Vibrant</option>
+            <option value="muted, desaturated, melancholic">Muted Melancholic</option>
+            <option value="monochrome, black and white">Monochrome B&amp;W</option>
+            <option value="pastel, soft and dreamy">Pastel Dreamy</option>
+            <option value="dark, high contrast, noir">Dark Noir</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl" for="img-ratio">Aspek Rasio</label>
+          <select class="inp" id="img-ratio">
+            <option value="--ar 1:1">1:1 Square</option>
+            <option value="--ar 16:9">16:9 Landscape</option>
+            <option value="--ar 9:16">9:16 Portrait</option>
+            <option value="--ar 4:3">4:3 Classic</option>
+            <option value="--ar 3:2">3:2 Photo</option>
+            <option value="--ar 2:3">2:3 Portrait</option>
+            <option value="--ar 21:9">21:9 Ultra-wide</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="lbl">Quality Modifiers</label>
+      <div class="chips" id="img-qual-chips">
+        <span class="chip on on-img" onclick="toggleChip(this,'img')">Highly detailed</span>
+        <span class="chip on on-img" onclick="toggleChip(this,'img')">8K resolution</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Award-winning</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Trending on ArtStation</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Shot on Sony A7R</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Unreal Engine 5</span>
+        <span class="chip" onclick="toggleChip(this,'img')">Octane render</span>
+      </div>
+
+      <label class="lbl" for="img-neg">Negative Prompt (khusus SD / Midjourney)</label>
+      <input class="inp" id="img-neg" placeholder="Opsional — hal yang TIDAK ingin muncul: blurry, watermark, extra limbs, text, deformed...">
+
+      <button class="gen-btn gen-img" onclick="genImg()"><span class="ti ti-sparkles" aria-hidden="true"></span>Generate Image AI Prompt</button>
+
+      <div class="out-box" id="out-img">
+        <div class="out-top"><span class="out-label">Image AI Prompt (EN)</span><button class="cp-btn" onclick="cpOut('out-img-text')"><span class="ti ti-copy" aria-hidden="true"></span>Copy Prompt</button></div>
+        <div class="out-body"><div class="out-text" id="out-img-text"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" style="color:var(--c-img)"><span class="ti ti-book" aria-hidden="true"></span>Contoh Prompt per Tool</div>
+      <div class="ex-grid">
+        <div class="ex-card" style="background:#FDF1E2;border-color:#F5CA80;color:#412402">
+          <div class="ex-lbl">Midjourney v7</div>
+          A serene Javanese woman in batik, meditating by a lotus pond at golden hour, hyperrealistic photography, dramatic soft backlighting, rule of thirds, warm earth tones --ar 2:3 --v 7 --q 2 --stylize 750
+        </div>
+        <div class="ex-card" style="background:#EBF3FD;border-color:#C0D8F5;color:#042C53">
+          <div class="ex-lbl">DALL-E 3</div>
+          A photorealistic image of a futuristic Indonesian warung makan floating above the clouds at sunset, neon signs blending with traditional wood carvings, volumetric lighting, 16:9, ultra-detailed, no text
+        </div>
+        <div class="ex-card" style="background:#EBF5E0;border-color:#BFDF97;color:#173404">
+          <div class="ex-lbl">Stable Diffusion XL</div>
+          masterpiece, best quality, a cute anime girl with hijab in a cozy coffee shop, soft window light, pastel palette, bokeh background, (extremely detailed face:1.3) | Negative: (low quality, bad anatomy, watermark, text:1.4)
+        </div>
+        <div class="ex-card" style="background:#EFEDFD;border-color:#B4B0F2;color:#26215C">
+          <div class="ex-lbl">Ideogram / Firefly</div>
+          Modern minimalist logo for an Indonesian fintech startup called "Rupiah+" — geometric, clean, teal and white color scheme, sans-serif typography, professional, scalable vector style, transparent background
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Creative Prompt Generator · Bagian dari <a href="prompt_engineering_masterguide.html">Prompt Engineering Masterguide</a> · 2025–2026</p>
+  </footer>
+
+</div><!-- /app-wrap -->
+
+<script>
+// ─── STATE ─────────────────────────────────
+let curPlat = 'ig', curVTool = 'sora', curITool = 'mj';
+const platClass = { ig:'sel-ig', tt:'sel-tt', li:'sel-li', tw:'sel-tw', yt:'sel-yt', fb:'sel-fb' };
+
+// ─── PANE SWITCHING ─────────────────────────
+function switchPane(id, btn) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('pane-' + id).classList.add('active');
+  ['sm','mm','vid','img'].forEach(k => {
+    const b = document.getElementById('btn-' + k);
+    b.className = 'cat-btn' + (k === id ? ' a-' + k : '');
+    b.setAttribute('aria-selected', k === id ? 'true' : 'false');
+  });
+}
+
+// ─── PLATFORM SELECTORS ─────────────────────
+function selPlat(id, el) {
+  document.querySelectorAll('[id^="p-"]').forEach(b => {
+    b.className = 'plat-btn';
+    b.setAttribute('aria-pressed','false');
+  });
+  el.className = 'plat-btn ' + platClass[id];
+  el.setAttribute('aria-pressed','true');
+  curPlat = id;
+}
+
+function selVTool(id, el) {
+  document.querySelectorAll('[id^="vt-"]').forEach(b => {
+    b.className = 'plat-btn';
+    b.setAttribute('aria-pressed','false');
+  });
+  el.className = 'plat-btn sel-active';
+  el.setAttribute('aria-pressed','true');
+  curVTool = id;
+}
+
+function selITool(id, el) {
+  document.querySelectorAll('[id^="it-"]').forEach(b => {
+    b.className = 'plat-btn';
+    b.setAttribute('aria-pressed','false');
+  });
+  el.className = 'plat-btn sel-active';
+  el.setAttribute('aria-pressed','true');
+  curITool = id;
+}
+
+// ─── CHIPS ──────────────────────────────────
+function toggleChip(el, cat) {
+  const isOn = el.classList.contains('on');
+  el.classList.toggle('on');
+  el.classList.toggle('on-' + cat);
+}
+
+function getActiveChips(cid) {
+  return [...document.querySelectorAll('#' + cid + ' .chip.on')]
+    .map(c => c.textContent.trim()).join(', ');
+}
+
+// ─── OUTPUT ─────────────────────────────────
+function showOut(boxId, textId, content) {
+  document.getElementById(textId).textContent = content;
+  const box = document.getElementById(boxId);
+  box.classList.add('show');
+  box.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+function cpOut(id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('#' + id).closest('.out-box').querySelector('.cp-btn');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<span class="ti ti-check"></span>Copied!';
+    setTimeout(() => { btn.innerHTML = orig; }, 2000);
+  });
+}
+
+// ─── ACCORDION ──────────────────────────────
+function toggleAcc(hd) {
+  hd.classList.toggle('open');
+  hd.nextElementSibling.classList.toggle('open');
+}
+
+// ─── GENERATORS ─────────────────────────────
+function platName(id) {
+  return { ig:'Instagram', tt:'TikTok', li:'LinkedIn', tw:'X / Twitter', yt:'YouTube', fb:'Facebook' }[id] || id;
+}
+
+function genSM() {
+  const plat   = platName(curPlat);
+  const type   = document.getElementById('sm-type').value;
+  const niche  = document.getElementById('sm-niche').value || '[niche belum diisi]';
+  const tone   = document.getElementById('sm-tone').value;
+  const topic  = document.getElementById('sm-topic').value || '[topik belum diisi]';
+  const vars   = getActiveChips('sm-var-chips') || 'variasi yang relevan';
+
+  const typeLabel = {
+    caption:'caption/post', script:'script video/reel', bio:'bio/profile',
+    hooks:'3 variasi opening hook', cta:'variasi call-to-action',
+    calendar:'ide konten kalender 1 minggu', hashtag:'riset dan rekomendasi hashtag',
+    collab:'naskah kolaborasi/UGC brief'
+  }[type] || type;
+
+  const extra = {
+    ig:'Maks 300 kata. Sertakan 5 hashtag niche dan trending. Line break untuk readability.',
+    tt:'Format script per detik: [0–2s hook] [3–10s problem] [11–25s value] [26–30s CTA]. Maks 150 kata = ~60 detik.',
+    li:'Pembuka 1–2 baris kuat tanpa "Excited to share". Pola: Hook → Cerita → Insight → CTA. Profesional namun personal.',
+    tw:'Maks 280 karakter per tweet. Bisa thread 3–5 tweet jika perlu.',
+    yt:'Sertakan hook 15 detik, struktur per segmen dengan B-roll suggestion dan on-screen text.',
+    fb:'Lebih panjang OK — storytelling diutamakan. Sertakan pertanyaan untuk dorong komentar.'
+  }[curPlat] || '';
+
+  const prompt =
+`[SYSTEM]
+Kamu adalah Social Media Specialist berpengalaman di platform ${plat} untuk brand ${niche} di Indonesia. Kamu memahami algoritma, psikologi audiens, dan teknik copywriting yang menggerakkan engagement.
+
+<task>
+Buat ${typeLabel} untuk ${plat} tentang:
+${topic}
+</task>
+
+<context>
+Platform: ${plat}
+Niche/Industri: ${niche}
+Tone/Gaya: ${tone}
+</context>
+
+<constraints>
+${extra}
+- Bahasa Indonesia yang natural, bukan terjemahan kaku
+- Hindari klaim berlebihan atau clickbait murahan
+- Sesuaikan dengan karakter unik platform ${plat}
+</constraints>
+
+<output_format>
+Buat dengan variasi: ${vars}
+Untuk setiap variasi, berikan judul angle-nya.
+</output_format>`;
+  showOut('out-sm', 'out-sm-text', prompt);
+}
+
+function genMM() {
+  const type   = document.getElementById('mm-type').value;
+  const topic  = document.getElementById('mm-topic').value || '[topik belum diisi]';
+  const dur    = document.getElementById('mm-dur').value;
+  const aud    = document.getElementById('mm-audience').value || '[audiens belum diisi]';
+  const style  = getActiveChips('mm-style-chips') || 'conversational';
+  const extra  = getActiveChips('mm-extra-chips');
+  const typeMap = {
+    podcast:'Podcast episode script', webinar:'Webinar/presentasi script',
+    'iklan-radio':'Iklan radio script (30/60 detik)', 'iklan-tv':'TVC script (naskah iklan TV)',
+    explainer:'Explainer video script', slide:'Narasi slide presentasi',
+    training:'Modul materi training/e-learning', vlog:'Vlog script'
+  };
+  const extraNote = extra ? `\n- Sertakan: ${extra}` : '';
+
+  const prompt =
+`[SYSTEM]
+Kamu adalah Senior Scriptwriter dan Content Strategist berpengalaman di media digital dan broadcasting Indonesia. Kamu menulis naskah yang engaging, informatif, dan sesuai durasi target.
+
+<task>
+Tulis ${typeMap[type] || type} tentang:
+${topic}
+Durasi target: ${dur}
+</task>
+
+<context>
+Audiens & tujuan: ${aud}
+Gaya penyampaian: ${style}
+</context>
+
+<constraints>
+- Sesuaikan jumlah kata dengan durasi (rata-rata 130–150 kata/menit bicara)
+- Setiap bagian harus ada transisi yang smooth
+- Hook/pembuka harus langsung menarik dalam 5 detik pertama${extraNote}
+- Sertakan [PAUSE], [MUSIK], atau [VISUAL] jika relevan untuk arahan produksi
+</constraints>
+
+<thinking>
+Sebelum menulis, tentukan:
+1. Hook paling kuat untuk menarik perhatian
+2. Struktur per segmen dengan estimasi durasi
+3. CTA yang paling relevan untuk audiens ini
+Lalu tulis naskah lengkap dengan format yang jelas.
+</thinking>
+
+<output_format>
+Format: [SEGMEN / TIMESTAMP] — [ARAHAN VISUAL/AUDIO] — [NARASI]
+Di akhir, berikan catatan produksi singkat.
+</output_format>`;
+  showOut('out-mm', 'out-mm-text', prompt);
+}
+
+function genVid() {
+  const subj  = document.getElementById('vid-subject').value || '[subject belum diisi]';
+  const act   = document.getElementById('vid-action').value || 'moving gracefully';
+  const set   = document.getElementById('vid-setting').value || 'a beautiful landscape';
+  const style = getActiveChips('vid-style-chips') || 'Cinematic';
+  const light = document.getElementById('vid-light').value;
+  const cam   = document.getElementById('vid-cam').value;
+  const mood  = document.getElementById('vid-mood').value;
+  const ratio = document.getElementById('vid-ratio').value;
+  const extra = document.getElementById('vid-extra').value;
+  const toolMap = {
+    sora:'Sora (OpenAI)', run:'Runway Gen-4', kl:'Kling AI 1.6',
+    hai:'Hailuo AI (MiniMax)', pika:'Pika 2.1', any:'any AI video generation tool'
+  };
+  const tool = toolMap[curVTool] || curVTool;
+  const extraPart = extra ? `, ${extra}` : '';
+
+  const prompt =
+`${subj} ${act}, set in ${set}, ${style.toLowerCase()} visual style, ${light}, ${cam}, ${mood} mood${extraPart}, ${ratio}, high quality, no text, no watermark
+
+---
+Tool: ${tool}
+Tips: Paste prompt di atas langsung ke kolom prompt.
+- Midjourney video / Kling: tambahkan negative prompt jika tersedia
+- Runway Gen-4: gunakan sebagai "Scene description"
+- Sora: tambahkan detail durasi dan aspek rasio di settings`;
+  showOut('out-vid', 'out-vid-text', prompt);
+}
+
+function genImg() {
+  const subj  = document.getElementById('img-subject').value || '[subject belum diisi]';
+  const art   = getActiveChips('img-art-chips') || 'photorealistic';
+  const light = document.getElementById('img-light').value;
+  const comp  = document.getElementById('img-comp').value;
+  const mood  = document.getElementById('img-mood').value;
+  const ratio = document.getElementById('img-ratio').value;
+  const qual  = getActiveChips('img-qual-chips') || 'highly detailed';
+  const neg   = document.getElementById('img-neg').value;
+  const toolMap = { mj:'Midjourney', de:'DALL-E 3', sd:'Stable Diffusion XL', ig:'Ideogram', af:'Adobe Firefly', any:'Universal' };
+  const tool = toolMap[curITool] || curITool;
+
+  let prompt = '';
+  if (curITool === 'sd') {
+    prompt = `masterpiece, best quality, ${subj}, ${art.toLowerCase()}, ${light}, ${comp}, ${mood}, ${qual}`;
+    if (neg) prompt += `\n\nNegative prompt: ${neg}, (low quality:1.4), (worst quality:1.4), deformed, blurry, watermark`;
+  } else if (curITool === 'mj') {
+    prompt = `${subj}, ${art.toLowerCase()}, ${light}, ${comp}, ${mood}, ${qual}, no text, no watermark ${ratio} --v 7 --q 2`;
+    if (neg) prompt += ` --no ${neg}`;
+  } else {
+    prompt = `${subj}, ${art.toLowerCase()} style, ${light}, ${comp}, ${mood}, ${qual}, ${ratio.replace('--ar ','').replace(':',' by ')} aspect ratio, no text, no watermark`;
+    if (neg) prompt += `\n\nAvoid: ${neg}`;
+  }
+  prompt += `\n\n---\nTool: ${tool}`;
+  showOut('out-img', 'out-img-text', prompt);
+}
+</script>
+</body>
+</html>
