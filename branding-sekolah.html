@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generator Prompt Branding Sekolah AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d1b3e;
+  --navy-mid:#162651;
+  --navy-light:#1e3576;
+  --gold:#e8a800;
+  --gold-soft:#fffbeb;
+  --gold-pale:#fef3c7;
+  --sky:#3b82f6;
+  --green:#059669;
+  --rose:#e11d48;
+  --purple:#7c3aed;
+  --white:#ffffff;
+  --gray:#64748b;
+  --gray-light:#e2e8f0;
+  --bg:#f0f4fa;
+  --card:#ffffff;
+  --terminal:#060d1f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+  min-height:100vh;
+}
+
+/* ── HEADER ── */
+.header{
+  background:linear-gradient(140deg,#060f26 0%,#0d1b3e 50%,#142258 100%);
+  padding:48px 24px 40px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.header::before{
+  content:'';
+  position:absolute;
+  top:-120px;left:-80px;
+  width:480px;height:480px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(232,168,0,.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+.header::after{
+  content:'';
+  position:absolute;
+  bottom:-100px;right:-60px;
+  width:360px;height:360px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(59,130,246,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.header-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(232,168,0,.15);
+  border:1px solid rgba(232,168,0,.4);
+  color:var(--gold);
+  padding:5px 16px;border-radius:99px;
+  font-size:11px;font-weight:800;
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:18px;
+}
+.header h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(26px,4.5vw,46px);
+  font-weight:800;color:white;
+  line-height:1.1;margin-bottom:12px;
+}
+.header h1 span{color:var(--gold)}
+.header p{
+  color:rgba(255,255,255,.65);
+  font-size:14.5px;max-width:680px;
+  margin:0 auto 22px;line-height:1.75;
+}
+.header-pills{
+  display:flex;flex-wrap:wrap;gap:8px;
+  justify-content:center;
+}
+.pill{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  color:rgba(255,255,255,.8);
+  padding:4px 14px;border-radius:99px;
+  font-size:12px;font-weight:600;
+}
+.pill.gold{background:rgba(232,168,0,.18);border-color:rgba(232,168,0,.4);color:var(--gold)}
+
+/* ── MAIN LAYOUT ── */
+.main{
+  max-width:1320px;margin:0 auto;
+  padding:24px 18px;
+  display:grid;
+  grid-template-columns:400px 1fr;
+  gap:20px;
+  align-items:start;
+}
+
+/* ── CARD ── */
+.card{
+  background:var(--card);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 4px 28px rgba(13,27,62,.08);
+  border:1px solid rgba(226,232,240,.9);
+}
+.card-head{
+  font-family:'Syne',sans-serif;
+  font-size:16px;font-weight:800;
+  color:var(--navy);
+  margin-bottom:18px;
+  display:flex;align-items:center;gap:10px;
+}
+.card-head::before{
+  content:'';display:block;
+  width:4px;height:24px;flex-shrink:0;
+  background:linear-gradient(to bottom,var(--gold),#c98f00);
+  border-radius:2px;
+}
+
+/* ── FORM ── */
+.form-group{margin-bottom:13px}
+label{
+  display:block;
+  font-size:12.5px;font-weight:700;
+  color:var(--navy);
+  margin-bottom:5px;
+  letter-spacing:.3px;
+}
+input,select,textarea{
+  width:100%;padding:10px 13px;
+  border:1.5px solid var(--gray-light);
+  border-radius:10px;
+  font-family:'Nunito',sans-serif;
+  font-size:13.5px;color:var(--navy);
+  background:#f8fafc;transition:all .2s;outline:none;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--gold);
+  background:white;
+  box-shadow:0 0 0 3px rgba(232,168,0,.12);
+}
+textarea{min-height:60px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.sec-label{
+  font-size:10.5px;font-weight:800;
+  letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--gray);
+  padding:12px 0 8px;
+  border-bottom:1px solid var(--gray-light);
+  margin-bottom:12px;
+}
+
+/* Checkboxes */
+.checks-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.check-item{
+  display:flex;align-items:center;gap:7px;
+  background:#f8fafc;
+  border:1.5px solid var(--gray-light);
+  border-radius:8px;padding:8px 10px;
+  cursor:pointer;transition:all .2s;
+  font-size:12.5px;font-weight:600;
+  color:var(--navy);
+}
+.check-item input{
+  width:14px;height:14px;
+  margin:0;padding:0;border:none;
+  box-shadow:none;background:transparent;
+  accent-color:var(--gold);
+  flex-shrink:0;
+}
+.check-item:has(input:checked){
+  background:var(--gold-pale);
+  border-color:var(--gold);
+  color:#92400e;
+}
+
+/* Generate Button */
+.btn-gen{
+  width:100%;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);
+  color:white;border:none;
+  padding:14px 20px;border-radius:13px;
+  font-family:'Syne',sans-serif;
+  font-size:14px;font-weight:800;
+  cursor:pointer;letter-spacing:.5px;
+  margin-top:18px;transition:all .25s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn-gen:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(13,27,62,.3)}
+.btn-gen:active{transform:translateY(0)}
+.gold-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold);
+  animation:pulse 1.8s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+/* ── OUTPUT PANEL ── */
+.output-panel{display:flex;flex-direction:column;gap:18px}
+
+/* Tabs */
+.tabs-wrap{
+  background:var(--card);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 4px 28px rgba(13,27,62,.08);
+  border:1px solid rgba(226,232,240,.9);
+}
+.tabs-bar{
+  display:flex;overflow-x:auto;
+  background:#f8fafc;
+  border-bottom:1px solid var(--gray-light);
+  scrollbar-width:none;
+}
+.tabs-bar::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex-shrink:0;
+  padding:13px 16px;
+  background:transparent;border:none;
+  font-family:'Nunito',sans-serif;
+  font-size:12.5px;font-weight:700;
+  color:var(--gray);cursor:pointer;
+  border-bottom:3px solid transparent;
+  transition:all .2s;
+  display:flex;align-items:center;gap:6px;
+  white-space:nowrap;
+}
+.tab-btn:hover{color:var(--navy)}
+.tab-btn.active{
+  color:var(--navy);
+  border-bottom-color:var(--gold);
+  background:white;
+}
+.tab-icon{font-size:15px}
+.tab-count{
+  background:var(--gold-pale);
+  color:#92400e;
+  padding:1px 7px;border-radius:99px;
+  font-size:10px;font-weight:800;
+}
+.tab-btn.active .tab-count{background:var(--gold);color:white}
+
+.tab-body{display:none;padding:20px}
+.tab-body.active{display:block}
+
+/* Size Reference */
+.size-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;margin-bottom:18px;
+}
+.size-card{
+  background:#f8fafc;
+  border:1.5px solid var(--gray-light);
+  border-radius:10px;
+  padding:10px 8px;text-align:center;
+  transition:.2s;
+}
+.size-card:hover{border-color:var(--gold);background:var(--gold-pale)}
+.size-name{font-size:12px;font-weight:800;color:var(--navy)}
+.size-px{font-size:10px;color:var(--gray);margin-top:2px;font-weight:600}
+.size-tag{
+  font-size:9.5px;font-weight:800;
+  color:var(--green);margin-top:4px;
+}
+
+/* Output terminal */
+.terminal{
+  background:var(--terminal);
+  border-radius:14px;
+  padding:18px;
+  min-height:380px;max-height:620px;
+  overflow-y:auto;
+  font-family:'Courier New',monospace;
+  font-size:12.5px;line-height:1.8;
+  color:#cbd5e1;
+  scrollbar-width:thin;
+  scrollbar-color:#1e3576 transparent;
+}
+.terminal::-webkit-scrollbar{width:4px}
+.terminal::-webkit-scrollbar-thumb{background:var(--navy-mid);border-radius:2px}
+
+.t-empty{
+  color:rgba(100,116,139,.35);
+  text-align:center;padding:60px 20px;
+  font-style:italic;font-size:13px;
+}
+.t-section{margin-bottom:22px}
+.t-head{
+  color:var(--gold);
+  font-weight:700;font-size:11px;
+  letter-spacing:1.2px;text-transform:uppercase;
+  margin-bottom:8px;
+  display:flex;align-items:center;gap:10px;
+}
+.t-head::after{
+  content:'';flex:1;height:1px;
+  background:rgba(232,168,0,.2);
+}
+.t-size-tag{
+  background:rgba(232,168,0,.15);
+  color:#f0b429;
+  padding:1px 8px;border-radius:4px;
+  font-size:10px;letter-spacing:.5px;
+}
+.t-platform-tag{
+  background:rgba(59,130,246,.15);
+  color:#60a5fa;
+  padding:1px 8px;border-radius:4px;
+  font-size:10px;
+}
+.t-text{color:#b8c7d9;white-space:pre-wrap;word-break:break-word;font-size:12.5px}
+.t-divider{
+  border:none;
+  border-top:1px dashed rgba(30,53,118,.6);
+  margin:14px 0;
+}
+
+/* Action buttons row */
+.action-row{
+  display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;
+}
+.btn-action{
+  padding:9px 15px;border-radius:9px;
+  border:none;cursor:pointer;
+  font-family:'Nunito',sans-serif;
+  font-size:12.5px;font-weight:700;
+  transition:all .2s;
+  display:flex;align-items:center;gap:5px;
+}
+.btn-copy{background:var(--navy);color:white}
+.btn-copy:hover{background:var(--navy-light)}
+.btn-clear{background:#fef2f2;color:var(--rose);border:1.5px solid #fecaca}
+.btn-clear:hover{background:#fee2e2}
+.btn-copy-tab{background:#f0fdf4;color:var(--green);border:1.5px solid #bbf7d0}
+.btn-copy-tab:hover{background:#dcfce7}
+
+/* Note box */
+.note-box{
+  background:var(--gold-pale);
+  border-left:4px solid var(--gold);
+  border-radius:10px;
+  padding:11px 14px;
+  font-size:12.5px;color:#78350f;
+  line-height:1.6;margin-top:14px;
+}
+
+/* Stats bar */
+.stats-bar{
+  display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;
+}
+.stat-item{
+  display:flex;align-items:center;gap:6px;
+  background:white;border:1.5px solid var(--gray-light);
+  padding:7px 12px;border-radius:8px;
+  font-size:12px;font-weight:700;color:var(--navy);
+}
+.stat-num{
+  font-family:'Syne',sans-serif;
+  font-size:16px;color:var(--gold);
+}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:24px;right:24px;
+  background:var(--navy);color:white;
+  padding:12px 18px;border-radius:12px;
+  font-size:13px;font-weight:700;
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+  display:flex;align-items:center;gap:8px;
+  transform:translateY(80px);opacity:0;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  z-index:999;pointer-events:none;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+
+@media(max-width:960px){.main{grid-template-columns:1fr}}
+@media(max-width:600px){
+  .grid2,.checks-grid{grid-template-columns:1fr}
+  .size-grid{grid-template-columns:1fr 1fr}
+  .stats-bar{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-badge">⚡ AI Prompt Generator</div>
+  <h1>Generator Branding<br><span>Sekolah Professional</span></h1>
+  <p>Buat ratusan prompt desain & branding untuk sekolah Anda — cover semua kebutuhan konten sosial media, identitas merek, SPMB, hingga video.</p>
+  <div class="header-pills">
+    <span class="pill gold">🎨 Brand Identity</span>
+    <span class="pill">📱 Sosmed Feed</span>
+    <span class="pill">📋 SPMB</span>
+    <span class="pill">📅 Konten Harian</span>
+    <span class="pill">🎠 Tutorial/Carousel</span>
+    <span class="pill">🎬 Video</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT: FORM -->
+  <div class="card">
+    <div class="card-head">Data &amp; Profil Sekolah</div>
+
+    <div class="form-group">
+      <label>Jenis / Jenjang Sekolah</label>
+      <select id="jenisSekolah" onchange="autoFill()">
+        <option value="sd">SD — Sekolah Dasar</option>
+        <option value="smp">SMP — Sekolah Menengah Pertama</option>
+        <option value="sma">SMA — Sekolah Menengah Atas</option>
+        <option value="smk">SMK — Sekolah Menengah Kejuruan</option>
+        <option value="tk">TK — Taman Kanak-Kanak</option>
+        <option value="pesantren">Pondok Pesantren</option>
+        <option value="madrasah">Madrasah (MI/MTs/MA)</option>
+        <option value="kursus">Lembaga Kursus / Bimbel</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Nama Sekolah / Lembaga</label>
+      <input type="text" id="namaSekolah" value="SMA Negeri 1 Malang">
+    </div>
+
+    <div class="form-group">
+      <label>Motto / Tagline Sekolah</label>
+      <input type="text" id="motto" value="Unggul dalam Ilmu, Mulia dalam Akhlak">
+    </div>
+
+    <div class="grid2">
+      <div class="form-group">
+        <label>Kota / Lokasi</label>
+        <input type="text" id="kota" value="Malang">
+      </div>
+      <div class="form-group">
+        <label>Tahun Berdiri</label>
+        <input type="text" id="tahunBerdiri" value="1965">
+      </div>
+    </div>
+
+    <div class="sec-label">🎨 Identitas Visual</div>
+
+    <div class="grid2">
+      <div class="form-group">
+        <label>Warna Utama</label>
+        <input type="text" id="warnaUtama" value="navy biru tua, putih">
+      </div>
+      <div class="form-group">
+        <label>Warna Sekunder / Aksen</label>
+        <input type="text" id="warnaAksen" value="gold, abu muda">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Gaya Desain</label>
+      <select id="gayaDesain">
+        <option>Modern Profesional</option>
+        <option>Elegan Premium</option>
+        <option>Islami Modern</option>
+        <option>Playful &amp; Colorful</option>
+        <option>Minimalis Bersih</option>
+        <option>Akademik Klasik</option>
+        <option>Bold &amp; Dynamic</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Karakter / Suasana yang Ingin Diciptakan</label>
+      <textarea id="karakter">Berwibawa, terpercaya, inspiratif, ramah, dan modern. Mencerminkan sekolah berkualitas tinggi yang peduli terhadap perkembangan siswa secara akademik dan karakter.</textarea>
+    </div>
+
+    <div class="sec-label">🏫 Info Program & Keunggulan</div>
+
+    <div class="form-group">
+      <label>Program Jurusan / Keahlian</label>
+      <input type="text" id="program" value="IPA, IPS, Bahasa, Lintas Minat">
+    </div>
+
+    <div class="form-group">
+      <label>Prestasi &amp; Keunggulan Utama</label>
+      <textarea id="prestasi">Juara 1 OSN Tingkat Provinsi, Akreditasi A, 98% lulus PTN, laboratorium modern, program bilingual</textarea>
+    </div>
+
+    <div class="sec-label">✅ Fasilitas Sekolah</div>
+    <div class="checks-grid">
+      <label class="check-item"><input type="checkbox" value="laboratorium sains" checked> Lab Sains</label>
+      <label class="check-item"><input type="checkbox" value="perpustakaan digital" checked> Perpustakaan</label>
+      <label class="check-item"><input type="checkbox" value="lapangan olahraga" checked> Lapangan Olahraga</label>
+      <label class="check-item"><input type="checkbox" value="aula serbaguna"> Aula / Auditorium</label>
+      <label class="check-item"><input type="checkbox" value="asrama" > Asrama Siswa</label>
+      <label class="check-item"><input type="checkbox" value="masjid / mushola" checked> Masjid / Mushola</label>
+      <label class="check-item"><input type="checkbox" value="kantin sehat"> Kantin Sehat</label>
+      <label class="check-item"><input type="checkbox" value="laboratorium komputer" checked> Lab Komputer</label>
+      <label class="check-item"><input type="checkbox" value="studio kreatif"> Studio Kreatif</label>
+      <label class="check-item"><input type="checkbox" value="kolam renang"> Kolam Renang</label>
+      <label class="check-item"><input type="checkbox" value="ruang BK" checked> Ruang BK / Konseling</label>
+      <label class="check-item"><input type="checkbox" value="CCTV &amp; keamanan"> CCTV &amp; Security</label>
+    </div>
+
+    <div class="sec-label">📱 Target Platform</div>
+    <div class="checks-grid">
+      <label class="check-item"><input type="checkbox" value="Instagram" checked> Instagram</label>
+      <label class="check-item"><input type="checkbox" value="Facebook" checked> Facebook</label>
+      <label class="check-item"><input type="checkbox" value="TikTok" checked> TikTok</label>
+      <label class="check-item"><input type="checkbox" value="YouTube"> YouTube</label>
+      <label class="check-item"><input type="checkbox" value="WhatsApp" checked> WhatsApp</label>
+      <label class="check-item"><input type="checkbox" value="Twitter/X"> Twitter/X</label>
+    </div>
+
+    <div class="form-group" style="margin-top:14px">
+      <label>Target Audiens</label>
+      <input type="text" id="target" value="Calon siswa baru, orang tua, masyarakat umum, alumni">
+    </div>
+
+    <div class="form-group">
+      <label>Tagline SPMB (Penerimaan Siswa Baru)</label>
+      <input type="text" id="taglineSPMB" value="Daftarkan Putra-Putri Terbaik Anda — Bersama Kami, Masa Depan Lebih Cerah">
+    </div>
+
+    <button class="btn-gen" onclick="generateAll()">
+      <div class="gold-dot"></div>
+      GENERATE SEMUA PROMPT
+    </button>
+  </div>
+
+  <!-- RIGHT: OUTPUT TABS -->
+  <div class="output-panel">
+    <div id="statsBar" class="stats-bar" style="display:none">
+      <div class="stat-item"><span class="stat-num" id="statTotal">0</span> Total Prompt</div>
+      <div class="stat-item"><span class="stat-num" id="statBrand">0</span> Brand Identity</div>
+      <div class="stat-item"><span class="stat-num" id="statSosmed">0</span> Sosmed Feed &amp; Video</div>
+      <div class="stat-item"><span class="stat-num" id="statSPMB">0</span> SPMB</div>
+      <div class="stat-item"><span class="stat-num" id="statKonten">0</span> Konten Harian</div>
+      <div class="stat-item"><span class="stat-num" id="statCarousel">0</span> Carousel</div>
+      <div class="stat-item"><span class="stat-num" id="statVideo">0</span> Video</div>
+    </div>
+
+    <div class="tabs-wrap">
+      <div class="tabs-bar">
+        <button class="tab-btn active" onclick="switchTab('brand',this)">
+          <span class="tab-icon">🎨</span> Brand Identity
+          <span class="tab-count" id="cnt-brand">12</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('sosmed',this)">
+          <span class="tab-icon">📱</span> Feed Sosmed
+          <span class="tab-count" id="cnt-sosmed">16</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('spmb',this)">
+          <span class="tab-icon">📋</span> SPMB
+          <span class="tab-count" id="cnt-spmb">8</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('konten',this)">
+          <span class="tab-icon">📅</span> Konten Harian
+          <span class="tab-count" id="cnt-konten">9</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('carousel',this)">
+          <span class="tab-icon">🎠</span> Carousel/Tutorial
+          <span class="tab-count" id="cnt-carousel">6</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab('video',this)">
+          <span class="tab-icon">🎬</span> Video
+          <span class="tab-count" id="cnt-video">8</span>
+        </button>
+      </div>
+
+      <!-- BRAND IDENTITY TAB -->
+      <div id="tab-brand" class="tab-body active">
+        <div class="size-grid">
+          <div class="size-card"><div class="size-name">Logo Set</div><div class="size-px">SVG / PNG</div><div class="size-tag">Brand Core</div></div>
+          <div class="size-card"><div class="size-name">Brand Guide</div><div class="size-px">A4 PDF</div><div class="size-tag">Pedoman</div></div>
+          <div class="size-card"><div class="size-name">Kop Surat</div><div class="size-px">A4 2480×3508px</div><div class="size-tag">Stationery</div></div>
+          <div class="size-card"><div class="size-name">ID Card</div><div class="size-px">85.6×54mm</div><div class="size-tag">Identitas</div></div>
+        </div>
+        <div id="out-brand" class="terminal"><div class="t-empty">✨ Isi form dan klik "Generate Semua Prompt" untuk melihat hasil</div></div>
+        <div class="action-row">
+          <button class="btn-action btn-copy-tab" onclick="copyTab('out-brand')">📋 Copy Prompt Tab Ini</button>
+          <button class="btn-action btn-clear" onclick="clearTab('out-brand')">🗑 Hapus</button>
+        </div>
+      </div>
+
+      <!-- SOSMED FEED TAB -->
+      <div id="tab-sosmed" class="tab-body">
+        <div class="size-grid">
+          <div class="size-card"><div class="size-name">Square</div><div class="size-px">1080 × 1080px</div><div class="size-tag">IG / FB Feed</div></div>
+          <div class="size-card"><div class="size-name">Portrait 4:5</div><div class="size-px">1080 × 1350px</div><div class="size-tag">IG Portrait</div></div>
+          <div class="size-card"><div class="size-name">Story 9:16</div><div class="size-px">1080 × 1920px</div><div class="size-tag">IG/FB/WA Story</div></div>
+          <div class="size-card"><div class="size-name">Landscape</div><div class="size-px">1920 × 1080px</div><div class="size-tag">FB Cover / YT</div></div>
+        </div>
+        <div id="out-sosmed" class="terminal"><div class="t-empty">✨ Isi form dan klik "Generate Semua Prompt"</div></div>
+        <div class="action-row">
+          <button class="btn-action btn-copy-tab" onclick="copyTab('out-sosmed')">📋 Copy Prompt Tab Ini</button>
+          <button class="btn-action btn-clear" onclick="clearTab('out-sosmed')">🗑 Hapus</button>
+        </div>
+      </div>
+
+      <!-- SPMB TAB -->
+      <div id="tab-spmb" class="tab-body">
+        <div class="size-grid">
+          <div class="size-card"><div class="size-name">Poster A3</div><div class="size-px">1587 × 2245px</div><div class="size-tag">Cetak / Digital</div></div>
+          <div class="size-card"><div class="size-name">Flyer Square</div><div class="size-px">1080 × 1080px</div><div class="size-tag">IG / WA</div></div>
+          <div class="size-card"><div class="size-name">Banner Story</div><div class="size-px">1080 × 1920px</div><div class="size-tag">Story</div></div>
+          <div class="size-card"><div class="size-name">Spanduk</div><div class="size-px">3000 × 900px</div><div class="size-tag">Outdoor</div></div>
+        </div>
+        <div id="out-spmb" class="terminal"><div class="t-empty">✨ Isi form dan klik "Generate Semua Prompt"</div></div>
+        <div class="action-row">
+          <button class="btn-action btn-copy-tab" onclick="copyTab('out-spmb')">📋 Copy Prompt Tab Ini</button>
+          <button class="btn-action btn-clear" onclick="clearTab('out-spmb')">🗑 Hapus</button>
+        </div>
+      </div>
+
+      <!-- KONTEN HARIAN TAB -->
+      <div id="tab-konten" class="tab-body">
+        <div class="size-grid">
+          <div class="size-card"><div class="size-name">Quote Harian</div><div class="size-px">1080 × 1080px</div><div class="size-tag">IG / FB</div></div>
+          <div class="size-card"><div class="size-name">Info Kegiatan</div><div class="size-px">1080 × 1350px</div><div class="size-tag">IG Portrait</div></div>
+          <div class="size-card"><div class="size-name">Prestasi</div><div class="size-px">1080 × 1080px</div><div class="size-tag">IG / FB</div></div>
+          <div class="size-card"><div class="size-name">Hari Besar</div><div class="size-px">1080 × 1920px</div><div class="size-tag">Story</div></div>
+        </div>
+        <div id="out-konten" class="terminal"><div class="t-empty">✨ Isi form dan klik "Generate Semua Prompt"</div></div>
+        <div class="action-row">
+          <button class="btn-action btn-copy-tab" onclick="copyTab('out-konten')">📋 Copy Prompt Tab Ini</button>
+          <button class="btn-action btn-clear" onclick="clearTab('out-konten')">🗑 Hapus</button>
+        </div>
+      </div>
+
+      <!-- CAROUSEL TAB -->
+      <div id="tab-carousel" class="tab-body">
+        <div class="size-grid">
+          <div class="size-card"><div class="size-name">Carousel IG</div><div class="size-px">1080 × 1080px</div><div class="size-tag">Swipe Content</div></div>
+          <div class="size-card"><div class="size-name">Tutorial PDF</div><div class="size-px">1080 × 1350px</div><div class="size-tag">Portrait Set</div></div>
+          <div class="size-card"><div class="size-name">Infografis</div><div class="size-px">1080 × 1920px</div><div class="size-tag">Tall Scroll</div></div>
+          <div class="size-card"><div class="size-name">Profil Sekolah</div><div class="size-px">1080 × 1080px</div><div class="size-tag">Multi-slide</div></div>
+        </div>
+        <div id="out-carousel" class="terminal"><div class="t-empty">✨ Isi form dan klik "Generate Semua Prompt"</div></div>
+        <div class="action-row">
+          <button class="btn-action btn-copy-tab" onclick="copyTab('out-carousel')">📋 Copy Prompt Tab Ini</button>
+          <button class="btn-action btn-clear" onclick="clearTab('out-carousel')">🗑 Hapus</button>
+        </div>
+      </div>
+
+      <!-- VIDEO TAB -->
+      <div id="tab-video" class="tab-body">
+        <div class="size-grid">
+          <div class="size-card"><div class="size-name">Reels/TikTok</div><div class="size-px">1080 × 1920px</div><div class="size-tag">Vertical Video</div></div>
+          <div class="size-card"><div class="size-name">YouTube</div><div class="size-px">1920 × 1080px</div><div class="size-tag">Landscape</div></div>
+          <div class="size-card"><div class="size-name">YT Thumbnail</div><div class="size-px">1280 × 720px</div><div class="size-tag">Cover Video</div></div>
+          <div class="size-card"><div class="size-name">Intro Bumper</div><div class="size-px">1080 × 1080px</div><div class="size-tag">3–5 detik</div></div>
+        </div>
+        <div id="out-video" class="terminal"><div class="t-empty">✨ Isi form dan klik "Generate Semua Prompt"</div></div>
+        <div class="action-row">
+          <button class="btn-action btn-copy-tab" onclick="copyTab('out-video')">📋 Copy Prompt Tab Ini</button>
+          <button class="btn-action btn-clear" onclick="clearTab('out-video')">🗑 Hapus</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COPY ALL BLOCK -->
+    <div class="card" id="copyAllCard" style="display:none">
+      <div class="card-head">Export Semua Prompt</div>
+      <div class="action-row">
+        <button class="btn-action btn-copy" onclick="copyAll()">📋 Copy SEMUA Prompt (Semua Tab)</button>
+        <button class="btn-action btn-clear" onclick="clearAll()">🗑 Hapus Semua Output</button>
+      </div>
+      <div class="note-box">
+        💡 <strong>Tips Penggunaan:</strong> Paste prompt ke <strong>Midjourney</strong>, <strong>DALL-E 3</strong>, <strong>Adobe Firefly</strong>, atau <strong>Stable Diffusion</strong> untuk gambar. Untuk video, gunakan <strong>Sora</strong>, <strong>Kling AI</strong>, <strong>Runway Gen-3</strong>, atau <strong>Pika Labs</strong>. Untuk desain langsung, gunakan dengan <strong>Canva AI</strong> atau <strong>Adobe Express</strong>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><div class="toast-dot"></div><span id="toastMsg">Berhasil dicopy!</span></div>
+
+<script>
+// ── AUTO-FILL DATA ──────────────────────────────────────────────
+const sekolahData = {
+  sd:{
+    nama:"SD Islam Terpadu Al-Hikmah",
+    motto:"Cerdas, Berkarakter, Berakhlak Mulia",
+    warnaUtama:"biru cerah, putih",
+    warnaAksen:"orange ceria, hijau muda",
+    gaya:"Playful & Colorful",
+    karakter:"Ceria, hangat, menyenangkan, aman, dan edukatif. Mencerminkan lingkungan belajar yang menyenangkan untuk anak-anak.",
+    program:"Kelas 1-6, Tahfidz Al-Quran, Bahasa Inggris, Robotika",
+    prestasi:"Juara lomba mewarnai tingkat kota, olimpiade sains SD, program tahfidz bersertifikat",
+    target:"Orang tua dengan anak usia 6-12 tahun, calon wali murid",
+    taglineSPMB:"Berikan Si Kecil Pendidikan Terbaik — Daftarkan Sekarang!"
+  },
+  smp:{
+    nama:"SMP Unggulan Cendekia",
+    motto:"Berprestasi, Berkarakter, Berdaya Saing",
+    warnaUtama:"biru navy, putih bersih",
+    warnaAksen:"kuning gold, hijau segar",
+    gaya:"Modern Profesional",
+    karakter:"Dinamis, semangat, modern, dan aspiratif. Mencerminkan sekolah yang mendorong siswa untuk berprestasi dan berkembang.",
+    program:"IPA, IPS, Seni, Olahraga, Ekstrakurikuler",
+    prestasi:"Juara OSN tingkat kota, KSN, lomba debat, paduan suara, dan sepakbola",
+    target:"Siswa lulusan SD, orang tua, masyarakat sekitar",
+    taglineSPMB:"Temukan Potensi Terbaikmu Bersama Kami — Daftar PPDB Sekarang"
+  },
+  sma:{
+    nama:"SMA Negeri 1 Malang",
+    motto:"Unggul dalam Ilmu, Mulia dalam Akhlak",
+    warnaUtama:"navy biru tua, putih",
+    warnaAksen:"gold, abu muda",
+    gaya:"Elegan Premium",
+    karakter:"Berwibawa, terpercaya, inspiratif, ramah, dan modern. Mencerminkan sekolah berkualitas tinggi.",
+    program:"IPA, IPS, Bahasa, Lintas Minat, Akselerasi",
+    prestasi:"Juara 1 OSN Provinsi, 98% lulus PTN, Akreditasi A Unggul, program bilingual",
+    target:"Calon siswa baru, orang tua, masyarakat umum, alumni",
+    taglineSPMB:"Daftarkan Putra-Putri Terbaik Anda — Bersama Kami, Masa Depan Lebih Cerah"
+  },
+  smk:{
+    nama:"SMK Teknologi Harapan Bangsa",
+    motto:"Terampil, Profesional, Siap Kerja",
+    warnaUtama:"biru industri, putih, abu tua",
+    warnaAksen:"orange energi, kuning",
+    gaya:"Bold & Dynamic",
+    karakter:"Profesional, tegas, energik, industri-ready, dan inovatif. Mencerminkan sekolah vokasi berkualitas.",
+    program:"Teknik Elektro, Otomotif, Multimedia, Informatika, Kuliner, Tata Busana",
+    prestasi:"Juara LKS tingkat provinsi, kemitraan industri, 80% alumni langsung kerja",
+    target:"Lulusan SMP, orang tua, perusahaan mitra industri",
+    taglineSPMB:"Raih Masa Depan dengan Keahlian Nyata — Daftar SMK Kami Sekarang!"
+  },
+  tk:{
+    nama:"TK Islam Bintang Kecil",
+    motto:"Tumbuh Cerdas, Bermain Gembira, Berakhlak Mulia",
+    warnaUtama:"kuning ceria, biru muda, putih",
+    warnaAksen:"merah muda, hijau apel, orange",
+    gaya:"Playful & Colorful",
+    karakter:"Gembira, penuh warna, aman, hangat, dan menyenangkan. Mencerminkan taman bermain yang edukatif.",
+    program:"Kelas A (4-5 tahun), Kelas B (5-6 tahun), Seni, Musik, Agama",
+    prestasi:"Juara lomba mewarnai dan menggambar anak, program calistung menyenangkan",
+    target:"Orang tua dengan anak usia 4-6 tahun",
+    taglineSPMB:"Temukan Kegembiraan Belajar Pertama — Daftarkan Putra-Putri Anda!"
+  },
+  pesantren:{
+    nama:"Pondok Pesantren Modern Al-Falah",
+    motto:"Berilmu, Bertaqwa, Bermanfaat bagi Umat",
+    warnaUtama:"hijau islami, putih, gold",
+    warnaAksen:"coklat kayu, krem, emas",
+    gaya:"Islami Modern",
+    karakter:"Islami, berwibawa, spiritual, tenang, dan modern. Memadukan nilai tradisi pesantren dengan pendidikan modern.",
+    program:"Tahfidz Al-Quran, Kitab Kuning, Bahasa Arab, Bahasa Inggris, Sains, Teknologi",
+    prestasi:"Hafidz dan Hafidzah, Juara MTQ, Olimpiade Sains Madrasah, alumni di universitas terkemuka",
+    target:"Calon santri, orang tua, masyarakat muslim",
+    taglineSPMB:"Titipkan Putra-Putrimu di Tempat Terbaik — Daftar Santri Baru Sekarang"
+  },
+  madrasah:{
+    nama:"MAN 2 Kota Malang",
+    motto:"Ilmu Amaliah, Amal Ilmiah, Akhlak Karimah",
+    warnaUtama:"hijau madrasah, putih, emas",
+    warnaAksen:"biru dongker, gold soft",
+    gaya:"Islami Modern",
+    karakter:"Islami, akademis, terpercaya, modern, dan berkarakter. Memadukan ilmu agama dan umum secara seimbang.",
+    program:"IPA, IPS, Bahasa, Keagamaan, Tahfidz",
+    prestasi:"Juara KSM, AKSIOMA, akademi hafidz, 90% lulus PTN",
+    target:"Calon siswa, orang tua, komunitas muslim",
+    taglineSPMB:"Wujudkan Cita-Cita dengan Fondasi Ilmu dan Iman — Daftar Sekarang!"
+  },
+  kursus:{
+    nama:"BimBel Excellence Learning Center",
+    motto:"Belajar Lebih Cerdas, Sukses Lebih Cepat",
+    warnaUtama:"ungu modern, putih, biru",
+    warnaAksen:"orange semangat, gold",
+    gaya:"Modern Profesional",
+    karakter:"Semangat, modern, percaya diri, dan hasil-oriented. Mencerminkan lembaga belajar yang efektif dan terpercaya.",
+    program:"SD-SMA, SBMPTN, UTBK, Bahasa Asing, Coding, Matematika",
+    prestasi:"1000+ siswa lulus PTN, track record nilai naik 40%, pengajar berpengalaman",
+    target:"Siswa SD-SMA, mahasiswa, orang tua",
+    taglineSPMB:"Raih Nilai Terbaikmu — Daftar Kelas Gratis Pertemuan Pertama!"
+  }
+};
+
+function autoFill(){
+  const jenis = document.getElementById('jenisSekolah').value;
+  const d = sekolahData[jenis];
+  document.getElementById('namaSekolah').value = d.nama;
+  document.getElementById('motto').value = d.motto;
+  document.getElementById('warnaUtama').value = d.warnaUtama;
+  document.getElementById('warnaAksen').value = d.warnaAksen;
+  document.getElementById('gayaDesain').value = d.gaya;
+  document.getElementById('karakter').value = d.karakter;
+  document.getElementById('program').value = d.program;
+  document.getElementById('prestasi').value = d.prestasi;
+  document.getElementById('target').value = d.target;
+  document.getElementById('taglineSPMB').value = d.taglineSPMB;
+}
+
+// ── HELPERS ────────────────────────────────────────────────────
+function getCheckedValues(groupClass){
+  return Array.from(document.querySelectorAll('.checks-grid'))
+    .reduce((a,g)=>{
+      g.querySelectorAll('input[type=checkbox]:checked').forEach(c=>a.push(c.value));
+      return a;
+    },[]);
+}
+function getFasilitas(){
+  const all = document.querySelectorAll('.checks-grid')[0].querySelectorAll('input:checked');
+  return Array.from(all).map(c=>c.value).join(', ');
+}
+function getPlatform(){
+  const all = document.querySelectorAll('.checks-grid')[1].querySelectorAll('input:checked');
+  return Array.from(all).map(c=>c.value).join(', ');
+}
+
+function vals(){
+  return {
+    jenis: document.getElementById('jenisSekolah').selectedOptions[0].text,
+    nama: document.getElementById('namaSekolah').value,
+    motto: document.getElementById('motto').value,
+    kota: document.getElementById('kota').value,
+    tahun: document.getElementById('tahunBerdiri').value,
+    warnaUtama: document.getElementById('warnaUtama').value,
+    warnaAksen: document.getElementById('warnaAksen').value,
+    gaya: document.getElementById('gayaDesain').value,
+    karakter: document.getElementById('karakter').value,
+    program: document.getElementById('program').value,
+    prestasi: document.getElementById('prestasi').value,
+    target: document.getElementById('target').value,
+    taglineSPMB: document.getElementById('taglineSPMB').value,
+    fasilitas: getFasilitas(),
+    platform: getPlatform()
+  };
+}
+
+function buildSection(title, sizeTag, platformTag, promptText){
+  return `<div class="t-section">
+<div class="t-head">${title} <span class="t-size-tag">${sizeTag}</span> <span class="t-platform-tag">${platformTag}</span></div>
+<div class="t-text">${promptText}</div>
+</div><hr class="t-divider">`;
+}
+
+// ── GENERATE BRAND IDENTITY ────────────────────────────────────
+function genBrand(v){
+  const base = `${v.nama}, ${v.jenis} berlokasi di ${v.kota}, berdiri ${v.tahun}. Motto: "${v.motto}". Warna utama ${v.warnaUtama}, aksen ${v.warnaAksen}. Gaya desain ${v.gaya}. Karakter: ${v.karakter}.`;
+  const items = [
+    ["LOGO UTAMA","SVG/PNG Transparan","Brand Core",
+`Design a professional school logo for ${base}
+Style: ${v.gaya} logo design, vector style, scalable, clean and memorable.
+Include: school emblem/badge, school name typography, sub-text with motto, balance of tradition and modern.
+Color palette: ${v.warnaUtama} as primary, ${v.warnaAksen} as accent.
+Format: primary logo version, transparent background, suitable for print and digital.
+Quality: premium educational institution logo, high detail, professional.`],
+
+    ["LOGO VARIASI — Horizontal, Vertikal, Icon Only","SVG/PNG","Brand System",
+`Design a complete logo system for ${v.nama}:
+1. Horizontal version: icon + name side by side
+2. Vertical/stacked version: icon on top, name below
+3. Icon only / monogram version: simplified emblem
+4. Black & white / reversed (white on dark) version
+Same identity: color ${v.warnaUtama}, accent ${v.warnaAksen}, ${v.gaya} style.
+All versions consistent, professional, clean vector design.`],
+
+    ["PANDUAN WARNA — Color Palette","Digital / Print","Brand Guide",
+`Create a professional school color palette branding board for ${v.nama}.
+Primary colors: ${v.warnaUtama}. Secondary/accent colors: ${v.warnaAksen}.
+Show: color swatches with hex codes, usage guidelines (primary/secondary/neutral), color combinations on dark and light backgrounds.
+Style: ${v.gaya} design, clean layout, professional brand guide aesthetic.
+Include: typography pairing suggestion, contrast accessibility notes.`],
+
+    ["BRAND GUIDELINES — Cover & Halaman Utama","A4 2480×3508px","Brand Document",
+`Design a professional brand guidelines document cover for ${v.nama}.
+Style: ${v.gaya}, sophisticated editorial layout, premium feel.
+Include on cover: school name, logo, tagline "${v.motto}", "Brand Guidelines" subtitle, year.
+Color scheme: ${v.warnaUtama} dominant, ${v.warnaAksen} accent.
+Background: ${v.warnaUtama} gradient or elegant pattern.
+Interior page preview showing: logo usage rules, color system, typography guide.`],
+
+    ["KOP SURAT / LETTERHEAD","A4 2480×3508px","Stationery",
+`Design a professional letterhead for ${v.nama}, ${v.jenis}, ${v.kota}.
+Elements: logo top-left, school name and address header, footer with contact info and website.
+Style: ${v.gaya}, clean professional layout.
+Color: ${v.warnaUtama} header/footer, white body area.
+Include decorative stripe or pattern using school colors.
+Professional, formal, suitable for official correspondence.`],
+
+    ["AMPLOP SURAT RESMI","DL 220×110mm & C4 229×324mm","Stationery",
+`Design matching official envelopes for ${v.nama}:
+1. DL envelope (220×110mm) — standard letter envelope
+2. C4 envelope (229×324mm) — A4 document envelope
+Elements: logo, school name, address (return address corner).
+Style consistent with letterhead: ${v.gaya}, ${v.warnaUtama} color theme.
+Clean, professional, official impression.`],
+
+    ["ID CARD SISWA","85.6×54mm (300dpi)","Identity Card",
+`Design a professional student ID card for ${v.nama}:
+Front: school logo, student photo placeholder, name, class, student ID number, school name, academic year.
+Back: school address, emergency contact field, barcode/QR placeholder, terms & signature field.
+Style: ${v.gaya}, ${v.warnaUtama} dominant with ${v.warnaAksen} accent.
+Premium, durable card design, laminated look, modern layout.`],
+
+    ["ID CARD GURU & STAFF","85.6×54mm (300dpi)","Identity Card",
+`Design a professional teacher/staff ID card for ${v.nama}:
+Front: school logo, photo placeholder, name, position/subject, employee ID.
+Back: school address, emergency contact, QR code placeholder.
+Different color coding from student card: ${v.warnaAksen} dominant or darker variant.
+Style: ${v.gaya}, authoritative, professional, matching school identity.`],
+
+    ["MAP / STOPMAP DOKUMEN","F4 229×330mm","Stationery",
+`Design a document folder/map for ${v.nama}:
+Cover: large school logo centered, school name, motto "${v.motto}", decorative pattern using school colors.
+Interior pocket design with school information.
+Style: ${v.gaya}, ${v.warnaUtama} base color, premium print quality.
+Include subtle texture or pattern on background. Professional, prestigious look.`],
+
+    ["SERAGAM BATIK KONSEP","Design Mockup","Uniform Design",
+`Design a school batik uniform concept for ${v.nama}:
+Pattern: modern batik motif inspired by local culture and school identity, using colors ${v.warnaUtama} and ${v.warnaAksen}.
+Include: small logo badge/embroidery placement, name tag area.
+Style: elegant batik that balances traditional and contemporary.
+Show: full shirt mockup (male & female version), front and back view, close-up of batik pattern.`],
+
+    ["STEMPEL / CAP RESMI","Circle Ø40mm","Official Seal",
+`Design an official school stamp/seal for ${v.nama}:
+Circular design: outer ring with school name and city, inner area with logo/emblem, bottom arc with motto "${v.motto}".
+Style: traditional official seal aesthetic with modern refinement.
+Clean, formal, authoritative design suitable for official documents.
+Black ink version and blue ink version.`],
+
+    ["PAPAN NAMA / SIGNAGE SEKOLAH","3000×900px print","Signage",
+`Design an entrance signboard for ${v.nama}, ${v.kota}:
+Elements: school logo large, full school name, motto, accreditation badge, city name.
+Style: ${v.gaya}, ${v.warnaUtama} dominant, ${v.warnaAksen} highlights.
+Material look: premium aluminum composite or stone panel.
+Clean, prestigious, visible from distance, professional school institution appearance.`]
+  ];
+  return items.map(i=>buildSection(i[0],i[1],i[2],i[3])).join('');
+}
+
+// ── GENERATE SOSMED FEED ───────────────────────────────────────
+function genSosmed(v){
+  const style = `${v.gaya} design, consistent school brand colors ${v.warnaUtama} primary and ${v.warnaAksen} accent, clean professional layout, ${v.nama} branding, modern educational institution aesthetic`;
+  const items = [
+    ["TEMPLATE FEED SQUARE — Default Post","1080 × 1080px","Instagram / Facebook",
+`Create a square social media post template for ${v.nama}:
+Design: header with logo and school name, large content area (text/image), bottom bar with tagline or contact info.
+Style: ${style}. Clean, professional, recognizable, consistent.
+Include subtle pattern or texture background. Social media optimized.`],
+
+    ["TEMPLATE FEED PORTRAIT 4:5","1080 × 1350px","Instagram Portrait",
+`Create a portrait social media post template (4:5) for ${v.nama}:
+More vertical space: larger headline area, body text zone, call-to-action section.
+Style: ${style}. Bold typography, clean hierarchy, school colors prominent.
+Header: logo + school name. Footer: website and social media handle.`],
+
+    ["TEMPLATE STORY — Konten Info","1080 × 1920px","Instagram / Facebook / WA Story",
+`Create a Story-sized template for ${v.nama} school information posts:
+Layout: logo top, large headline, body info in cards, CTA button, footer with handle.
+Style: ${style}. Engaging vertical format, bold design, tap-through friendly.
+Include: progress bar placeholder at top, interactive sticker area.`],
+
+    ["TEMPLATE STORY — Quote & Motivasi","1080 × 1920px","Story",
+`Create a motivational quote story template for ${v.nama}:
+Design: elegant background (gradient or pattern using ${v.warnaUtama}), large centered quote text area, attribution line, school logo small at top or bottom.
+Style: ${v.gaya}, ${v.warnaAksen} quote highlight, premium typography.
+Versions: dark background and light background variant.`],
+
+    ["FACEBOOK COVER PHOTO","851 × 315px","Facebook Page Cover",
+`Design a Facebook cover photo for ${v.nama}:
+Elements: school logo large, school name, motto "${v.motto}", city and year established.
+Background: ${v.warnaUtama} gradient or school photo composite, ${v.warnaAksen} decorative elements.
+Style: ${style}. Wide cinematic format, professional, welcoming.
+Include subtle pattern overlay or geometric accent.`],
+
+    ["TWITTER / X HEADER","1500 × 500px","Twitter/X Profile",
+`Design a Twitter/X header banner for ${v.nama}:
+Wide banner: logo, school name, motto, visual elements in ${v.warnaUtama} and ${v.warnaAksen}.
+Style: ${style}. Bold, simple, readable on all screen sizes.
+Professional school institution header look.`],
+
+    ["HIGHLIGHT COVER SET","1080 × 1920px (each)","Instagram Highlights",
+`Create a set of Instagram Highlight cover icons for ${v.nama}:
+Design 8 consistent circular highlight covers for:
+1. Profil Sekolah 2. Prestasi 3. SPMB/PPDB 4. Kegiatan 5. Fasilitas 6. Guru & Staff 7. Ekskul 8. Pengumuman
+Style: ${style}. Each cover has unique icon + small text label. Consistent color palette and visual style.
+Clean, modern, professional social media presence.`],
+
+    ["FOTO PROFIL / AVATAR SOSMED","1080 × 1080px (circle crop)","All Platforms",
+`Design a social media profile picture frame/avatar for ${v.nama}:
+Circular format: school logo centered, outer ring with school name and city.
+Color: ${v.warnaUtama} ring, ${v.warnaAksen} accent elements.
+Clean, recognizable even at small sizes (64×64px screen), scalable.`],
+
+    ["LINKEDIN BANNER SEKOLAH","1584 × 396px","LinkedIn Page Cover",
+`Design a LinkedIn banner for ${v.nama}:
+Professional and corporate feel, appropriate for LinkedIn's academic and career platform.
+Elements: logo, school name, city, key achievements (${v.prestasi}), ${v.program}.
+Style: ${v.gaya}, ${v.warnaUtama} and ${v.warnaAksen} palette, sophisticated typography.
+Clean, achievement-focused, professional institution banner.`],
+
+    ["TEMPLATE PENGUMUMAN PENTING","1080 × 1080px & 1080 × 1350px","All Platforms",
+`Create an announcement/notice post template for ${v.nama}:
+Design: bold "PENGUMUMAN" header, date field, title area, body content area, signature/stamp area, footer.
+Style: ${style}. Official yet modern feel, high contrast for readability.
+Red or ${v.warnaAksen} accent for important highlights. Logo prominently placed.`],
+
+    ["TEMPLATE APRESIASI / UCAPAN SELAMAT","1080 × 1080px","Facebook / Instagram",
+`Create a congratulations/appreciation post template for ${v.nama}:
+Design: celebratory feel, confetti or stars decorative elements, main "SELAMAT" headline area, name/achievement fields, school logo.
+Style: ${style} with festive elements. ${v.warnaAksen} highlight for gold/celebration feel.
+Premium, memorable, shareable design.`],
+
+    ["TEMPLATE LOMBA / KOMPETISI","1080 × 1350px","Instagram Portrait",
+`Create a competition/event announcement template for ${v.nama}:
+Design: dynamic layout, event name large, date/time/place fields, registration CTA, school logo.
+Style: ${style}, bold energetic typography, ${v.warnaAksen} dynamic accents.
+Eye-catching, exciting, action-oriented design.`],
+
+    ["TEMPLATE FOTO KEGIATAN / EVENT","1080 × 1080px","Facebook / Instagram",
+`Create a school activity photo post frame template for ${v.nama}:
+Design: elegant photo frame/overlay, school name header, event title area, date watermark, logo corner badge.
+Style: ${style}. Subtle overlay that doesn't cover the main photo, ${v.warnaUtama} color accents.
+Professional photo documentation aesthetic.`],
+
+    ["LINKTREE / LANDING PAGE SOSMED","1080 × 1920px visual","Social Bio Link",
+`Design a visual mockup for ${v.nama} social media bio link page:
+Elements: school logo header, welcome message, list of link buttons (SPMB, Website, WhatsApp, YouTube, etc.).
+Style: ${style}. Clean, card-based layout, ${v.warnaUtama} and ${v.warnaAksen} buttons.
+Mobile-friendly, professional, and welcoming design.`],
+
+    ["WATERMARK FOTO SEKOLAH","Transparent PNG","Photo Branding",
+`Design a subtle photo watermark/logo overlay for ${v.nama} school photos:
+Versions: bottom-right corner logo + name (semi-transparent), full-frame corner badge.
+Style: discreet yet recognizable, ${v.warnaUtama} and white versions.
+Suitable for all school photography documentation.`],
+
+    ["TEMPLATE INFOGRAFIS DATA SEKOLAH","1080 × 1920px","Instagram / Facebook",
+`Create an infographic template showing school data for ${v.nama}:
+Show visually: total students, teachers, years established, accreditation, key achievements.
+Style: ${style}. Data visualization with icons, numbers prominently displayed, ${v.warnaAksen} for highlights.
+Modern infographic aesthetic, easy to read and share.`]
+  ];
+  return items.map(i=>buildSection(i[0],i[1],i[2],i[3])).join('');
+}
+
+// ── GENERATE SPMB ──────────────────────────────────────────────
+function genSPMB(v){
+  const base = `${v.nama}, ${v.jenis}, ${v.kota}. Tagline SPMB: "${v.taglineSPMB}". Program: ${v.program}. Prestasi: ${v.prestasi}. Target: ${v.target}. Warna: ${v.warnaUtama} dan ${v.warnaAksen}. Gaya: ${v.gaya}.`;
+  const items = [
+    ["POSTER SPMB / PPDB UTAMA","A3 1587×2245px (print) / 1080×1350px (digital)","Print & Digital",
+`Design a main SPMB/PPDB (new student enrollment) poster for ${base}
+Layout: bold header "PENERIMAAN SISWA BARU", school logo prominent, academic year, tagline large.
+Key info sections: enrollment dates, required documents, registration steps, contact/WhatsApp number.
+Visual: exciting, aspirational, encouraging. Use ${v.warnaUtama} dominant background with ${v.warnaAksen} highlights.
+Style: ${v.gaya}, professional but attention-grabbing, suitable for school gate, classroom, and social media.`],
+
+    ["FLYER SPMB DIGITAL — Square","1080 × 1080px","Instagram / Facebook / WA",
+`Create a square digital flyer for SPMB ${v.nama}:
+Compact design: school logo, "PPDB DIBUKA" headline, key info (dates, contact), registration steps simplified.
+Style: ${v.gaya}, ${v.warnaUtama} and ${v.warnaAksen}, bold typography, eye-catching.
+QR code placeholder for online registration. Social media optimized.`],
+
+    ["BANNER STORY SPMB — Vertikal","1080 × 1920px","Instagram / WA / FB Story",
+`Design a Story-format SPMB banner for ${v.nama}:
+Tall vertical layout: dramatic header, school photo/illustration, enrollment CTA, swipe-up/link in bio prompt.
+Multiple slides concept: Slide 1 (announcement), Slide 2 (info & requirements), Slide 3 (how to register), Slide 4 (contact).
+Style: ${v.gaya}, ${v.warnaUtama} and ${v.warnaAksen}, mobile-first design.`],
+
+    ["SPANDUK / BANNER OUTDOOR","300×90cm (3000×900px print)","Outdoor Banner",
+`Design an outdoor banner/spanduk for SPMB ${v.nama}:
+Wide horizontal format: large school logo left, "PENERIMAAN SISWA BARU" title center, key dates and contact info right.
+Background: ${v.warnaUtama} gradient or solid with ${v.warnaAksen} stripe accents.
+Bold, readable from 10+ meters distance. Large phone number prominently displayed.
+Print-ready at 300dpi. ${v.gaya} style.`],
+
+    ["BROSUR SPMB 2 SISI","A5 flip (digital)","Print & Digital",
+`Create a two-sided SPMB brochure for ${v.nama}:
+Front: eye-catching cover with logo, "INFORMASI PPDB ${v.nama}", year, photo montage of activities.
+Back: detailed info — program list (${v.program}), facilities (${v.fasilitas}), achievements, registration procedure, timeline, contact.
+Style: ${v.gaya}, ${v.warnaUtama} and ${v.warnaAksen} consistent branding. Premium print quality.`],
+
+    ["COUNTDOWN SPMB — Animated Frame","1080 × 1080px + 1080 × 1920px","Social Media",
+`Design a countdown frame template for SPMB ${v.nama}:
+Features: large countdown number display (X Hari Lagi), school logo, enrollment deadline date, urgency messaging.
+Style: ${v.gaya}, ${v.warnaAksen} countdown highlight, ${v.warnaUtama} background.
+Dynamic, urgency-creating design. "SEGERA DAFTAR" CTA button design.
+Both square and story sizes.`],
+
+    ["PAKET SLIDE SPMB — WhatsApp Broadcast","1080 × 1080px each","WhatsApp Broadcast",
+`Create a 5-slide WhatsApp broadcast package for SPMB ${v.nama}:
+Slide 1: Announcement — PPDB DIBUKA with dates
+Slide 2: Program/Jurusan available (${v.program})
+Slide 3: Registration requirements & documents needed
+Slide 4: Step-by-step registration guide
+Slide 5: Contact info, WhatsApp number, address, QR code for online form
+Style: ${v.gaya}, ${v.warnaUtama} and ${v.warnaAksen}, clean, info-forward.`],
+
+    ["SERTIFIKAT PENERIMAAN SISWA BARU","A4 Landscape 3508×2480px","Official Document",
+`Design an official acceptance/enrollment certificate for new students of ${v.nama}:
+Elegant certificate layout: school logo top center, "SURAT KETERANGAN PENERIMAAN" title, student name placeholder, year, school head signature area.
+Border: decorative school-themed frame using ${v.warnaUtama} and ${v.warnaAksen}.
+Style: ${v.gaya}, formal, prestigious, printable on specialty paper.
+Watermark with school emblem in background.`]
+  ];
+  return items.map(i=>buildSection(i[0],i[1],i[2],i[3])).join('');
+}
+
+// ── GENERATE KONTEN HARIAN ─────────────────────────────────────
+function genKonten(v){
+  const brand = `${v.nama} school brand, ${v.warnaUtama} primary colors, ${v.warnaAksen} accent, ${v.gaya} design style`;
+  const items = [
+    ["QUOTE / KATA MUTIARA HARIAN","1080 × 1080px","Instagram / Facebook",
+`Create a daily motivational quote post template for ${v.nama}:
+Design: elegant background with subtle pattern or gradient (${v.warnaUtama}), large quote text area in center or offset layout, attribution line, small school logo.
+Style: ${brand}, inspirational and calm aesthetic, beautiful typography.
+Variations: dark mood (${v.warnaUtama} bg) and light mood (white/cream bg) versions.`],
+
+    ["INFO KEGIATAN SEKOLAH","1080 × 1350px","Instagram Portrait",
+`Create a school activity/event announcement template for ${v.nama}:
+Layout: event title bold at top, date-time-location cards, brief description area, "Semua Siswa Diharapkan Hadir" footer.
+Style: ${brand}, organized, informative, school calendar aesthetic.
+Icons for: calendar, clock, location pin. School logo header.`],
+
+    ["UCAPAN HARI BESAR / NASIONAL","1080 × 1080px & 1080 × 1920px","Instagram / WA",
+`Create a national/religious holiday greeting template for ${v.nama}:
+Design: festive thematic design area (adaptable for different holidays), "Selamat [Nama Hari]" main text, school logo and name.
+Style: ${brand}, elegant and respectful. Easy to adapt for: Idul Fitri, HUT RI, Hari Guru, Hari Pendidikan, etc.
+Include decorative elements that can be swapped per holiday.`],
+
+    ["PROFIL GURU / TENAGA PENDIDIK","1080 × 1350px","Instagram Portrait",
+`Create a teacher profile feature post template for ${v.nama}:
+Layout: photo frame area, "Meet Our Teacher" header, teacher name, subject/position, quote/fun fact field, school logo.
+Style: ${brand}, warm, professional, introduces school staff engagingly.
+Use ${v.warnaAksen} for name highlight, subtle ${v.warnaUtama} background or header band.`],
+
+    ["HIGHLIGHT PRESTASI SISWA","1080 × 1080px","Instagram / Facebook",
+`Create a student achievement celebration post for ${v.nama}:
+Design: celebratory layout with "PRESTASI MEMBANGGAKAN" header, student name placeholder, competition name and level, award received, school logo.
+Style: ${brand}, festive with ${v.warnaAksen} gold highlight, confetti or star elements.
+Proud, celebratory, sharable. Both square and portrait versions.`],
+
+    ["TIPS BELAJAR / EDU-CONTENT","1080 × 1350px","Instagram Portrait",
+`Create an educational tips content template for ${v.nama}:
+Design: numbered list layout, "TIPS [TOPIK]" header, 5 tips cards with icons, footer CTA.
+Style: ${brand}, clean infographic feel, each tip in its own colored card.
+Engaging, educational, scrollable content format. Different card colors using school palette.`],
+
+    ["PENGUMUMAN RESMI SEKOLAH","1080 × 1350px","Instagram / WA",
+`Create an official announcement template for ${v.nama}:
+Design: formal header with logo and "PENGUMUMAN" banner, date, title area, body content area, signature placeholder, school seal area.
+Style: ${brand}, authoritative yet modern. Semi-official aesthetic.
+Color: ${v.warnaUtama} header, white body, ${v.warnaAksen} accent border.`],
+
+    ["BEHIND THE SCENES / KEGIATAN HARIAN","1080 × 1080px","Instagram / Facebook",
+`Create a candid/BTS activity documentation template for ${v.nama}:
+Design: casual photo grid layout (2×2 or single large photo with overlay), activity title overlay, school hashtag, logo watermark.
+Style: ${brand}, authentic and approachable, not too formal.
+Grid version for showing 4 photos in one post. Caption area at bottom.`],
+
+    ["POLLING / QUIZ INTERAKTIF","1080 × 1080px","Instagram / WA",
+`Create an interactive poll/quiz template for ${v.nama}:
+Design: question area at top, 2-4 answer option boxes, school logo, engaging visuals.
+Style: ${brand}, playful yet branded, high contrast answer boxes.
+Versions: multiple choice format and yes/no format. Encourages engagement.`]
+  ];
+  return items.map(i=>buildSection(i[0],i[1],i[2],i[3])).join('');
+}
+
+// ── GENERATE CAROUSEL ──────────────────────────────────────────
+function genCarousel(v){
+  const brand = `${v.nama}, ${v.gaya} design, colors ${v.warnaUtama} and ${v.warnaAksen}, consistent branding across all slides`;
+  const items = [
+    ["CAROUSEL PROFIL SEKOLAH — 8 Slides","1080 × 1080px per slide","Instagram Carousel",
+`Create an 8-slide school profile carousel for ${brand}:
+Slide 1 (Cover): School name, logo, "MENGENAL LEBIH DEKAT ${v.nama}", year established.
+Slide 2: Sejarah & Visi Misi — school history, vision and mission statement.
+Slide 3: Jenjang & Program — list of programs: ${v.program}.
+Slide 4: Fasilitas Unggulan — highlight top facilities: ${v.fasilitas}.
+Slide 5: Prestasi — key achievements: ${v.prestasi}.
+Slide 6: Kegiatan & Ekskul — extracurricular activities.
+Slide 7: Testimoni Orang Tua & Alumni — testimonial card layout.
+Slide 8 (CTA): Call-to-action, contact info, SPMB invitation.
+Consistent design system: same header style, font hierarchy, color scheme across all slides.`],
+
+    ["CAROUSEL PANDUAN DAFTAR SPMB — 6 Slides","1080 × 1080px per slide","Instagram Carousel",
+`Create a 6-slide how-to-register carousel for SPMB ${v.nama}:
+Slide 1 (Cover): "CARA DAFTAR SPMB ${v.nama}", dramatic cover design, year.
+Slide 2: Step 1 — Persiapan Dokumen (list required documents).
+Slide 3: Step 2 — Cara Mendaftar Online/Offline (registration steps).
+Slide 4: Step 3 — Jadwal & Timeline SPMB (key dates).
+Slide 5: Step 4 — Verifikasi & Seleksi (selection process).
+Slide 6 (CTA): Contact info, WhatsApp link, "Mulai Daftar Sekarang!".
+Design: ${brand}. Step progress indicator on each slide. Clean instructional design.`],
+
+    ["CAROUSEL PROGRAM UNGGULAN — 7 Slides","1080 × 1350px portrait per slide","Instagram Portrait Carousel",
+`Create a 7-slide featured programs carousel for ${v.nama}:
+Slide 1 (Cover): "PROGRAM UNGGULAN KAMI" dramatic cover.
+Slides 2-6: Each featuring one key program from: ${v.program}.
+Each program slide: program name large, description, benefits, photo/illustration area, icon.
+Slide 7 (Summary): all programs overview + CTA.
+Design: ${brand}. Portrait format for more content space. Consistent card layout per program.`],
+
+    ["CAROUSEL FASILITAS SEKOLAH — 8 Slides","1080 × 1080px per slide","Instagram Carousel",
+`Create an 8-slide school facilities showcase carousel for ${v.nama}:
+Slide 1 (Cover): "FASILITAS LENGKAP & MODERN" with school photo.
+Slides 2-7: One facility per slide — ${v.fasilitas}.
+Each slide: facility name, description, photo placeholder, icon, key feature bullets.
+Slide 8: Complete facility summary + CTA.
+Design: ${brand}. Photo-forward layout with info overlay. Elegant, aspirational feel.`],
+
+    ["CAROUSEL TIPS BELAJAR — 5 Slides","1080 × 1080px per slide","Instagram Carousel",
+`Create a 5-slide educational tips carousel from ${v.nama}:
+Slide 1 (Cover): "5 TIPS BELAJAR EFEKTIF" eye-catching header, ${v.nama} branding.
+Slides 2-5: One tip per slide with: tip number, bold tip headline, brief explanation (2-3 lines), supporting illustration/icon.
+Design: ${brand}. Alternating background colors from school palette. Clean, readable, shareable educational content.`],
+
+    ["CAROUSEL HIGHLIGHT PRESTASI — 6 Slides","1080 × 1080px per slide","Instagram Carousel",
+`Create a 6-slide achievement highlight carousel for ${v.nama}:
+Slide 1 (Cover): "KEBANGGAAN KAMI" with trophy/award visual, school logo.
+Slides 2-5: Individual achievement spotlights — ${v.prestasi} (one per slide).
+Each achievement slide: award name bold, competition level/scope, recipient name placeholder, year.
+Slide 6: All achievements summary + "Bergabunglah dan Raih Prestasi Bersama Kami" CTA.
+Design: ${brand}. ${v.warnaAksen} gold treatment for trophies and highlights, celebratory but professional.`]
+  ];
+  return items.map(i=>buildSection(i[0],i[1],i[2],i[3])).join('');
+}
+
+// ── GENERATE VIDEO ─────────────────────────────────────────────
+function genVideo(v){
+  const brand = `${v.nama} school, ${v.gaya} visual style, colors ${v.warnaUtama} and ${v.warnaAksen}, professional educational institution aesthetic`;
+  const items = [
+    ["VIDEO PROFIL SEKOLAH — Cinematic","16:9 • 1920×1080px • 2-3 menit","YouTube / Facebook",
+`Create a cinematic school profile video prompt for ${v.nama}:
+Opening: drone aerial shot of school building, epic music.
+Sequence: school logo animation reveal → exterior building shots → classroom activities → laboratory scenes → sports field → teachers teaching → student activities → achievement display.
+Narration cues: school history, vision, programs, achievements: ${v.prestasi}.
+Closing: logo full screen, motto "${v.motto}", website and contact.
+Style: ${brand}, cinematic color grading, inspiring background music, smooth transitions.
+Mood: aspirational, proud, trustworthy.`],
+
+    ["REELS / TIKTOK — SPMB PROMO","9:16 • 1080×1920px • 15-30 detik","Instagram Reels / TikTok",
+`Create a short-form SPMB promotional video for ${v.nama}:
+Fast-paced edit: quick cuts of school activities, achievements, facilities.
+Text overlays: "PPDB DIBUKA!" → key info → "Daftar Sekarang!" → contact.
+Trending audio/music compatible format.
+Hook (0-3 sec): surprising stat or bold claim about school.
+CTA (last 5 sec): WhatsApp number, website, "Swipe Up / Link in Bio".
+Style: ${brand}, dynamic motion graphics, bold typography animations.`],
+
+    ["YOUTUBE THUMBNAIL — Video Profil","1280 × 720px","YouTube",
+`Design a YouTube thumbnail for ${v.nama} school profile video:
+Layout: eye-catching, bold text overlay on school photo background.
+Main text: "PROFIL LENGKAP ${v.nama}" or "KENALAN DULU YUK!".
+Include: school logo corner, photo of school or students, ${v.warnaAksen} text highlight.
+Style: ${brand}, high contrast, clickable, stands out in YouTube feed.
+Emotional: curiosity-driven, professional.`],
+
+    ["INTRO / BUMPER VIDEO ANIMASI","1:1 • 1080×1080px • 3-5 detik","All Platforms",
+`Design an animated logo intro/bumper for ${v.nama}:
+Animation sequence: particles or geometric shapes form → school emblem builds up → school name types in → motto appears → final logo lockup.
+Color scheme: ${v.warnaUtama} to ${v.warnaAksen} gradient, white text.
+Style: ${brand}, smooth professional animation, suitable as video intro and outro.
+Variants: 3-second bumper for social, 5-second intro for YouTube.`],
+
+    ["VIDEO KONTEN HARIAN — Template","9:16 • 1080×1920px • 15-60 detik","Reels / TikTok / Story",
+`Create a daily content video template for ${v.nama}:
+Template structure: branded intro (1-2 sec logo) → main content area → branded outro with CTA.
+Content types: quote/motivasi, tips belajar, info kegiatan, prestasi siswa.
+Motion graphics: text animations, icon reveals, background movement.
+Lower-third graphics: school name bar, website.
+Style: ${brand}, consistent motion design system for daily posting.`],
+
+    ["VIDEO TESTIMONIAL ALUMNI / WALI MURID","16:9 • 1920×1080px","YouTube / Facebook",
+`Create a testimonial video template for ${v.nama}:
+Interview-style layout: speaker photo/video area, lower-third with name and relationship to school.
+B-roll suggestions: school activities, graduates, proud moments.
+Motion graphic elements: quote highlight cards, achievement chips.
+Opening: "${v.nama} — Dipercaya Ribuan Keluarga" title card.
+Closing: school logo + contact + CTA.
+Style: ${brand}, warm and authentic, trust-building.`],
+
+    ["VIDEO REELS — HIGHLIGHT PRESTASI","9:16 • 1080×1920px • 30 detik","Instagram Reels / TikTok",
+`Create a fast-paced achievement highlight reel for ${v.nama}:
+Sequence: quick-cut montage of trophies, certificates, podium moments, student activities.
+Text animations: achievement names fly in, numbers count up.
+Achievement list: ${v.prestasi}.
+Music: triumphant, energetic background.
+End card: school logo, "Bangga Menjadi Bagian ${v.nama}" text, follow/share CTA.
+Style: ${brand}, high energy, celebratory.`],
+
+    ["VIDEO TUTORIAL — CARA DAFTAR SPMB","9:16 • 1080×1920px • 60 detik","Instagram / TikTok / WA",
+`Create a how-to registration tutorial video for SPMB ${v.nama}:
+Step-by-step screen recording style with animated overlays.
+Step 1: Kunjungi website / WhatsApp kami.
+Step 2: Isi formulir pendaftaran online.
+Step 3: Upload dokumen yang dibutuhkan.
+Step 4: Tunggu konfirmasi dari sekolah.
+Step 5: Hadiri tes / wawancara.
+Visual: animated checklist, screen highlights, progress bar.
+Voiceover cue: friendly, clear, encouraging.
+Style: ${brand}, instructional motion design, easy to follow.`]
+  ];
+  return items.map(i=>buildSection(i[0],i[1],i[2],i[3])).join('');
+}
+
+// ── MAIN GENERATE ──────────────────────────────────────────────
+function generateAll(){
+  const v = vals();
+
+  const brandHTML = genBrand(v);
+  const sosmedHTML = genSosmed(v);
+  const spmbHTML = genSPMB(v);
+  const kontenHTML = genKonten(v);
+  const carouselHTML = genCarousel(v);
+  const videoHTML = genVideo(v);
+
+  setOutput('out-brand', brandHTML);
+  setOutput('out-sosmed', sosmedHTML);
+  setOutput('out-spmb', spmbHTML);
+  setOutput('out-konten', kontenHTML);
+  setOutput('out-carousel', carouselHTML);
+  setOutput('out-video', videoHTML);
+
+  // Update counts
+  document.getElementById('statTotal').textContent = 12+16+8+9+6+8;
+  document.getElementById('statBrand').textContent = 12;
+  document.getElementById('statSosmed').textContent = 16;
+  document.getElementById('statSPMB').textContent = 8;
+  document.getElementById('statKonten').textContent = 9;
+  document.getElementById('statCarousel').textContent = 6;
+  document.getElementById('statVideo').textContent = 8;
+
+  document.getElementById('statsBar').style.display = 'flex';
+  document.getElementById('copyAllCard').style.display = 'block';
+
+  showToast('✅ 59 prompt berhasil digenerate!');
+}
+
+function setOutput(id, html){
+  document.getElementById(id).innerHTML = html;
+}
+
+// ── TABS ────────────────────────────────────────────────────────
+function switchTab(name, btn){
+  document.querySelectorAll('.tab-body').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── COPY / CLEAR ───────────────────────────────────────────────
+function copyTab(outputId){
+  const el = document.getElementById(outputId);
+  navigator.clipboard.writeText(el.innerText).then(()=>showToast('📋 Prompt tab ini berhasil dicopy!'));
+}
+
+function clearTab(outputId){
+  document.getElementById(outputId).innerHTML='<div class="t-empty">Dihapus. Klik Generate untuk membuat ulang.</div>';
+}
+
+function copyAll(){
+  const ids = ['out-brand','out-sosmed','out-spmb','out-konten','out-carousel','out-video'];
+  const text = ids.map(id=>document.getElementById(id).innerText).join('\n\n');
+  navigator.clipboard.writeText(text).then(()=>showToast('📋 Semua 59 prompt berhasil dicopy!'));
+}
+
+function clearAll(){
+  ['out-brand','out-sosmed','out-spmb','out-konten','out-carousel','out-video'].forEach(id=>{
+    document.getElementById(id).innerHTML='<div class="t-empty">Dihapus. Klik Generate untuk membuat ulang.</div>';
+  });
+  document.getElementById('statsBar').style.display='none';
+  document.getElementById('copyAllCard').style.display='none';
+  showToast('🗑 Semua output dihapus');
+}
+
+// ── TOAST ───────────────────────────────────────────────────────
+function showToast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+// Init auto-fill on load
+window.onload = ()=>{ /* keep default values */ };
+</script>
+</body>
+</html>
